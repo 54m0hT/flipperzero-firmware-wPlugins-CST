@@ -9,7 +9,7 @@
 
 <b>Latest Updates:</b>
 
-- Known Issues:	 `Chess` & `Chip8` (No Controls)
+- Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
 - Latest OFW changes
 - Latest Unleashed changes (Many thanks to [Unleashed/@xMasterX](https://github.com/Eng1n33r/flipperzero-firmware) as this is now a full fork of Unleashed
 - RogueMaster build changes added
@@ -89,7 +89,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - Assets: Includes sample Music Player tunes
 - Assets: Includes sample SubGHz assets for Crosswalk, Handicap Doors, Sextoys, Tesla Charge Port, and Unitree Go1 Robot Dog
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
-- Assets: Running DolphinRestorer.fap on new install will auto-level to Level 6.
+- Assets: Running DolphinRestorer.fap on new install will auto-level to Level 7.
 - BadUSB: Added ignore DUCKY_LANG cmd to retain compatibility with existing scripts [(Thanks to v1nc)](https://github.com/v1nc/flipperzero-firmware)
 - BadUSB: Assets for Kiosk Evasion and Wifi Stealer
 - BadUSB: show script errors on screen [(By CromFr)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/200)
