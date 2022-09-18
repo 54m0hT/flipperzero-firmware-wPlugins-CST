@@ -4,6 +4,7 @@ typedef enum {
     SubmenuIndexUniversalTV,
     SubmenuIndexUniversalAudio,
     SubmenuIndexUniversalProjector,
+    SubmenuIndexUniversalPowerAll,
     SubmenuIndexUniversalFan,
     SubmenuIndexUniversalAirConditioner,
 } SubmenuIndex;
@@ -36,6 +37,13 @@ void infrared_scene_universal_on_enter(void* context) {
         submenu,
         "Projectors",
         SubmenuIndexUniversalProjector,
+        infrared_scene_universal_submenu_callback,
+        context);
+    
+    submenu_add_item(
+        submenu,
+        "PowerAll",
+        SubmenuIndexUniversalPowerAll,
         infrared_scene_universal_submenu_callback,
         context);
 
