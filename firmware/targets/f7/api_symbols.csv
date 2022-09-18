@@ -128,12 +128,15 @@ Header,+,lib/one_wire/one_wire_host_timing.h,,
 Header,+,lib/one_wire/one_wire_slave.h,,
 Header,+,lib/print/wrappers.h,,
 Header,+,lib/subghz/environment.h,,
+Header,+,lib/subghz/protocols/keeloq.h,,
 Header,+,lib/subghz/protocols/raw.h,,
 Header,+,lib/subghz/protocols/registry.h,,
+Header,+,lib/subghz/protocols/star_line.h,,
 Header,+,lib/subghz/receiver.h,,
 Header,+,lib/subghz/subghz_tx_rx_worker.h,,
 Header,+,lib/subghz/subghz_worker.h,,
 Header,+,lib/subghz/transmitter.h,,
+Header,+,lib/subghz/types.h,,
 Header,+,lib/toolbox/args.h,,
 Header,+,lib/toolbox/crc32_calc.h,,
 Header,+,lib/toolbox/dir_walk.h,,
@@ -527,9 +530,9 @@ Function,+,bt_set_profile,_Bool,"Bt*, BtProfile"
 Function,+,bt_set_status_changed_callback,void,"Bt*, BtStatusChangedCallback, void*"
 Function,+,buffered_file_stream_alloc,Stream*,Storage*
 Function,+,buffered_file_stream_close,_Bool,Stream*
-Function,-,buffered_file_stream_get_error,FS_Error,Stream*
+Function,+,buffered_file_stream_get_error,FS_Error,Stream*
 Function,+,buffered_file_stream_open,_Bool,"Stream*, const char*, FS_AccessMode, FS_OpenMode"
-Function,-,buffered_file_stream_sync,_Bool,Stream*
+Function,+,buffered_file_stream_sync,_Bool,Stream*
 Function,+,button_menu_add_item,ButtonMenuItem*,"ButtonMenu*, const char*, int32_t, ButtonMenuItemCallback, ButtonMenuItemType, void*"
 Function,+,button_menu_alloc,ButtonMenu*,
 Function,+,button_menu_free,void,ButtonMenu*
@@ -1544,15 +1547,15 @@ Function,+,lfrfid_raw_worker_start_emulate,void,"LFRFIDRawWorker*, const char*, 
 Function,+,lfrfid_raw_worker_start_read,void,"LFRFIDRawWorker*, const char*, float, float, LFRFIDWorkerReadRawCallback, void*"
 Function,+,lfrfid_raw_worker_stop,void,LFRFIDRawWorker*
 Function,+,lfrfid_worker_alloc,LFRFIDWorker*,ProtocolDict*
-Function,-,lfrfid_worker_emulate_raw_start,void,"LFRFIDWorker*, const char*, LFRFIDWorkerEmulateRawCallback, void*"
+Function,+,lfrfid_worker_emulate_raw_start,void,"LFRFIDWorker*, const char*, LFRFIDWorkerEmulateRawCallback, void*"
 Function,+,lfrfid_worker_emulate_start,void,"LFRFIDWorker*, LFRFIDProtocol"
 Function,+,lfrfid_worker_free,void,LFRFIDWorker*
-Function,-,lfrfid_worker_read_raw_start,void,"LFRFIDWorker*, const char*, LFRFIDWorkerReadType, LFRFIDWorkerReadRawCallback, void*"
-Function,-,lfrfid_worker_read_start,void,"LFRFIDWorker*, LFRFIDWorkerReadType, LFRFIDWorkerReadCallback, void*"
+Function,+,lfrfid_worker_read_raw_start,void,"LFRFIDWorker*, const char*, LFRFIDWorkerReadType, LFRFIDWorkerReadRawCallback, void*"
+Function,+,lfrfid_worker_read_start,void,"LFRFIDWorker*, LFRFIDWorkerReadType, LFRFIDWorkerReadCallback, void*"
 Function,+,lfrfid_worker_start_thread,void,LFRFIDWorker*
 Function,+,lfrfid_worker_stop,void,LFRFIDWorker*
 Function,+,lfrfid_worker_stop_thread,void,LFRFIDWorker*
-Function,-,lfrfid_worker_write_start,void,"LFRFIDWorker*, LFRFIDProtocol, LFRFIDWorkerWriteCallback, void*"
+Function,+,lfrfid_worker_write_start,void,"LFRFIDWorker*, LFRFIDProtocol, LFRFIDWorkerWriteCallback, void*"
 Function,-,lgamma,double,double
 Function,-,lgamma_r,double,"double, int*"
 Function,-,lgammaf,float,float
@@ -1774,24 +1777,24 @@ Function,+,powf,float,"float, float"
 Function,-,powl,long double,"long double, long double"
 Function,-,printf,int,"const char*, ..."
 Function,+,protocol_dict_alloc,ProtocolDict*,"const ProtocolBase**, size_t"
-Function,-,protocol_dict_decoders_feed,ProtocolId,"ProtocolDict*, _Bool, uint32_t"
-Function,-,protocol_dict_decoders_feed_by_feature,ProtocolId,"ProtocolDict*, uint32_t, _Bool, uint32_t"
-Function,-,protocol_dict_decoders_feed_by_id,ProtocolId,"ProtocolDict*, size_t, _Bool, uint32_t"
-Function,-,protocol_dict_decoders_start,void,ProtocolDict*
-Function,-,protocol_dict_encoder_start,_Bool,"ProtocolDict*, size_t"
-Function,-,protocol_dict_encoder_yield,LevelDuration,"ProtocolDict*, size_t"
+Function,+,protocol_dict_decoders_feed,ProtocolId,"ProtocolDict*, _Bool, uint32_t"
+Function,+,protocol_dict_decoders_feed_by_feature,ProtocolId,"ProtocolDict*, uint32_t, _Bool, uint32_t"
+Function,+,protocol_dict_decoders_feed_by_id,ProtocolId,"ProtocolDict*, size_t, _Bool, uint32_t"
+Function,+,protocol_dict_decoders_start,void,ProtocolDict*
+Function,+,protocol_dict_encoder_start,_Bool,"ProtocolDict*, size_t"
+Function,+,protocol_dict_encoder_yield,LevelDuration,"ProtocolDict*, size_t"
 Function,+,protocol_dict_free,void,ProtocolDict*
-Function,-,protocol_dict_get_data,void,"ProtocolDict*, size_t, uint8_t*, size_t"
-Function,-,protocol_dict_get_data_size,size_t,"ProtocolDict*, size_t"
-Function,-,protocol_dict_get_features,uint32_t,"ProtocolDict*, size_t"
-Function,-,protocol_dict_get_manufacturer,const char*,"ProtocolDict*, size_t"
-Function,-,protocol_dict_get_max_data_size,size_t,ProtocolDict*
-Function,-,protocol_dict_get_name,const char*,"ProtocolDict*, size_t"
+Function,+,protocol_dict_get_data,void,"ProtocolDict*, size_t, uint8_t*, size_t"
+Function,+,protocol_dict_get_data_size,size_t,"ProtocolDict*, size_t"
+Function,+,protocol_dict_get_features,uint32_t,"ProtocolDict*, size_t"
+Function,+,protocol_dict_get_manufacturer,const char*,"ProtocolDict*, size_t"
+Function,+,protocol_dict_get_max_data_size,size_t,ProtocolDict*
+Function,+,protocol_dict_get_name,const char*,"ProtocolDict*, size_t"
 Function,+,protocol_dict_get_protocol_by_name,ProtocolId,"ProtocolDict*, const char*"
-Function,-,protocol_dict_get_validate_count,uint32_t,"ProtocolDict*, size_t"
-Function,-,protocol_dict_get_write_data,_Bool,"ProtocolDict*, size_t, void*"
-Function,-,protocol_dict_render_brief_data,void,"ProtocolDict*, string_t, size_t"
-Function,-,protocol_dict_render_data,void,"ProtocolDict*, string_t, size_t"
+Function,+,protocol_dict_get_validate_count,uint32_t,"ProtocolDict*, size_t"
+Function,+,protocol_dict_get_write_data,_Bool,"ProtocolDict*, size_t, void*"
+Function,+,protocol_dict_render_brief_data,void,"ProtocolDict*, string_t, size_t"
+Function,+,protocol_dict_render_data,void,"ProtocolDict*, string_t, size_t"
 Function,+,protocol_dict_set_data,void,"ProtocolDict*, size_t, const uint8_t*, size_t"
 Function,-,pselect,int,"int, fd_set*, fd_set*, fd_set*, const timespec*, const sigset_t*"
 Function,-,putc,int,"int, FILE*"
@@ -2457,13 +2460,13 @@ Function,-,subghz_protocol_decoder_princeton_get_hash_data,uint8_t,void*
 Function,-,subghz_protocol_decoder_princeton_get_string,void,"void*, string_t"
 Function,-,subghz_protocol_decoder_princeton_reset,void,void*
 Function,-,subghz_protocol_decoder_princeton_serialize,_Bool,"void*, FlipperFormat*, SubGhzPresetDefinition*"
-Function,-,subghz_protocol_decoder_raw_alloc,void*,SubGhzEnvironment*
-Function,-,subghz_protocol_decoder_raw_deserialize,_Bool,"void*, FlipperFormat*"
-Function,-,subghz_protocol_decoder_raw_feed,void,"void*, _Bool, uint32_t"
-Function,-,subghz_protocol_decoder_raw_free,void,void*
+Function,+,subghz_protocol_decoder_raw_alloc,void*,SubGhzEnvironment*
+Function,+,subghz_protocol_decoder_raw_deserialize,_Bool,"void*, FlipperFormat*"
+Function,+,subghz_protocol_decoder_raw_feed,void,"void*, _Bool, uint32_t"
+Function,+,subghz_protocol_decoder_raw_free,void,void*
 Function,-,subghz_protocol_decoder_raw_get_hash_data,uint8_t,void*
-Function,-,subghz_protocol_decoder_raw_get_string,void,"void*, string_t"
-Function,-,subghz_protocol_decoder_raw_reset,void,void*
+Function,+,subghz_protocol_decoder_raw_get_string,void,"void*, string_t"
+Function,+,subghz_protocol_decoder_raw_reset,void,void*
 Function,-,subghz_protocol_decoder_raw_serialize,_Bool,"void*, FlipperFormat*, SubGhzPresetDefinition*"
 Function,-,subghz_protocol_decoder_raw_set_auto_mode,void,"void*, _Bool"
 Function,-,subghz_protocol_decoder_raw_set_rssi_threshold,void,"void*, int"
@@ -2642,11 +2645,11 @@ Function,-,subghz_protocol_encoder_princeton_deserialize,_Bool,"void*, FlipperFo
 Function,-,subghz_protocol_encoder_princeton_free,void,void*
 Function,-,subghz_protocol_encoder_princeton_stop,void,void*
 Function,-,subghz_protocol_encoder_princeton_yield,LevelDuration,void*
-Function,-,subghz_protocol_encoder_raw_alloc,void*,SubGhzEnvironment*
-Function,-,subghz_protocol_encoder_raw_deserialize,_Bool,"void*, FlipperFormat*"
-Function,-,subghz_protocol_encoder_raw_free,void,void*
-Function,-,subghz_protocol_encoder_raw_stop,void,void*
-Function,-,subghz_protocol_encoder_raw_yield,LevelDuration,void*
+Function,+,subghz_protocol_encoder_raw_alloc,void*,SubGhzEnvironment*
+Function,+,subghz_protocol_encoder_raw_deserialize,_Bool,"void*, FlipperFormat*"
+Function,+,subghz_protocol_encoder_raw_free,void,void*
+Function,+,subghz_protocol_encoder_raw_stop,void,void*
+Function,+,subghz_protocol_encoder_raw_yield,LevelDuration,void*
 Function,-,subghz_protocol_encoder_secplus_v1_alloc,void*,SubGhzEnvironment*
 Function,-,subghz_protocol_encoder_secplus_v1_deserialize,_Bool,"void*, FlipperFormat*"
 Function,-,subghz_protocol_encoder_secplus_v1_free,void,void*
@@ -2666,13 +2669,13 @@ Function,-,subghz_protocol_faac_slh_create_data,_Bool,"void*, FlipperFormat*, ui
 Function,-,subghz_protocol_keeloq_bft_create_data,_Bool,"void*, FlipperFormat*, uint32_t, uint8_t, uint16_t, uint32_t, const char*, SubGhzPresetDefinition*"
 Function,-,subghz_protocol_keeloq_create_data,_Bool,"void*, FlipperFormat*, uint32_t, uint8_t, uint16_t, const char*, SubGhzPresetDefinition*"
 Function,-,subghz_protocol_nice_flor_s_encrypt,uint64_t,"uint64_t, const char*"
-Function,-,subghz_protocol_raw_file_encoder_worker_set_callback_end,void,"SubGhzProtocolEncoderRAW*, SubGhzProtocolEncoderRAWCallbackEnd, void*"
+Function,+,subghz_protocol_raw_file_encoder_worker_set_callback_end,void,"SubGhzProtocolEncoderRAW*, SubGhzProtocolEncoderRAWCallbackEnd, void*"
 Function,+,subghz_protocol_raw_gen_fff_data,void,"FlipperFormat*, const char*"
-Function,-,subghz_protocol_raw_get_sample_write,size_t,SubGhzProtocolDecoderRAW*
-Function,-,subghz_protocol_raw_save_to_file_init,_Bool,"SubGhzProtocolDecoderRAW*, const char*, SubGhzPresetDefinition*"
-Function,-,subghz_protocol_raw_save_to_file_stop,void,SubGhzProtocolDecoderRAW*
-Function,-,subghz_protocol_registry_count,size_t,
-Function,-,subghz_protocol_registry_get_by_index,const SubGhzProtocol*,size_t
+Function,+,subghz_protocol_raw_get_sample_write,size_t,SubGhzProtocolDecoderRAW*
+Function,+,subghz_protocol_raw_save_to_file_init,_Bool,"SubGhzProtocolDecoderRAW*, const char*, SubGhzPresetDefinition*"
+Function,+,subghz_protocol_raw_save_to_file_stop,void,SubGhzProtocolDecoderRAW*
+Function,+,subghz_protocol_registry_count,size_t,
+Function,+,subghz_protocol_registry_get_by_index,const SubGhzProtocol*,size_t
 Function,+,subghz_protocol_registry_get_by_name,const SubGhzProtocol*,const char*
 Function,-,subghz_protocol_secplus_v1_check_fixed,_Bool,uint32_t
 Function,-,subghz_protocol_secplus_v2_create_data,_Bool,"void*, FlipperFormat*, uint32_t, uint8_t, uint32_t, SubGhzPresetDefinition*"
@@ -2717,7 +2720,7 @@ Function,+,submenu_reset,void,Submenu*
 Function,+,submenu_set_header,void,"Submenu*, const char*"
 Function,+,submenu_set_selected_item,void,"Submenu*, uint32_t"
 Function,-,system,int,const char*
-Function,-,t5577_write,void,LFRFIDT5577*
+Function,+,t5577_write,void,LFRFIDT5577*
 Function,-,tan,double,double
 Function,-,tanf,float,float
 Function,-,tanh,double,double
@@ -4085,11 +4088,9 @@ Variable,-,AHBPrescTable,const uint32_t[16],
 Variable,-,APBPrescTable,const uint32_t[8],
 Variable,+,A_125khz_14,const Icon,
 Variable,+,A_BadUsb_14,const Icon,
-Variable,+,A_Clock_14,const Icon,
 Variable,+,A_Debug_14,const Icon,
 Variable,+,A_FileManager_14,const Icon,
 Variable,+,A_GPIO_14,const Icon,
-Variable,+,A_Games_14,const Icon,
 Variable,+,A_Infrared_14,const Icon,
 Variable,+,A_Levelup1_128x64,const Icon,
 Variable,+,A_Levelup2_128x64,const Icon,
@@ -4098,9 +4099,7 @@ Variable,+,A_NFC_14,const Icon,
 Variable,+,A_Plugins_14,const Icon,
 Variable,+,A_Round_loader_8x8,const Icon,
 Variable,+,A_Settings_14,const Icon,
-Variable,+,A_SpectrumAnalyzer_14,const Icon,
 Variable,+,A_Sub1ghz_14,const Icon,
-Variable,+,A_Tamagotchi_14,const Icon,
 Variable,+,A_U2F_14,const Icon,
 Variable,+,A_UniRFRemix_14,const Icon,
 Variable,+,A_iButton_14,const Icon,
@@ -4533,108 +4532,108 @@ Variable,+,sequence_set_vibro_on,const NotificationSequence,
 Variable,+,sequence_single_vibro,const NotificationSequence,
 Variable,+,sequence_solid_yellow,const NotificationSequence,
 Variable,+,sequence_success,const NotificationSequence,
-Variable,-,subghz_protocol_bett,const SubGhzProtocol,
-Variable,-,subghz_protocol_bett_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_bett_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_came,const SubGhzProtocol,
-Variable,-,subghz_protocol_came_atomo,const SubGhzProtocol,
-Variable,-,subghz_protocol_came_atomo_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_came_atomo_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_came_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_came_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_came_twee,const SubGhzProtocol,
-Variable,-,subghz_protocol_came_twee_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_came_twee_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_chamb_code,const SubGhzProtocol,
-Variable,-,subghz_protocol_chamb_code_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_chamb_code_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_clemsa,const SubGhzProtocol,
-Variable,-,subghz_protocol_clemsa_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_clemsa_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_doitrand,const SubGhzProtocol,
-Variable,-,subghz_protocol_doitrand_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_doitrand_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_faac_slh,const SubGhzProtocol,
-Variable,-,subghz_protocol_faac_slh_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_faac_slh_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_gate_tx,const SubGhzProtocol,
-Variable,-,subghz_protocol_gate_tx_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_gate_tx_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_holtek,const SubGhzProtocol,
-Variable,-,subghz_protocol_holtek_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_holtek_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_honeywell_wdb,const SubGhzProtocol,
-Variable,-,subghz_protocol_honeywell_wdb_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_honeywell_wdb_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_hormann,const SubGhzProtocol,
-Variable,-,subghz_protocol_hormann_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_hormann_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_ido,const SubGhzProtocol,
-Variable,-,subghz_protocol_ido_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_ido_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_intertechno_v3,const SubGhzProtocol,
-Variable,-,subghz_protocol_intertechno_v3_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_intertechno_v3_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_keeloq,const SubGhzProtocol,
-Variable,-,subghz_protocol_keeloq_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_keeloq_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_kia,const SubGhzProtocol,
-Variable,-,subghz_protocol_kia_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_kia_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_linear,const SubGhzProtocol,
-Variable,-,subghz_protocol_linear_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_linear_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_magellen,const SubGhzProtocol,
-Variable,-,subghz_protocol_magellen_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_magellen_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_marantec,const SubGhzProtocol,
-Variable,-,subghz_protocol_marantec_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_marantec_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_megacode,const SubGhzProtocol,
-Variable,-,subghz_protocol_megacode_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_megacode_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_nero_radio,const SubGhzProtocol,
-Variable,-,subghz_protocol_nero_radio_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_nero_radio_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_nero_sketch,const SubGhzProtocol,
-Variable,-,subghz_protocol_nero_sketch_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_nero_sketch_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_nice_flo,const SubGhzProtocol,
-Variable,-,subghz_protocol_nice_flo_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_nice_flo_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_nice_flor_s,const SubGhzProtocol,
-Variable,-,subghz_protocol_nice_flor_s_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_nice_flor_s_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_phoenix_v2,const SubGhzProtocol,
-Variable,-,subghz_protocol_phoenix_v2_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_phoenix_v2_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_power_smart,const SubGhzProtocol,
-Variable,-,subghz_protocol_power_smart_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_power_smart_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_princeton,const SubGhzProtocol,
-Variable,-,subghz_protocol_princeton_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_princeton_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_raw,const SubGhzProtocol,
-Variable,-,subghz_protocol_raw_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_raw_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_scher_khan,const SubGhzProtocol,
-Variable,-,subghz_protocol_scher_khan_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_scher_khan_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_secplus_v1,const SubGhzProtocol,
-Variable,-,subghz_protocol_secplus_v1_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_secplus_v1_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_secplus_v2,const SubGhzProtocol,
-Variable,-,subghz_protocol_secplus_v2_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_secplus_v2_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_somfy_keytis,const SubGhzProtocol,
-Variable,-,subghz_protocol_somfy_keytis_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_somfy_keytis_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_somfy_telis,const SubGhzProtocol,
-Variable,-,subghz_protocol_somfy_telis_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_somfy_telis_encoder,const SubGhzProtocolEncoder,
-Variable,-,subghz_protocol_star_line,const SubGhzProtocol,
-Variable,-,subghz_protocol_star_line_decoder,const SubGhzProtocolDecoder,
-Variable,-,subghz_protocol_star_line_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_bett,const SubGhzProtocol,
+Variable,+,subghz_protocol_bett_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_bett_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_came,const SubGhzProtocol,
+Variable,+,subghz_protocol_came_atomo,const SubGhzProtocol,
+Variable,+,subghz_protocol_came_atomo_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_came_atomo_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_came_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_came_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_came_twee,const SubGhzProtocol,
+Variable,+,subghz_protocol_came_twee_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_came_twee_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_chamb_code,const SubGhzProtocol,
+Variable,+,subghz_protocol_chamb_code_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_chamb_code_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_clemsa,const SubGhzProtocol,
+Variable,+,subghz_protocol_clemsa_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_clemsa_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_doitrand,const SubGhzProtocol,
+Variable,+,subghz_protocol_doitrand_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_doitrand_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_faac_slh,const SubGhzProtocol,
+Variable,+,subghz_protocol_faac_slh_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_faac_slh_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_gate_tx,const SubGhzProtocol,
+Variable,+,subghz_protocol_gate_tx_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_gate_tx_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_holtek,const SubGhzProtocol,
+Variable,+,subghz_protocol_holtek_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_holtek_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_honeywell_wdb,const SubGhzProtocol,
+Variable,+,subghz_protocol_honeywell_wdb_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_honeywell_wdb_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_hormann,const SubGhzProtocol,
+Variable,+,subghz_protocol_hormann_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_hormann_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_ido,const SubGhzProtocol,
+Variable,+,subghz_protocol_ido_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_ido_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_intertechno_v3,const SubGhzProtocol,
+Variable,+,subghz_protocol_intertechno_v3_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_intertechno_v3_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_keeloq,const SubGhzProtocol,
+Variable,+,subghz_protocol_keeloq_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_keeloq_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_kia,const SubGhzProtocol,
+Variable,+,subghz_protocol_kia_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_kia_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_linear,const SubGhzProtocol,
+Variable,+,subghz_protocol_linear_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_linear_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_magellen,const SubGhzProtocol,
+Variable,+,subghz_protocol_magellen_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_magellen_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_marantec,const SubGhzProtocol,
+Variable,+,subghz_protocol_marantec_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_marantec_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_megacode,const SubGhzProtocol,
+Variable,+,subghz_protocol_megacode_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_megacode_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_nero_radio,const SubGhzProtocol,
+Variable,+,subghz_protocol_nero_radio_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_nero_radio_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_nero_sketch,const SubGhzProtocol,
+Variable,+,subghz_protocol_nero_sketch_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_nero_sketch_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_nice_flo,const SubGhzProtocol,
+Variable,+,subghz_protocol_nice_flo_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_nice_flo_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_nice_flor_s,const SubGhzProtocol,
+Variable,+,subghz_protocol_nice_flor_s_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_nice_flor_s_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_phoenix_v2,const SubGhzProtocol,
+Variable,+,subghz_protocol_phoenix_v2_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_phoenix_v2_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_power_smart,const SubGhzProtocol,
+Variable,+,subghz_protocol_power_smart_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_power_smart_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_princeton,const SubGhzProtocol,
+Variable,+,subghz_protocol_princeton_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_princeton_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_raw,const SubGhzProtocol,
+Variable,+,subghz_protocol_raw_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_raw_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_scher_khan,const SubGhzProtocol,
+Variable,+,subghz_protocol_scher_khan_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_scher_khan_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_secplus_v1,const SubGhzProtocol,
+Variable,+,subghz_protocol_secplus_v1_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_secplus_v1_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_secplus_v2,const SubGhzProtocol,
+Variable,+,subghz_protocol_secplus_v2_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_secplus_v2_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_somfy_keytis,const SubGhzProtocol,
+Variable,+,subghz_protocol_somfy_keytis_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_somfy_keytis_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_somfy_telis,const SubGhzProtocol,
+Variable,+,subghz_protocol_somfy_telis_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_somfy_telis_encoder,const SubGhzProtocolEncoder,
+Variable,+,subghz_protocol_star_line,const SubGhzProtocol,
+Variable,+,subghz_protocol_star_line_decoder,const SubGhzProtocolDecoder,
+Variable,+,subghz_protocol_star_line_encoder,const SubGhzProtocolEncoder,
 Variable,-,suboptarg,char*,
 Variable,-,u8g2_cb_mirror,const u8g2_cb_t,
 Variable,-,u8g2_cb_r0,const u8g2_cb_t,

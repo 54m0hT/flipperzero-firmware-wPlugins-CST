@@ -8,4 +8,6 @@ App(
     stack_size=1 * 1024,
     icon="A_GPIO_14",
     order=50,
+    # fap_icon="gpioIcon.png",
+    # fap_category="Main",
 )
