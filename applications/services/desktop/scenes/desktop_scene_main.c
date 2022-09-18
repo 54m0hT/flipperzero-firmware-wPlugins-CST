@@ -116,10 +116,16 @@ bool desktop_scene_main_on_event(void* context, SceneManagerEvent event) {
             consumed = true;
             break;
         }
-        case DesktopMainEventOpenClock:
-            loader_start(desktop->loader, FLIPPER_APPS[0].name, NULL);
+        case DesktopMainEventOpenClock: {
+            // loader_start(desktop->loader, FLIPPER_APPS[0].name, NULL);
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Main/Clock.fap"));
+            if(status != LoaderStatusOk) {
+                FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            }
             consumed = true;
             break;
+        }
         case DesktopMainEventOpenFavoritePrimary:
             DESKTOP_SETTINGS_LOAD(&desktop->settings);
             if(desktop->settings.favorite_primary < FLIPPER_APPS_COUNT) {
@@ -172,12 +178,68 @@ bool desktop_scene_main_on_event(void* context, SceneManagerEvent event) {
             }
             break;
         }
-        case DesktopMainEventOpenGameMenu: {
+        case DesktopMainEventOpenSnake: {
             LoaderStatus status = loader_start(
                 desktop->loader, "Applications", EXT_PATH("/apps/Games/GAME_Snake.fap"));
             if(status != LoaderStatusOk) {
                 FURI_LOG_E(TAG, "loader_start failed: %d", status);
             }
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpen2048: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/GAME_2048.fap"));
+            if(status != LoaderStatusOk) {
+                FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            }
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpenZombiez: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/GAME_Zombiez.fap"));
+            if(status != LoaderStatusOk) {
+                FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            }
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpenTetris: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/GAME_Tetris.fap"));
+            if(status != LoaderStatusOk) {
+                FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            }
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpenDOOM: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/GAME_DOOM.fap"));
+            if(status != LoaderStatusOk) {
+                FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            }
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpenDice: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/GAME_Dice.fap"));
+            if(status != LoaderStatusOk) {
+                FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            }
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpenSubRemote: {
+            loader_start(desktop->loader, FLIPPER_APPS[1].name, NULL);
+            // LoaderStatus status = loader_start(
+                // desktop->loader, "Applications", EXT_PATH("/apps/Main/SubGHz_Remote.fap"));
+            // if(status != LoaderStatusOk) {
+                // FURI_LOG_E(TAG, "loader_start failed: %d", status);
+            // }
+            consumed = true;
             break;
         }
         case DesktopLockedEventUpdate:
