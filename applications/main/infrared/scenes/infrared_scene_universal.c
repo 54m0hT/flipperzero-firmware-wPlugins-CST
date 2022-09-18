@@ -79,6 +79,9 @@ bool infrared_scene_universal_on_event(void* context, SceneManagerEvent event) {
         } else if(event.event == SubmenuIndexUniversalProjector) {
             scene_manager_next_scene(scene_manager, InfraredSceneUniversalProjector);
             consumed = true;
+        } else if(event.event == SubmenuIndexUniversalPowerAll) {
+            scene_manager_next_scene(scene_manager, InfraredSceneUniversalPowerAll);
+            consumed = true;
         } else if(event.event == SubmenuIndexUniversalFan) {
             scene_manager_next_scene(scene_manager, InfraredSceneUniversalFan);
             consumed = true;
