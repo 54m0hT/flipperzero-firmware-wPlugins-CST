@@ -10,22 +10,8 @@
 <b>Latest Updates:</b>
 
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- New [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware) updates in changelog
-- Readded [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
-- Settings: Updated Dummy Mode mode to have access to 2048, Dice, Snake, Tetris & Zombiez [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bf964fffdd2c1d730623673987a6de32a3f7c92f)
-- Settings: Updated GAMES ONLY mode to have access to 2048, Dice, Doom, Snake, Tetris & Zombiez [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bf964fffdd2c1d730623673987a6de32a3f7c92f)
-- Settings: Updated HOLD UP to go to Primary Favorite [(By RogueMaster)]
-- Settings: Updated HOLD DOWN to go to Secondary Favorite [(By RogueMaster)]
-- Settings: Updated Left to go to Clock [(By RogueMaster)]
-- Settings: Updated HOLD LEFT to go to SubGhz Remote [(By RogueMaster)]
-- Added [faploader: more subsystem headers in API table #1742 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/1742)
-- Moved Clock to FAP App
-- Moved Spectrum Analyzer to FAP App
-- Moved SubGHz Remote to FAP App (Not Working, So Reverted To Internal)
-- Moved iButton to FAP App (Someone please confirm functionality to me on Discord)
-- Moved U2F to FAP App (Someone please confirm functionality to me on Discord)
-- Moved GPIO to FAP App (Not Working, So Reverted To Internal)
-- Moved Infrared to FAP App (Not Working, So Reverted To Internal)
+- Last Synched changes from [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware) in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-19 20:45 GMT`
+- To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 
 <details>
   <summary><B>TO DO</b></summary><br/>
@@ -62,6 +48,7 @@
 </details>
 
       
+- To avoid Application errors, delete /ext/apps before doing the RM firmware update
 - To install new FW, extract the [latest release zip file](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/releases) to a folder, put the folder in the update folder on your SD card, and run the update file inside the folder using the Archive app (down from flipper desktop). If you were previously unleashed, you need to update your extend_range.txt file. **UPDATE IGNORE FLAG TO TRUE TO UNLEASH YOUR FLIPPER!!** On any update, you may need to update this file and your unirf map file, so keep backups. 😄
     - [<h2>GAMES ONLY MODE PASSWORD: UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT IN CLOCK</h2>](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/GAMES_ONLY.md)
 <br>[FLIPPER PROJECT WISH LIST](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/RoadMap.md) - [SAMPLE EDUCATIONAL PROJECTS 😄](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/RoadMap.md)
@@ -172,17 +159,8 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Change default keyboard to Uppercase #1548 (By DrEverr)](https://github.com/flipperdevices/flipperzero-firmware/pull/1548)
 - [Automatic shutdown on idle #1647 (By SHxKenzuto)](https://github.com/flipperdevices/flipperzero-firmware/pull/1647)
 - [Decode RAW recordings #1667 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1667)
-- [Fix displaying LFRFID protocol names #1682 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1682)
-- [Add new card parsers #1503 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1503)
-- [Fix Mifare Classic 4K reading of the last 8 sectors #1712 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1712)
-- [Keynote BT plugin: long press on OK to switch between Space and Retur… #1729 (By coded-with-claws)](https://github.com/flipperdevices/flipperzero-firmware/pull/1729)
-- [RFID: fix read info screen #1723 (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1723)
-- [Show error popup when NFC chip is not init/disconnected #1722 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1722)
-- [dummy mode #1739 (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1739)
-- [picopass se identify #1701 (By bettse/pcunning)](https://github.com/flipperdevices/flipperzero-firmware/pull/1701)
-- [Picopass plugin fixed #1742 (By bettse/pcunning)](https://github.com/flipperdevices/flipperzero-firmware/pull/1742)
+- [Add new card parsers #1503 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1503)(https://github.com/flipperdevices/flipperzero-firmware/pull/1729)
 - [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
-- [faploader: more subsystem headers in API table #1742 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/1742)
 
 </details>
 
@@ -214,11 +192,14 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
   <summary><B>PLUGINS</b></summary><br/>
 
 - [Bluetooth Remote (By Cutch)[OFW]](https://github.com/flipperdevices/flipperzero-firmware/pull/1330)
+- - With: [Keynote BT plugin: long press on OK to switch between Space and Retur… #1729 (By coded-with-claws)]
+- [BPM Tapper (By panki27)](https://github.com/panki27/bpm-tapper)
 - [Calculator (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
 - [Clock/Stopwatch (By CompaqDisc, Stopwatch & Sound Alert By RogueMaster)](https://gist.github.com/CompaqDisc/4e329c501bd03c1e801849b81f48ea61) [12/24HR (By non-bin)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/254) [Refactoring (By GMMan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/256)
 - [DSTIKE Deauther (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-Wifi-ESP8266-Deauther-Module/tree/FlipperZero-Module-v2/FlipperZeroModule/FlipperZero-ESP8266-Deauth-App)) `Req: ESP8266`
 - [Dolphin Backup (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1384) Modified by RogueMaster
 - [Dolphin Restorer (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1384) Cloned by RogueMaster
+- [Metronome (By panki27)](https://github.com/panki27/Metronome)
 - [Mouse Jacker (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/mousejacker) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/mousejacker) from nocomp/Frog/UberGuidoZ) `Req: NRF24`
 - [Mouse Jiggler (By Jacob-Tate)](https://github.com/Jacob-Tate/flipperzero-firmware/blob/dev/applications/mouse_jiggler/mouse_jiggler.c) (Original By MuddleBox)
 - [Multi Converter (By theisolinearchip)](https://github.com/theisolinearchip)

@@ -14,7 +14,7 @@ DEBUG = 0
 
 # Suffix to add to files when building distribution
 # If OS environment has DIST_SUFFIX set, it will be used instead
-DIST_SUFFIX = "RM420FAPS_T0Mr"
+DIST_SUFFIX = "RM420_T0Mr"
 
 # Coprocessor firmware
 COPRO_OB_DATA = "scripts/ob.data"
@@ -73,7 +73,8 @@ FIRMWARE_APPS = {
         "system_apps",
         # Settings
         "settings_apps",
-        # Plugins
+        # Stock plugins - no longer built into fw, now they're .faps
+        # Yet you can still build them as a part of fw
         # "basic_plugins",
         # Debug
         # "debug_apps",
@@ -82,7 +83,7 @@ FIRMWARE_APPS = {
         # Svc
         "basic_services",
         # Apps
-        "main_apps",
+        "main_apps_default",
         "system_apps",
         # Settings
         "settings_apps",
