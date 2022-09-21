@@ -36,6 +36,13 @@ Min level: 10
 Max level: 30
 Weight: 8
 
+Name: Sharingan_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 30
+Weight: 5
+
 Name: MjK_Starfield_128x64
 Min butthurt: 0
 Max butthurt: 14
@@ -79,6 +86,13 @@ Max level: 30
 Weight: 4
 
 Name: L1_Mew_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 30
+Weight: 4
+
+Name: MjK_Akira_128x64
 Min butthurt: 0
 Max butthurt: 14
 Min level: 1
@@ -156,6 +170,13 @@ Max level: 30
 Weight: 3
 
 Name: L1_Shodan_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 30
+Weight: 2
+
+Name: MjK_Mad_Sci_128x64
 Min butthurt: 0
 Max butthurt: 14
 Min level: 1

@@ -6,7 +6,7 @@
 #include "scene/flipfrid_scene_run_attack.h"
 #include "scene/flipfrid_scene_load_custom_uids.h"
 
-#define RFIDFUZZER_APP_FOLDER "/ext/rfidfuzzer"
+#define RFIDFUZZER_APP_FOLDER "/ext/lrfid/rfidfuzzer"
 
 static void flipfrid_draw_callback(Canvas* const canvas, void* ctx) {
     FlipFridState* flipfrid_state = (FlipFridState*)acquire_mutex((ValueMutex*)ctx, 100);
@@ -64,6 +64,7 @@ FlipFridState* flipfrid_alloc() {
     flipfrid->is_attacking = false;
     flipfrid->key_index = 0;
     flipfrid->menu_index = 0;
+    flipfrid->menu_proto_index = 0;
 
     flipfrid->attack = FlipFridAttackDefaultValues;
     flipfrid->notify = furi_record_open(RECORD_NOTIFICATION);
@@ -73,12 +74,14 @@ FlipFridState* flipfrid_alloc() {
     flipfrid->data[2] = 0x00;
     flipfrid->data[3] = 0x00;
     flipfrid->data[4] = 0x00;
+    flipfrid->data[5] = 0x00;
 
     flipfrid->payload[0] = 0x00;
     flipfrid->payload[1] = 0x00;
     flipfrid->payload[2] = 0x00;
     flipfrid->payload[3] = 0x00;
     flipfrid->payload[4] = 0x00;
+    flipfrid->payload[5] = 0x00;
 
     //Dialog
     flipfrid->dialogs = furi_record_open(RECORD_DIALOGS);
