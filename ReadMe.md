@@ -10,14 +10,11 @@
 <b>Latest Updates:</b>
 
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synched changes from [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware) in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-20 22:55 GMT`
-- Last Synched changes from [OFW](https://github.com/flipperdevices/flipperzero-firmware): `2022-09-20 22:55 GMT`
+- Last Synched changes from [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware) in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-21 06:54 GMT`
+- Last Synched changes from [OFW](https://github.com/flipperdevices/flipperzero-firmware): `2022-09-21 06:54 GMT`
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
-- Archive: FAPs are now launchable from Archive [By RogueMaster], thanks @xMasterX for the suggestion
-- Updated [Metronome (By panki27)](https://github.com/panki27/Metronome)
-- Added [DTMF Dolphin (By litui)](https://github.com/litui/dtmf_dolphin)
-- Added Clock.FAP Launching From Main Menu (It has a slight delay, working on it) [By RogueMaster]
-- Updated [WiFi (Deauther) (By Timmotools)](https://github.com/Timmotools/flipperzero_esp8266_deautherv2)
+- Fixed crash without SD
+- Updated to [Quiet Frequency Analyzer (By Himura2la)](https://github.com/ClusterM/flipperzero-firmware/pull/1)
 
 <details>
   <summary><B>TO DO</b></summary><br/>
@@ -104,7 +101,9 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - BadUSB: Assets for Kiosk Evasion and Wifi Stealer
 - BadUSB: show script errors on screen [(By CromFr)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/200)
 - BadUSB: sk-SK maping keybord for BadUsb [(By jaroslavmraz)](https://github.com/flipperdevices/flipperzero-firmware/pull/1619)
-- Clock.FAP Launching From Main Menu (It has a slight delay, working on it) [By RogueMaster](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/daee9db3667dd2bf3258efd985d9494b628255e3#diff-fc21e449837c4be79d47f76165f42a7faaa3e8a8b6c86bf7d57ab8324b06141a)
+- Added Clock.FAP Launching From Main Menu [By RogueMaster](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/6dd38fac0d392f8b7588475c6fa9875f1d364a86)
+- Added ibutton.FAP Launching From Main Menu [By RogueMaster](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/6dd38fac0d392f8b7588475c6fa9875f1d364a86)
+- Added u2f.FAP Launching From Main Menu [By RogueMaster](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/6dd38fac0d392f8b7588475c6fa9875f1d364a86)
 - Development free space thanks to removal of unused debug tools and [thanks to ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/46/files) for removal of first start assets.
 - Dolphin: Assigned profile pic for levels 1-10 (Happy Lvl 1 Dolphin), 11-15 (Happy Lvl 2 Dolphin), 16-18 (Happy Lvl 3 Dolphin), 19-21 (Kid G0ku), 22-24 (Adult G0ku), 25-27 (SSJ G0ku) and 28-30 (SSJ3 G0ku)
 - Dolphin: Expanded max level from 3 to 30 using [Roll20](https://roll20.net/compendium/dnd5e/Monsters#h-Experience%20Points), Increased max deed XP per action type from 15 to 45 exp daily & updated animation manifest for max level 30 for all animations (By RogueMaster)
@@ -149,7 +148,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - SubGHz: [Add settings to subghz read functionality to allow setting RSSI threshold (raw only) (By PolymerPrints)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/184)
 - SubGHz: Extended ranges enabled through flag in /ext/subghz/assets/extend_range.txt [from tkerrby](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/116)
 - SubGHz: Moved setting_user file to setting_user.txt! This makes it changable from IOS app. (By RogueMaster)
-- SubGHz: New frequency analyzer [(By ClusterM)](https://github.com/flipperdevices/flipperzero-firmware/pull/1501) [feedback mode (by darmiel)](https://github.com/darmiel/flipper-playlist/tree/feat/stealth-frequency-analyzer)
+- SubGHz: New frequency analyzer [(By ClusterM)](https://github.com/flipperdevices/flipperzero-firmware/pull/1501) [feedback mode (by darmiel)](https://github.com/darmiel/flipper-playlist/tree/feat/stealth-frequency-analyzer) [Quiet Mode (by Himura2la)](https://github.com/ClusterM/flipperzero-firmware/pull/1)
 - SubGHz: Protocols An-Motors, BFT Mitto, Came Atomo, FAAC SLH (Spa), HCS101, Keeloq, Keeloq Common, Nice Flor S, SecPlus v1+v2 and Star Line updates from [Eng1n33r](https://github.com/Eng1n33r/flipperzero-firmware)
 - SubGHz: Unlock from SD flag from [(cloudbreakdaniel)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/97db0dc91ee3dff812b4dec0618e3f198de14405).  Update `subghz/assets/extend_range.txt` with [this file](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/assets/resources/subghz/assets/extend_range.txt) on SD.  **UPDATE IGNORE FLAG TO TRUE TO UNLEASH YOUR FLIPPER!!**
 
