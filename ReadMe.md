@@ -11,12 +11,13 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synched/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-22 07:11 GMT`
-- Last Synched/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-21 18:29 GMT`/`2022-09-22 07:11 GMT`
+- Last Synched/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-22 19:22 GMT`/`2022-09-22 19:22 GMT`
+- Last Synched/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-22 17:15 GMT`/`2022-09-22 19:22 GMT`
 - Assets: Includes New Dolphin Animations: [Sharingan (By Haseo)]
 - Added [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
 - Assets: Includes New Dolphin Animations: [Lions Roar (By qqMajiKpp)]
 - Actually updated to [Quiet Frequency Analyzer (By Himura2la)](https://github.com/ClusterM/flipperzero-firmware/pull/1)
+- Added PR [Remove unused headers (In power.c) #1751 (By kowalski7cc)](https://github.com/flipperdevices/flipperzero-firmware/pull/1751)
 
 <details>
   <summary><B>TO DO</b></summary><br/>
@@ -168,6 +169,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Decode RAW recordings #1667 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1667)
 - [Add new card parsers #1503 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1503)(https://github.com/flipperdevices/flipperzero-firmware/pull/1729)
 - [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
+- [SubGhz: fix config menu #1748 (By skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/1748)
 
 </details>
 
