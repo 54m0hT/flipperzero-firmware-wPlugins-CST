@@ -11,13 +11,22 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synched/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-21 06:54 GMT`/`2022-09-21 18:29 GMT`
-- Last Synched/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-21 18:29 GMT`
-- Fixed crash without SD
-- Updated to [Quiet Frequency Analyzer (By Himura2la)](https://github.com/ClusterM/flipperzero-firmware/pull/1)
-- Clock.FAP, iButton.FAP and U2F.FAP loader apps and available as Favorites [Thanks to ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/336)
-- Assets: Includes New Dolphin Animations: [Akira & Mad Scientist (By qqMajiKpp)]
-- Assets: Includes New Dolphin Animations: [Sharingan (By Haseo)]
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-22 19:22 GMT`/`2022-09-23 00:32 GMT`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-22 17:15 GMT`/`2022-09-23 00:32 GMT`
+- Assets: Includes New Dolphin Animations: [Shar!ngan (By Haseo)]
+- Added [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
+- Assets: Includes New Dolphin Animations: [Lions Roar (By qqMajiKpp)]
+- Actually updated to [Quiet Frequency Analyzer (By Himura2la)](https://github.com/ClusterM/flipperzero-firmware/pull/1)
+- Added PR [Remove unused headers (In power.c) #1751 (By kowalski7cc)](https://github.com/flipperdevices/flipperzero-firmware/pull/1751)
+- Assets: Includes New Dolphin Animations: [0ne Pi3ce (By Haseo)]
+- Assets: Includes New Dolphin Animations: [Calcifier & Last Unicorn (By NeonKodama)]
+- Assets: Includes New Dolphin Animations: [Jiji Milk (By NeonKodama)]
+- Assets: Includes New Dolphin Animations: [Kam3Ham3Ha (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [M3gamanZ3r0 Battle (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [OP G3ar 4 (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Kirbs (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Kirbs Confused (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Z3lda 0h (By RogueMaster)]
 
 <details>
   <summary><B>TO DO</b></summary><br/>
@@ -95,7 +104,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - Archive: FAPs are now launchable from Archive [By RogueMaster], thanks xMasterX for the suggestion
 - Assets: Includes a NFC Level 50 Gan0n Amiibo
 - Assets: Includes a NFC Rick Roll link
-- Assets: Includes New Dolphin Animations: [Rick Roll, Matrix & Swim animations (By qqMajiKpp)], [Rukamon 2x and Agumon animations (By Syrius)], [Mew (By Arkaivos)], [Eye of the Flipper (By Kuronons)], [Shodan (By qqMajiKpp)], [Sirene & The Witch (By Haseo)], [Dino & A New Hope (By Haseo)], [Earth Arcadia (By Kuronons)], [Kuronons Black Flags Collection (21 Animations)(By Kuronons)], [D.Va (By Haseo)], [GITS (By Haseo)], [Slayers (By qqMajiKpp)], [P0liwhirl (By Panzer00Z)], [RogueMaster CFW Animation (By Kuronons)], [Nyan Cat (By Haseo)], [L (By Kuronons)], [Laughing Man (By Kuronons)], [B0ws3r (By Haseo)], [Kuronons Black Flags Collection VOL 2 (9 Animations)(By Kuronons)], [Thanks for all the fish (By qqMajiKpp)], [OCP, Skynet and Weyland (By Kuronons)], [Mario (By Haseo)], [Umbrella (By Haseo)], [Trioptimum (By qqMajiKpp)], [Tyrell & Cyberdyne (By Kuronons)], [Allen & Maha (By Haseo)], [Starfield (By qqMajiKpp)], [DJ (By ut1s)], [Fireplace (By Friend of xMasterX)], [Akira & Mad Scientist (By qqMajiKpp)] & [Sharingan (By Haseo)]
+- Assets: Includes New Dolphin Animations: [Rick Roll, Matrix & Swim animations (By qqMajiKpp)], [Rukamon 2x and Agumon animations (By Syrius)], [Mew (By Arkaivos)], [Eye of the Flipper (By Kuronons)], [Shodan (By qqMajiKpp)], [Sirene & The Witch (By Haseo)], [Dino & A New Hope (By Haseo)], [Earth Arcadia (By Kuronons)], [Kuronons Black Flags Collection (21 Animations)(By Kuronons)], [D.Va (By Haseo)], [GITS (By Haseo)], [Slayers (By qqMajiKpp)], [P0liwhirl (By Panzer00Z)], [RogueMaster CFW Animation (By Kuronons)], [Nyan Cat (By Haseo)], [L (By Kuronons)], [Laughing Man (By Kuronons)], [B0ws3r (By Haseo)], [Kuronons Black Flags Collection VOL 2 (9 Animations)(By Kuronons)], [Thanks for all the fish (By qqMajiKpp)], [OCP, Skynet and Weyland (By Kuronons)], [Mario (By Haseo)], [Umbrella (By Haseo)], [Trioptimum (By qqMajiKpp)], [Tyrell & Cyberdyne (By Kuronons)], [Allen & Maha (By Haseo)], [Starfield (By qqMajiKpp)], [DJ (By ut1s)], [Fireplace (By Friend of xMasterX)], [Akira & Mad Scientist (By qqMajiKpp)], [Shar!ngan (By Haseo)], [Lions Roar (By qqMajiKpp)], [0ne Pi3ce (By Haseo)], [Calcifier & Last Unicorn (By NeonKodama)], [Jiji Milk (By NeonKodama)] & [Kam3Ham3Ha, Kirbs, Kirbs Confused, M3gamanZ3r0 Battle, OP G3ar 4 & Z3lda 0h (By RogueMaster)]
 - Assets: Includes sample Music Player tunes
 - Assets: Includes sample SubGHz assets for Crosswalk, Handicap Doors, Sextoys, Tesla Charge Port, and Unitree Go1 Robot Dog
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
@@ -169,6 +178,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Decode RAW recordings #1667 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1667)
 - [Add new card parsers #1503 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1503)(https://github.com/flipperdevices/flipperzero-firmware/pull/1729)
 - [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
+- [SubGhz: fix config menu #1748 (By skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/1748)
 
 </details>
 
@@ -203,6 +213,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - - With: [Keynote BT plugin: long press on OK to switch between Space and Retur… #1729 (By coded-with-claws)]
 - [BPM Tapper (By panki27)](https://github.com/panki27/bpm-tapper)
 - [Calculator (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
+- [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
 - [Clock/Stopwatch (By CompaqDisc, Stopwatch & Sound Alert By RogueMaster)](https://gist.github.com/CompaqDisc/4e329c501bd03c1e801849b81f48ea61) [12/24HR (By non-bin)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/254) [Refactoring (By GMMan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/256)
 - [DSTIKE Deauther (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-Wifi-ESP8266-Deauther-Module/tree/FlipperZero-Module-v2/FlipperZeroModule/FlipperZero-ESP8266-Deauth-App)) `Req: ESP8266`
 - [Dolphin Backup (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1384) Modified by RogueMaster

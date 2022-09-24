@@ -1,7 +1,6 @@
 ### New changes
-* Plugins: Fixed MouseJacker GUI was displaying duckyscript is running before file is selected
-* OFW: NFC fixes (DESFire -> info -> More bug fixed, Mifare classic user list will display message if has more than 100keys)
-* OFW: Desktop: removing slideshow file when leaving slideshow view
+* OFW: Fixed NFC Mifare classic dict attack uses wrong keys (OFW PR 1769)
+* Infrared: removed duplicate function, moved reset to scene exit
 
 #### **DFU files no longer included in releases to avoid issues with wrong manual installation of assets - use .tgz file with qFlipper, or install automatically via web updater or use microSD update package**
 
