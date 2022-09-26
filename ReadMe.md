@@ -11,8 +11,8 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-22 19:22 GMT`/`2022-09-23 00:32 GMT`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-22 17:15 GMT`/`2022-09-23 00:32 GMT`
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-25 17:49 GMT`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-25 17:49 GMT`
 - Assets: Includes New Dolphin Animations: [Shar!ngan (By Haseo)]
 - Added [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
 - Assets: Includes New Dolphin Animations: [Lions Roar (By qqMajiKpp)]
@@ -27,6 +27,11 @@
 - Assets: Includes New Dolphin Animations: [Kirbs (By RogueMaster)]
 - Assets: Includes New Dolphin Animations: [Kirbs Confused (By RogueMaster)]
 - Assets: Includes New Dolphin Animations: [Z3lda 0h (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Init D Water (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Hexadecimal (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Halloween (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Rekall (By Kuronons)]
+- Assets: Includes New Dolphin Animations: [Stick Fight (By Sasquach)]
 
 <details>
   <summary><B>TO DO</b></summary><br/>
@@ -62,7 +67,6 @@
 - [Configure Sub-GHz Remote App](https://github.com/RogueMaster/flipperzero-firmware/blob/420/documentation/SubGHzRemotePlugin.md)
 </details>
 
-      
 - To avoid Application errors, delete /ext/apps before doing the RM firmware update
 - To install new FW, extract the [latest release zip file](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/releases) to a folder, put the folder in the update folder on your SD card, and run the update file inside the folder using the Archive app (down from flipper desktop). If you were previously unleashed, you need to update your extend_range.txt file. **UPDATE IGNORE FLAG TO TRUE TO UNLEASH YOUR FLIPPER!!** On any update, you may need to update this file and your unirf map file, so keep backups. 😄
     - [<h2>GAMES ONLY MODE PASSWORD: UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT IN CLOCK</h2>](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/GAMES_ONLY.md)
@@ -104,7 +108,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - Archive: FAPs are now launchable from Archive [By RogueMaster], thanks xMasterX for the suggestion
 - Assets: Includes a NFC Level 50 Gan0n Amiibo
 - Assets: Includes a NFC Rick Roll link
-- Assets: Includes New Dolphin Animations: [Rick Roll, Matrix & Swim animations (By qqMajiKpp)], [Rukamon 2x and Agumon animations (By Syrius)], [Mew (By Arkaivos)], [Eye of the Flipper (By Kuronons)], [Shodan (By qqMajiKpp)], [Sirene & The Witch (By Haseo)], [Dino & A New Hope (By Haseo)], [Earth Arcadia (By Kuronons)], [Kuronons Black Flags Collection (21 Animations)(By Kuronons)], [D.Va (By Haseo)], [GITS (By Haseo)], [Slayers (By qqMajiKpp)], [P0liwhirl (By Panzer00Z)], [RogueMaster CFW Animation (By Kuronons)], [Nyan Cat (By Haseo)], [L (By Kuronons)], [Laughing Man (By Kuronons)], [B0ws3r (By Haseo)], [Kuronons Black Flags Collection VOL 2 (9 Animations)(By Kuronons)], [Thanks for all the fish (By qqMajiKpp)], [OCP, Skynet and Weyland (By Kuronons)], [Mario (By Haseo)], [Umbrella (By Haseo)], [Trioptimum (By qqMajiKpp)], [Tyrell & Cyberdyne (By Kuronons)], [Allen & Maha (By Haseo)], [Starfield (By qqMajiKpp)], [DJ (By ut1s)], [Fireplace (By Friend of xMasterX)], [Akira & Mad Scientist (By qqMajiKpp)], [Shar!ngan (By Haseo)], [Lions Roar (By qqMajiKpp)], [0ne Pi3ce (By Haseo)], [Calcifier & Last Unicorn (By NeonKodama)], [Jiji Milk (By NeonKodama)] & [Kam3Ham3Ha, Kirbs, Kirbs Confused, M3gamanZ3r0 Battle, OP G3ar 4 & Z3lda 0h (By RogueMaster)]
+- Assets: Includes New Dolphin Animations: [Rick Roll, Matrix & Swim animations (By qqMajiKpp)], [Rukamon 2x and Agumon animations (By Syrius)], [Mew (By Arkaivos)], [Eye of the Flipper (By Kuronons)], [Shodan (By qqMajiKpp)], [Sirene & The Witch (By Haseo)], [Dino & A New Hope (By Haseo)], [Earth Arcadia (By Kuronons)], [Kuronons Black Flags Collection (21 Animations)(By Kuronons)], [D.Va (By Haseo)], [GITS (By Haseo)], [Slayers (By qqMajiKpp)], [P0liwhirl (By Panzer00Z)], [RogueMaster CFW Animation (By Kuronons)], [Nyan Cat (By Haseo)], [L (By Kuronons)], [Laughing Man (By Kuronons)], [B0ws3r (By Haseo)], [Kuronons Black Flags Collection VOL 2 (9 Animations)(By Kuronons)], [Thanks for all the fish (By qqMajiKpp)], [OCP, Skynet and Weyland (By Kuronons)], [Mario (By Haseo)], [Umbrella (By Haseo)], [Trioptimum (By qqMajiKpp)], [Tyrell & Cyberdyne (By Kuronons)], [Allen & Maha (By Haseo)], [Starfield (By qqMajiKpp)], [DJ (By ut1s)], [Fireplace (By Friend of xMasterX)], [Akira & Mad Scientist (By qqMajiKpp)], [Shar!ngan (By Haseo)], [Lions Roar (By qqMajiKpp)], [0ne Pi3ce (By Haseo)], [Calcifier & Last Unicorn (By NeonKodama)], [Jiji Milk (By NeonKodama)], [Halloween, Hexadecimal, Init D Water, Kam3Ham3Ha, Kirbs, Kirbs Confused, M3gamanZ3r0 Battle, OP G3ar 4, Z3lda 0h & Zelda R3ady (By RogueMaster)], [Rekall (By Kuronons)] & [Stick Fight (By Sasquach)]
 - Assets: Includes sample Music Player tunes
 - Assets: Includes sample SubGHz assets for Crosswalk, Handicap Doors, Sextoys, Tesla Charge Port, and Unitree Go1 Robot Dog
 - Assets: Includes Sonic Screw Driver sound for the Wav Player

@@ -1,5 +1,5 @@
 #include "power_i.h"
-#include "applications/services/desktop/desktop_settings.h"
+#include "desktop/desktop_settings.h"
 
 #include <furi.h>
 #include <furi_hal.h>
@@ -217,7 +217,7 @@ void power_free(Power* power) {
 
 static void power_check_charging_state(Power* power) {
     if(furi_hal_power_is_charging()) {
-        if(power->info.charge == 100) {
+        if((power->info.charge == 100) || (furi_hal_power_is_charging_done())) {
             if(power->state != PowerStateCharged) {
                 notification_internal_message(power->notification, &sequence_charged);
                 power->state = PowerStateCharged;
