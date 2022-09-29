@@ -11,32 +11,16 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-25 17:49 GMT`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-25 17:49 GMT`
-- Assets: Includes New Dolphin Animations: [Shar!ngan (By Haseo)]
-- Added [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
-- Assets: Includes New Dolphin Animations: [Lions Roar (By qqMajiKpp)]
-- Actually updated to [Quiet Frequency Analyzer (By Himura2la)](https://github.com/ClusterM/flipperzero-firmware/pull/1)
-- Added PR [Remove unused headers (In power.c) #1751 (By kowalski7cc)](https://github.com/flipperdevices/flipperzero-firmware/pull/1751)
-- Assets: Includes New Dolphin Animations: [0ne Pi3ce (By Haseo)]
-- Assets: Includes New Dolphin Animations: [Calcifier & Last Unicorn (By NeonKodama)]
-- Assets: Includes New Dolphin Animations: [Jiji Milk (By NeonKodama)]
-- Assets: Includes New Dolphin Animations: [Kam3Ham3Ha (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [M3gamanZ3r0 Battle (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [OP G3ar 4 (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Kirbs (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Kirbs Confused (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Z3lda 0h (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Init D Water (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Hexadecimal (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Halloween (By RogueMaster)]
-- Assets: Includes New Dolphin Animations: [Rekall (By Kuronons)]
-- Assets: Includes New Dolphin Animations: [Stick Fight (By Sasquach)]
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-29 20:33 GMT`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-29 20:33 GMT`
+- Settings: Rename from SD `dolphin/name.txt` [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/259)
+- New animations from stop_oxy: School Days, Whistper of the Heart and The Legend of Zelda
+- Added: [TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
 
 <details>
   <summary><B>TO DO</b></summary><br/>
 
-- Settings: Rename from SD `dolphin/name.txt` [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/259)
+- Settings: Rename from App [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/259)
 - Lost To Faps: Settings: Favorite Game by holding UP on Desktop [Thanks to gotnull](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/57)
 - Lost To Faps: Settings: Hold Down for Games Menu [(Thanks to ESurge)](https://github.com/ESurge/flipperzero-firmware-wPlugins)
 - Moved SubGHz Remote to FAP App (Not Working, So Reverted To Internal)
@@ -108,7 +92,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - Archive: FAPs are now launchable from Archive [By RogueMaster], thanks xMasterX for the suggestion
 - Assets: Includes a NFC Level 50 Gan0n Amiibo
 - Assets: Includes a NFC Rick Roll link
-- Assets: Includes New Dolphin Animations: [Rick Roll, Matrix & Swim animations (By qqMajiKpp)], [Rukamon 2x and Agumon animations (By Syrius)], [Mew (By Arkaivos)], [Eye of the Flipper (By Kuronons)], [Shodan (By qqMajiKpp)], [Sirene & The Witch (By Haseo)], [Dino & A New Hope (By Haseo)], [Earth Arcadia (By Kuronons)], [Kuronons Black Flags Collection (21 Animations)(By Kuronons)], [D.Va (By Haseo)], [GITS (By Haseo)], [Slayers (By qqMajiKpp)], [P0liwhirl (By Panzer00Z)], [RogueMaster CFW Animation (By Kuronons)], [Nyan Cat (By Haseo)], [L (By Kuronons)], [Laughing Man (By Kuronons)], [B0ws3r (By Haseo)], [Kuronons Black Flags Collection VOL 2 (9 Animations)(By Kuronons)], [Thanks for all the fish (By qqMajiKpp)], [OCP, Skynet and Weyland (By Kuronons)], [Mario (By Haseo)], [Umbrella (By Haseo)], [Trioptimum (By qqMajiKpp)], [Tyrell & Cyberdyne (By Kuronons)], [Allen & Maha (By Haseo)], [Starfield (By qqMajiKpp)], [DJ (By ut1s)], [Fireplace (By Friend of xMasterX)], [Akira & Mad Scientist (By qqMajiKpp)], [Shar!ngan (By Haseo)], [Lions Roar (By qqMajiKpp)], [0ne Pi3ce (By Haseo)], [Calcifier & Last Unicorn (By NeonKodama)], [Jiji Milk (By NeonKodama)], [Halloween, Hexadecimal, Init D Water, Kam3Ham3Ha, Kirbs, Kirbs Confused, M3gamanZ3r0 Battle, OP G3ar 4, Z3lda 0h & Zelda R3ady (By RogueMaster)], [Rekall (By Kuronons)] & [Stick Fight (By Sasquach)]
+- Assets: Includes New Dolphin Animations: [Listed Here](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/assets/resources/dolphin)
 - Assets: Includes sample Music Player tunes
 - Assets: Includes sample SubGHz assets for Crosswalk, Handicap Doors, Sextoys, Tesla Charge Port, and Unitree Go1 Robot Dog
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
@@ -151,6 +135,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - Settings: Desktop => [Games Only Mode (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/GAMES_ONLY.md)
 - - [UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT FROM CLOCK](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/GAMES_ONLY.md)<== FULL LIST OF GAMES ONLY CONTROLS
 - Settings: LCD Timeout Options Added: 10s+90s+2min+5min+10min [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/notification/notification_settings_app.c)
+- Settings: Rename from SD `dolphin/name.txt` [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/259)
 - Settings: Scan names will have timestamp instead of random name assigned for [NFC](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/lib/toolbox/random_name.c) and [SubGHz](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/subghz/scenes/subghz_scene_read_raw.c) (By RogueMaster)
 - Settings: Updated Dummy Mode mode to have access to 2048, Dice, Snake, Tetris & Zombiez [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bf964fffdd2c1d730623673987a6de32a3f7c92f)
 - Settings: Updated GAMES ONLY mode to have access to 2048, Dice, Doom, Snake, Tetris & Zombiez [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bf964fffdd2c1d730623673987a6de32a3f7c92f)
@@ -180,9 +165,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Change default keyboard to Uppercase #1548 (By DrEverr)](https://github.com/flipperdevices/flipperzero-firmware/pull/1548)
 - [Automatic shutdown on idle #1647 (By SHxKenzuto)](https://github.com/flipperdevices/flipperzero-firmware/pull/1647)
 - [Decode RAW recordings #1667 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1667)
-- [Add new card parsers #1503 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/1503)(https://github.com/flipperdevices/flipperzero-firmware/pull/1729)
 - [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
-- [SubGhz: fix config menu #1748 (By skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/1748)
 
 </details>
 
@@ -200,6 +183,7 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Flappy Bird (By DroomOne)](https://github.com/DroomOne/flipperzero-firmware/tree/dev/applications/flappy_bird)
 - [Game of Life (Updated to work by tgxn) (By itsyourbedtime)](https://github.com/tgxn/flipperzero-firmware/blob/dev/applications/game_of_life/game_of_life.c)
 - [Mandelbrot Set (By Possibly-Matt)](https://github.com/Possibly-Matt/flipperzero-firmware-wPlugins)
+- [Minesweeper (By panki27)](https://github.com/panki27/minesweeper)
 - [Monty Hall (By DevMilanIan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/203)
 - Snake [OFW]
 - [TAMA P1 (By GMMan)](https://github.com/GMMan/flipperzero-firmware/tree/tama-p1) requires [this rom](https://tinyurl.com/tamap1) IN `tama_p1` on SD as `rom.bin` to make it work.
@@ -237,7 +221,9 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Spectrum Analyzer (By jolcese)](https://github.com/jolcese/flipperzero-firmware/tree/spectrum/applications/spectrum_analyzer) [Updates (for testing) Thanks to theY4Kman](https://github.com/theY4Kman/flipperzero-firmware)
 - [Sub-GHz Bruteforcer (By Ganapati & xMasterX)](https://github.com/Eng1n33r/flipperzero-firmware/pull/57)
 - [Sub-GHz Playlist (By darmiel)](https://github.com/darmiel/flipper-playlist)
+- [TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
 - [UPC-A Generator (By McAzzaMan)](https://github.com/McAzzaMan/flipperzero-firmware/tree/UPC-A_Barcode_Generator/applications/barcode_generator)
+- [USB Keyboard (By huuck)](https://github.com/huuck/FlipperZeroUSBKeyboard)
 - [WAV Player (By Zlo)](https://github.com/flipperdevices/flipperzero-firmware/tree/zlo/wav-player) Updated by Atmanos & RogueMaster To Work
 - [WiFi (Deauther) (By Timmotools)](https://github.com/Timmotools/flipperzero_esp8266_deautherv2)
 - [WiFi (Marauder) (By 0xchocolate)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion) `REQUIRES ESP32 WITH MARAUDER FLASHED`
