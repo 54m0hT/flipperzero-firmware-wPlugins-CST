@@ -131,7 +131,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
                 "Rozar",
                 "Acariciar",
                 "Chupar",
-                "Lacbios",
+                "Lamer",
                 "Soplar",
                 "Besar",
                 "???"};
@@ -142,7 +142,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
                 "Cuello",
                 "Mano",
                 "Muslo",
-                "Pezón",
+                "Pezon",
                 "Pechos",
                 "???",
                 "Genitales"};
