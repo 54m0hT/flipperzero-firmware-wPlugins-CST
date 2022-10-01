@@ -93,21 +93,21 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             const char* eightBall[] = {
                 "Es cierto",
                 "Sin duda",
-                "Puedes confiar en ello",
+                "Confia en ello",
                 "Definitivamente Si",
                 "Decididamente es asi",
                 "Como yo lo veo, si",
                 "Mas probable",
                 "Si",
                 "Buena perspectiva",
-                "Las señales apuntan a que si",
-                "Respuesta confusa, intenta otra vez",
-                "Mejor no decirte ahora",
+                "Todo apunta a que si",
+                "Dudoso, intenta otra vez",
+                "Mejor no te lo digo",
                 "Pregunta mas tarde",
                 "No puedo predecir ahora",
-                "Concentrate y pregunta de nuevo",
+                "Concentrate y pregunta",
                 "No cuentes con ello",
-                "Las perspectivas no son buenas",
+                "No pinta bien",
                 "Mis fuentes dicen No",
                 "Muy dudoso",
                 "Mi respuesta es No"};
@@ -127,7 +127,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
                 "Morder",
                 "Masajear",
                 "Tocar",
-                "Caricia",
+                "Cosquillear",
                 "Rozar",
                 "Acariciar",
                 "Chupar",
@@ -216,14 +216,14 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             const char* diceOne[] = {
                 "Tu", "Tu eliges", "Nadie", "Todos", "Nariz", "El jugador de tu derecha"};
             const char* diceTwo[] = {
-                "da una pequeña calada",
+                "da un pequelo calo",
                 "solo relajate",
                 "da dos caladas",
                 "da un buen viaje",
                 "clavatelo",
                 "da una calada"};
             const char* diceThree[] = {
-                "mientras tararea una melodía",
+                "mientras tararea algo",
                 "con los ojos cerrados",
                 "de rodillas",
                 "mientras te tapas la nariz",
@@ -380,7 +380,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
     } else if(state->diceSelect == 230) {
         elements_button_right(canvas, "SEXO");
     } else if(state->diceSelect == 231) {
-        elements_button_right(canvas, "GUERRA");
+        elements_button_right(canvas, "WAR");
     } else if(state->diceSelect == 232) {
         elements_button_right(canvas, "YERBA");
     }
