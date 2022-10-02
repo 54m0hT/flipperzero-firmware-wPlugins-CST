@@ -11,11 +11,13 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-09-29 20:33 GMT`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-09-29 20:33 GMT`
-- Settings: Rename from SD `dolphin/name.txt` [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/259)
-- New animations from stop_oxy: School Days, Whistper of the Heart and The Legend of Zelda
-- Added: [TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/Eng1n33r/flipperzero-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-02 05:22 GMT`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-02 05:22 GMT`
+- Assets: Includes New Dolphin Animations: [Rogue Master Custom Firmware (By Sasquach)]
+- Added PR [FFF trailing space fix #1811 (By gsurkov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1811)
+- Added PR [Fix-read-in-readraw-crash #80 (By derskythe)](https://github.com/Eng1n33r/flipperzero-firmware/pull/80)
+- Assets: Includes New Dolphin Animations: [Veemon (By felix-two-tone)]
+- Assets: Includes New Dolphin Animations: [G0ku (By Sasquach)]
 
 <details>
   <summary><B>TO DO</b></summary><br/>
@@ -166,6 +168,8 @@ $ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
 - [Automatic shutdown on idle #1647 (By SHxKenzuto)](https://github.com/flipperdevices/flipperzero-firmware/pull/1647)
 - [Decode RAW recordings #1667 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1667)
 - [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
+- [FFF trailing space fix #1811 (By gsurkov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1811)
+- [Fix-read-in-readraw-crash #80 (By derskythe)](https://github.com/Eng1n33r/flipperzero-firmware/pull/80)
 
 </details>
 
