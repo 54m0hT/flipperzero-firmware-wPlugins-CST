@@ -70,6 +70,7 @@ SubGhz* subghz_alloc(bool alloc_for_tx_only) {
     subghz->gui = furi_record_open(RECORD_GUI);
 
     subghz->in_decoder_scene = false;
+    subghz->in_decoder_scene_skip = false;
 
     // View Dispatcher
     subghz->view_dispatcher = view_dispatcher_alloc();
@@ -195,14 +196,14 @@ SubGhz* subghz_alloc(bool alloc_for_tx_only) {
 #ifdef SUBGHZ_SAVE_DETECT_RAW_SETTING
         FURI_LOG_D(
             TAG,
-            "last frequency: %d, preset: %d, detect_raw: %d",
+            "last frequency: %ld, preset: %ld, detect_raw: %d",
             subghz->last_settings->frequency,
             subghz->last_settings->preset,
             subghz->last_settings->detect_raw);
 #else
         FURI_LOG_D(
             TAG,
-            "last frequency: %d, preset: %d",
+            "last frequency: %ld, preset: %ld",
             subghz->last_settings->frequency,
             subghz->last_settings->preset);
 #endif

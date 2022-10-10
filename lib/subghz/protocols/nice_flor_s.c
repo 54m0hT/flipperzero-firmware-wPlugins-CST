@@ -96,7 +96,7 @@ void* subghz_protocol_encoder_nice_flor_s_alloc(SubGhzEnvironment* environment) 
             TAG, "Loading rainbow table from %s", instance->nice_flor_s_rainbow_table_file_name);
     }
     instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 1800; //wrong!! upload 186*16 = 2976 - actual size about 1716
+    instance->encoder.size_upload = 1728; //wrong!! upload 186*16 = 2976 - actual size about 1728
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;
@@ -531,7 +531,7 @@ void subghz_protocol_decoder_nice_flor_s_get_string(void* context, FuriString* o
         "%s %dbit\r\n"
         "Key:0x%lX%08lX\r\n"
         "Sn:%05lX\r\n"
-        "Cnt:%04X Btn:%02lX\r\n",
+        "Cnt:%04lX Btn:%02X\r\n",
         instance->generic.protocol_name,
         instance->generic.data_count_bit,
         code_found_hi,
