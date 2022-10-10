@@ -3,7 +3,7 @@
 #include <lib/subghz/receiver.h>
 #include <flipper_format/flipper_format_i.h>
 
-#define SUBGHZ_HISTORY_MAX 65
+#define SUBGHZ_HISTORY_MAX 60
 
 /**
  * @brief Settings for temporary files
@@ -13,15 +13,15 @@
 #define SUBGHZ_HISTORY_TMP_EXTENSION ".tmp"
 #define SUBGHZ_HISTORY_TMP_SIGNAL_MAX_LEVEL_DURATION 700
 #define SUBGHZ_HISTORY_TMP_SIGNAL_MIN_LEVEL_DURATION 100
-#define SUBGHZ_HISTORY_TMP_REMOVE_FILES false
+#define SUBGHZ_HISTORY_TMP_REMOVE_FILES true
 #define SUBGHZ_HISTORY_TMP_RAW_KEY "RAW_Data"
 
 #define TAG "SubGhzHistory"
 
 typedef struct {
-    string_t item_str;
+    FuriString* item_str;
     FlipperFormat* flipper_string;
-    string_t protocol_name;
+    FuriString* protocol_name;
     bool is_file;
     uint8_t type;
     SubGhzPresetDefinition* preset;
@@ -39,8 +39,9 @@ struct SubGhzHistory {
     uint32_t last_update_timestamp;
     uint16_t last_index_write;
     uint8_t code_last_hash_data;
-    string_t tmp_string;
+    FuriString* tmp_string;
     bool write_tmp_files;
+    bool is_hopper_running;
     Storage* storage;
     SubGhzHistoryStruct* history;
 };
@@ -49,10 +50,10 @@ struct SubGhzHistory {
 #define LOG_DELAY 0
 #endif
 
-void subghz_history_generate_temp_filename(string_t filename, uint32_t index) {
+FuriString* subghz_history_generate_temp_filename(uint32_t index) {
     FuriHalRtcDateTime datetime = {0};
     furi_hal_rtc_get_datetime(&datetime);
-    string_init_printf(filename, "%03d%s", index, SUBGHZ_HISTORY_TMP_EXTENSION);
+    return furi_string_alloc_printf("%03ld%s", index, SUBGHZ_HISTORY_TMP_EXTENSION);
 }
 
 bool subghz_history_is_tmp_dir_exists(SubGhzHistory* instance) {
@@ -86,7 +87,7 @@ bool subghz_history_check_sdcard(SubGhzHistory* instance) {
         FURI_LOG_W(TAG, "SD storage not installed! Status: %d", status);
     }
 #ifdef FURI_DEBUG
-    FURI_LOG_I(TAG, "Running time (check_sdcard): %d ms", furi_get_tick() - start_time);
+    FURI_LOG_I(TAG, "Running time (check_sdcard): %ld ms", furi_get_tick() - start_time);
 #endif
 
     return result;
@@ -102,7 +103,7 @@ void subghz_history_clear_tmp_dir(SubGhzHistory* instance) {
         // Nothing to do here!
         return;
     }
-    uint32_t start_time = furi_get_tick();
+    //uint32_t start_time = furi_get_tick();
 #ifdef SUBGHZ_HISTORY_TMP_REMOVE_FILES
     // Stage 0 - Dir exists?
     bool res = subghz_history_is_tmp_dir_exists(instance);
@@ -122,17 +123,19 @@ void subghz_history_clear_tmp_dir(SubGhzHistory* instance) {
         FURI_LOG_E(TAG, "Cannot process temp dir!");
     }
 #endif
-    uint32_t stop_time = furi_get_tick() - start_time;
-    FURI_LOG_I(TAG, "Running time (clear_tmp_dir): %d ms", stop_time);
+    /* uint32_t stop_time = furi_get_tick() - start_time;
+    FURI_LOG_I(TAG, "Running time (clear_tmp_dir): %d ms", stop_time);*/
 }
 
 SubGhzHistory* subghz_history_alloc(void) {
     SubGhzHistory* instance = malloc(sizeof(SubGhzHistory));
-    string_init(instance->tmp_string);
+    instance->tmp_string = furi_string_alloc();
     instance->history = malloc(sizeof(SubGhzHistoryStruct));
     SubGhzHistoryItemArray_init(instance->history->data);
     instance->storage = furi_record_open(RECORD_STORAGE);
     instance->write_tmp_files = subghz_history_check_sdcard(instance);
+
+    instance->is_hopper_running = false;
 
     if(!instance->write_tmp_files) {
         FURI_LOG_E(TAG, "Unstable work! Cannot use SD Card!");
@@ -144,9 +147,9 @@ SubGhzHistory* subghz_history_alloc(void) {
 void subghz_history_item_free(void* current_item) {
     furi_assert(current_item);
     SubGhzHistoryItem* item = (SubGhzHistoryItem*)current_item;
-    string_clear(item->item_str);
-    string_clear(item->preset->name);
-    string_clear(item->protocol_name);
+    furi_string_free(item->item_str);
+    furi_string_free(item->preset->name);
+    furi_string_free(item->protocol_name);
 
     free(item->preset);
     item->type = 0;
@@ -166,7 +169,7 @@ void subghz_history_clean_item_array(SubGhzHistory* instance) {
 
 void subghz_history_free(SubGhzHistory* instance) {
     furi_assert(instance);
-    string_clear(instance->tmp_string);
+    furi_string_free(instance->tmp_string);
 
     subghz_history_clean_item_array(instance);
     SubGhzHistoryItemArray_clear(instance->history->data);
@@ -195,18 +198,24 @@ SubGhzPresetDefinition* subghz_history_get_preset_def(SubGhzHistory* instance, u
 const char* subghz_history_get_preset(SubGhzHistory* instance, uint16_t idx) {
     furi_assert(instance);
     SubGhzHistoryItem* item = SubGhzHistoryItemArray_get(instance->history->data, idx);
-    return string_get_cstr(item->preset->name);
+    return furi_string_get_cstr(item->preset->name);
 }
 
 void subghz_history_reset(SubGhzHistory* instance) {
     furi_assert(instance);
-    string_reset(instance->tmp_string);
+    furi_string_reset(instance->tmp_string);
 
     subghz_history_clean_item_array(instance);
 
     SubGhzHistoryItemArray_reset(instance->history->data);
     instance->last_index_write = 0;
     instance->code_last_hash_data = 0;
+}
+
+void subghz_history_set_hopper_state(SubGhzHistory* instance, bool hopper_state) {
+    furi_assert(instance);
+
+    instance->is_hopper_running = hopper_state;
 }
 
 uint16_t subghz_history_get_item(SubGhzHistory* instance) {
@@ -224,7 +233,7 @@ const char* subghz_history_get_protocol_name(SubGhzHistory* instance, uint16_t i
     furi_assert(instance);
     SubGhzHistoryItem* item = SubGhzHistoryItemArray_get(instance->history->data, idx);
 
-    return string_get_cstr(item->protocol_name);
+    return furi_string_get_cstr(item->protocol_name);
 }
 
 FlipperFormat* subghz_history_get_raw_data(SubGhzHistory* instance, uint16_t idx) {
@@ -236,17 +245,15 @@ FlipperFormat* subghz_history_get_raw_data(SubGhzHistory* instance, uint16_t idx
         bool result_ok = false;
         if(instance->write_tmp_files && item->is_file) {
             // We have files!
-            string_t filename;
-            string_t dir_path;
-            string_init(filename);
-            string_init(dir_path);
-            subghz_history_generate_temp_filename(filename, idx);
-            string_init_printf(
-                dir_path, "%s/%s", SUBGHZ_HISTORY_TMP_DIR, string_get_cstr(filename));
+            FuriString* filename = subghz_history_generate_temp_filename(idx);
+            FuriString* dir_path;
 
-            if(storage_file_exists(instance->storage, string_get_cstr(dir_path))) {
+            dir_path = furi_string_alloc_printf(
+                "%s/%s", SUBGHZ_HISTORY_TMP_DIR, furi_string_get_cstr(filename));
+
+            if(storage_file_exists(instance->storage, furi_string_get_cstr(dir_path))) {
 #ifdef FURI_DEBUG
-                FURI_LOG_D(TAG, "Exist: %s", dir_path);
+                FURI_LOG_D(TAG, "Exist: %s", furi_string_get_cstr(dir_path));
                 furi_delay_ms(LOG_DELAY);
 #endif
                 // Set to current anyway it has NULL value
@@ -255,7 +262,7 @@ FlipperFormat* subghz_history_get_raw_data(SubGhzHistory* instance, uint16_t idx
                 stream_clean(dst_stream);
 
                 size_t size = stream_load_from_file(
-                    dst_stream, instance->storage, string_get_cstr(dir_path));
+                    dst_stream, instance->storage, furi_string_get_cstr(dir_path));
                 if(size > 0) {
 #ifdef FURI_DEBUG
                     FURI_LOG_I(TAG, "Save ok!");
@@ -273,8 +280,8 @@ FlipperFormat* subghz_history_get_raw_data(SubGhzHistory* instance, uint16_t idx
                 FURI_LOG_E(TAG, "Can't convert filename to file");
             }
 
-            string_clear(filename);
-            string_clear(dir_path);
+            furi_string_free(filename);
+            furi_string_free(dir_path);
         } else {
 #ifdef FURI_DEBUG
             FURI_LOG_W(TAG, "Write TMP files failed!");
@@ -285,21 +292,21 @@ FlipperFormat* subghz_history_get_raw_data(SubGhzHistory* instance, uint16_t idx
     }
 }
 
-bool subghz_history_get_text_space_left(SubGhzHistory* instance, string_t output) {
+bool subghz_history_get_text_space_left(SubGhzHistory* instance, FuriString* output) {
     furi_assert(instance);
     if(instance->last_index_write == SUBGHZ_HISTORY_MAX) {
-        if(output != NULL) string_printf(output, "Memory is FULL");
+        if(output != NULL) furi_string_printf(output, "Memory is FULL");
         return true;
     }
     if(output != NULL) {
-        string_printf(output, "%02u/%02u", instance->last_index_write, SUBGHZ_HISTORY_MAX);
+        furi_string_printf(output, "%02u/%02u", instance->last_index_write, SUBGHZ_HISTORY_MAX);
     }
     return false;
 }
 
-void subghz_history_get_text_item_menu(SubGhzHistory* instance, string_t output, uint16_t idx) {
+void subghz_history_get_text_item_menu(SubGhzHistory* instance, FuriString* output, uint16_t idx) {
     SubGhzHistoryItem* item = SubGhzHistoryItemArray_get(instance->history->data, idx);
-    string_set(output, item->item_str);
+    furi_string_set(output, item->item_str);
 }
 
 bool subghz_history_add_to_history(
@@ -323,19 +330,19 @@ bool subghz_history_add_to_history(
 
     instance->code_last_hash_data = subghz_protocol_decoder_base_get_hash_data(decoder_base);
     instance->last_update_timestamp = furi_get_tick();
-    string_t text;
-    string_init(text);
+    FuriString* text;
+    text = furi_string_alloc();
     SubGhzHistoryItem* item = SubGhzHistoryItemArray_push_raw(instance->history->data);
     item->preset = malloc(sizeof(SubGhzPresetDefinition));
     item->type = decoder_base->protocol->type;
     item->preset->frequency = preset->frequency;
-    string_init(item->preset->name);
-    string_set(item->preset->name, preset->name);
+    item->preset->name = furi_string_alloc();
+    furi_string_set(item->preset->name, preset->name);
     item->preset->data = preset->data;
     item->preset->data_size = preset->data_size;
 
-    string_init(item->item_str);
-    string_init(item->protocol_name);
+    item->item_str = furi_string_alloc();
+    item->protocol_name = furi_string_alloc();
 
     bool tmp_file_for_raw = false;
 
@@ -352,34 +359,42 @@ bool subghz_history_add_to_history(
             FURI_LOG_E(TAG, "Missing Protocol");
             break;
         } else {
-            string_init_printf(item->protocol_name, "%s", string_get_cstr(instance->tmp_string));
+            furi_string_printf(
+                item->protocol_name, "%s", furi_string_get_cstr(instance->tmp_string));
         }
-        if(!strcmp(string_get_cstr(instance->tmp_string), "RAW")) {
-            string_printf(
+        if(!strcmp(furi_string_get_cstr(instance->tmp_string), "RAW")) {
+            // Check if hopper enabled we need to add little delay
+            if(instance->is_hopper_running) {
+                furi_delay_ms(40);
+            }
+            // Enable writing temp files to micro sd
+            tmp_file_for_raw = true;
+            // Write display name
+            furi_string_printf(
                 item->item_str,
                 "RAW %03ld.%02ld",
                 preset->frequency / 1000000 % 1000,
                 preset->frequency / 10000 % 100);
-
+            // Rewind
             if(!flipper_format_rewind(item->flipper_string)) {
                 FURI_LOG_E(TAG, "Rewind error");
             }
-            tmp_file_for_raw = true;
+
             break;
-        } else if(!strcmp(string_get_cstr(instance->tmp_string), "KeeLoq")) {
-            string_set_str(instance->tmp_string, "KL ");
+        } else if(!strcmp(furi_string_get_cstr(instance->tmp_string), "KeeLoq")) {
+            furi_string_set(instance->tmp_string, "KL ");
             if(!flipper_format_read_string(item->flipper_string, "Manufacture", text)) {
                 FURI_LOG_E(TAG, "Missing Protocol");
                 break;
             }
-            string_cat(instance->tmp_string, text);
-        } else if(!strcmp(string_get_cstr(instance->tmp_string), "Star Line")) {
-            string_set_str(instance->tmp_string, "SL ");
+            furi_string_cat(instance->tmp_string, text);
+        } else if(!strcmp(furi_string_get_cstr(instance->tmp_string), "Star Line")) {
+            furi_string_set(instance->tmp_string, "SL ");
             if(!flipper_format_read_string(item->flipper_string, "Manufacture", text)) {
                 FURI_LOG_E(TAG, "Missing Protocol");
                 break;
             }
-            string_cat(instance->tmp_string, text);
+            furi_string_cat(instance->tmp_string, text);
         }
         if(!flipper_format_rewind(item->flipper_string)) {
             FURI_LOG_E(TAG, "Rewind error");
@@ -395,16 +410,16 @@ bool subghz_history_add_to_history(
             data = (data << 8) | key_data[i];
         }
         if(!(uint32_t)(data >> 32)) {
-            string_printf(
+            furi_string_printf(
                 item->item_str,
                 "%s %lX",
-                string_get_cstr(instance->tmp_string),
+                furi_string_get_cstr(instance->tmp_string),
                 (uint32_t)(data & 0xFFFFFFFF));
         } else {
-            string_printf(
+            furi_string_printf(
                 item->item_str,
                 "%s %lX%08lX",
-                string_get_cstr(instance->tmp_string),
+                furi_string_get_cstr(instance->tmp_string),
                 (uint32_t)(data >> 32),
                 (uint32_t)(data & 0xFFFFFFFF));
         }
@@ -412,22 +427,21 @@ bool subghz_history_add_to_history(
 
     // If we can write to files
     if(instance->write_tmp_files && tmp_file_for_raw) {
-        string_t filename;
-        string_t dir_path;
-        string_init(filename);
-        string_init(dir_path);
+        FuriString* filename = subghz_history_generate_temp_filename(instance->last_index_write);
+        FuriString* dir_path;
+        dir_path = furi_string_alloc();
 
-        subghz_history_generate_temp_filename(filename, instance->last_index_write);
-        string_cat_printf(dir_path, "%s/%s", SUBGHZ_HISTORY_TMP_DIR, string_get_cstr(filename));
+        furi_string_cat_printf(
+            dir_path, "%s/%s", SUBGHZ_HISTORY_TMP_DIR, furi_string_get_cstr(filename));
 #ifdef FURI_DEBUG
-        FURI_LOG_I(TAG, "Save temp file: %s", string_get_cstr(dir_path));
+        FURI_LOG_I(TAG, "Save temp file: %s", furi_string_get_cstr(dir_path));
 #endif
         if(!subghz_history_tmp_write_file_split(instance, item, dir_path)) {
             // Plan B!
             subghz_history_tmp_write_file_full(instance, item, dir_path);
         }
-        string_clear(filename);
-        string_clear(dir_path);
+        furi_string_free(filename);
+        furi_string_free(dir_path);
 
     } else {
 #ifdef FURI_DEBUG
@@ -435,7 +449,7 @@ bool subghz_history_add_to_history(
 #endif
     }
 
-    string_clear(text);
+    furi_string_free(text);
 
     instance->last_index_write++;
     return true;
@@ -444,7 +458,7 @@ bool subghz_history_add_to_history(
 bool subghz_history_tmp_write_file_split(
     SubGhzHistory* instance,
     void* current_item,
-    string_t dir_path) {
+    FuriString* dir_path) {
     UNUSED(instance);
     UNUSED(current_item);
     UNUSED(dir_path);
@@ -459,15 +473,15 @@ bool subghz_history_tmp_write_file_split(
 void subghz_history_tmp_write_file_full(
     SubGhzHistory* instance,
     void* current_item,
-    string_t dir_path) {
+    FuriString* dir_path) {
     SubGhzHistoryItem* item = (SubGhzHistoryItem*)current_item;
 #ifdef FURI_DEBUG
-    FURI_LOG_W(TAG, "Save temp file full: %s", string_get_cstr(dir_path));
+    FURI_LOG_W(TAG, "Save temp file full: %s", furi_string_get_cstr(dir_path));
 #endif
     Stream* dst = flipper_format_get_raw_stream(item->flipper_string);
     stream_rewind(dst);
-    if(stream_save_to_file(dst, instance->storage, string_get_cstr(dir_path), FSOM_CREATE_ALWAYS) >
-       0) {
+    if(stream_save_to_file(
+           dst, instance->storage, furi_string_get_cstr(dir_path), FSOM_CREATE_ALWAYS) > 0) {
         flipper_format_free(item->flipper_string);
         item->flipper_string = NULL;
 #ifdef FURI_DEBUG

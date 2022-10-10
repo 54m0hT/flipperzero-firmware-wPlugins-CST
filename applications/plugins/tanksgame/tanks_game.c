@@ -1591,7 +1591,7 @@ int32_t tanks_game_app(void* p) {
                                 tanks_state->menu_state = MenuStateCooperativeServerMode;
                             }
                         } else if(tanks_state->state == GameStateCooperativeClient) {
-                            string_t goesUp;
+                            FuriString* goesUp;
                             char arr[2];
                             arr[0] = GoesUp;
                             arr[1] = 0;
@@ -1600,7 +1600,7 @@ int32_t tanks_game_app(void* p) {
                             subghz_tx_rx_worker_write(
                                 subghz_txrx,
                                 (uint8_t*)string_get_cstr(goesUp),
-                                strlen(string_get_cstr(goesUp)));
+                                strlen(furi_string_get_cstr(goesUp)));
 
                         } else {
                             tanks_state->p1->moving = true;
@@ -1615,7 +1615,7 @@ int32_t tanks_game_app(void* p) {
                                 tanks_state->menu_state = MenuStateCooperativeClientMode;
                             }
                         } else if(tanks_state->state == GameStateCooperativeClient) {
-                            string_t goesDown;
+                            FuriString* goesDown;
                             char arr[2];
                             arr[0] = GoesDown;
                             arr[1] = 0;
@@ -1624,7 +1624,7 @@ int32_t tanks_game_app(void* p) {
                             subghz_tx_rx_worker_write(
                                 subghz_txrx,
                                 (uint8_t*)string_get_cstr(goesDown),
-                                strlen(string_get_cstr(goesDown)));
+                                strlen(furi_string_get_cstr(goesDown)));
                         } else {
                             tanks_state->p1->moving = true;
                             tanks_state->p1->direction = DirectionDown;
@@ -1632,7 +1632,7 @@ int32_t tanks_game_app(void* p) {
                         break;
                     case InputKeyRight:
                         if(tanks_state->state == GameStateCooperativeClient) {
-                            string_t goesRight;
+                            FuriString* goesRight;
                             char arr[2];
                             arr[0] = GoesRight;
                             arr[1] = 0;
@@ -1641,7 +1641,7 @@ int32_t tanks_game_app(void* p) {
                             subghz_tx_rx_worker_write(
                                 subghz_txrx,
                                 (uint8_t*)string_get_cstr(goesRight),
-                                strlen(string_get_cstr(goesRight)));
+                                strlen(furi_string_get_cstr(goesRight)));
                         } else {
                             tanks_state->p1->moving = true;
                             tanks_state->p1->direction = DirectionRight;
@@ -1649,7 +1649,7 @@ int32_t tanks_game_app(void* p) {
                         break;
                     case InputKeyLeft:
                         if(tanks_state->state == GameStateCooperativeClient) {
-                            string_t goesLeft;
+                            FuriString* goesLeft;
                             char arr[2];
                             arr[0] = GoesLeft;
                             arr[1] = 0;
@@ -1658,7 +1658,7 @@ int32_t tanks_game_app(void* p) {
                             subghz_tx_rx_worker_write(
                                 subghz_txrx,
                                 (uint8_t*)string_get_cstr(goesLeft),
-                                strlen(string_get_cstr(goesLeft)));
+                                strlen(furi_string_get_cstr(goesLeft)));
                         } else {
                             tanks_state->p1->moving = true;
                             tanks_state->p1->direction = DirectionLeft;
@@ -1682,7 +1682,7 @@ int32_t tanks_game_app(void* p) {
                         } else if(tanks_state->state == GameStateGameOver) {
                             tanks_game_init_game(tanks_state, tanks_state->state);
                         } else if(tanks_state->state == GameStateCooperativeClient) {
-                            string_t shoots;
+                            FuriString* shoots;
                             char arr[2];
                             arr[0] = Shoots;
                             arr[1] = 0;
@@ -1691,7 +1691,7 @@ int32_t tanks_game_app(void* p) {
                             subghz_tx_rx_worker_write(
                                 subghz_txrx,
                                 (uint8_t*)string_get_cstr(shoots),
-                                strlen(string_get_cstr(shoots)));
+                                strlen(furi_string_get_cstr(shoots)));
                         } else {
                             tanks_state->p1->shooting = true;
                         }
@@ -1738,7 +1738,7 @@ int32_t tanks_game_app(void* p) {
 
                     tanks_game_process_game_step(tanks_state);
 
-                    string_t serializedData;
+                    FuriString* serializedData;
                     unsigned char* data = tanks_game_serialize(tanks_state);
                     char arr[11 * 16 + 1];
 
@@ -1753,7 +1753,7 @@ int32_t tanks_game_app(void* p) {
                     subghz_tx_rx_worker_write(
                         subghz_txrx,
                         (uint8_t*)string_get_cstr(serializedData),
-                        strlen(string_get_cstr(serializedData)));
+                        strlen(furi_string_get_cstr(serializedData)));
 
                     tanks_state->sent++;
                 } else if(tanks_state->state == GameStateSingle) {

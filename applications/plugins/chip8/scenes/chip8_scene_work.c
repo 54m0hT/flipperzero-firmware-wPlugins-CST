@@ -58,12 +58,12 @@ void chip8_scene_work_on_enter(void* context) {
 
     chip8_set_file_name(app->chip8_view, app->file_name);
 
-    string_t file_tmp;
-    string_init(file_tmp);
+    FuriString* file_tmp;
+    file_tmp = furi_string_alloc();
 
-    string_printf(file_tmp, "%s", string_get_cstr(app->file_name));
+    furi_string_printf(file_tmp, "%s", furi_string_get_cstr(app->file_name));
 
-    FURI_LOG_I("chip8_scene_work_on_enter", "file_name: %s", string_get_cstr(file_tmp));
+    FURI_LOG_I("chip8_scene_work_on_enter", "file_name: %s", furi_string_get_cstr(file_tmp));
 
     FURI_LOG_I("chip8_scene_work_on_enter", "START SET BACKUP SCREEN");
     chip8_set_backup_screen(app->chip8_view, app->backup_screen);
@@ -71,7 +71,7 @@ void chip8_scene_work_on_enter(void* context) {
 
     app->chip8 = chip8_make_emulator(file_tmp);
 
-    string_clear(file_tmp);
+    furi_string_free(file_tmp);
 
     chip8_set_state(app->chip8_view, chip8_get_state(app->chip8));
 
