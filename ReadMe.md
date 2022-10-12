@@ -11,11 +11,14 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`, `Tanks` & `Chip8` (No Controls)
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-10 23:30 GMT`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-10 23:30 GMT`
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-12 04:14 GMT`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-12 04:14 GMT`
 - Updated [TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
 - Assets: Includes New Dolphin Animations: [Blaster (By Sasquach)]
 - Assets: Includes New Dolphin Animations: [Flipper City (By Svaarich)]
+- Updated Random Deed Function To Include New Options from OFW
+- Updated Assets: Dolphin Animations: [Rogue Master Custom Firmware (By Sasquach)] & [Narut0 (By Sasquach)]
+- OFW: Dolphin score points update **(WARNING!!! Dolphin Level will be reset after installing of this release!!!!)**
 
 <details>
   <summary><B>TO DO / REMOVED</b></summary><br/>
@@ -78,7 +81,7 @@ $ ./fbt resources icons
 $ ./fbt updater_package
 
 # If building FAPS:
-$ ./fbt plugin_dist FIRMWARE_APP_SET=ext_apps
+$ ./fbt plugin_dist
 ```
 </details>
       </td> </tr>
