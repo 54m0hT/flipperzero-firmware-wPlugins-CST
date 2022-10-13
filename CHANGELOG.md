@@ -1,10 +1,11 @@
 ### New changes
-* Plugins: RFID Fuzzer - fixed crash in load uids from file
-* Fixed .fap's debug (unable to set breakpoint)
-* PR: Turkish language support badusb layout (by @hardcod3dd | PR #95)
-* New icon for UART Echo (by @Svaarich)
-* New animaiton (flipper city) (by @Svaarich)
-* Discord link updated
+* PR: Feature: lock device with pin by long pressing up button (by @an4tur0r | PR #107)
+* Plugins: Updated TOTP (Authenticator) [(by akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+* OFW PR: scripts: simpler tar format (OFW PR 1871 by hedger)
+* OFW PR: Updated: MFC Improvements Part 2/2 (OFW PR 1868 by Astrrra)
+* OFW: Dolphin: add L1_Painting animation
+* OFW: fbt: more fixes & improvements 
+* OFW: Badusb: show script errors on screen
 
 #### [🎲 Download extra apps pack](https://download-directory.github.io/?url=https://github.com/UberGuidoZ/Flipper/tree/main/Applications/Unleashed)
 
