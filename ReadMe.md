@@ -11,20 +11,8 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-14 03:06 GMT`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-14 03:06 GMT`
-- Updated [TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
-- Assets: Includes New Dolphin Animations: [Blaster (By Sasquach)]
-- Assets: Includes New Dolphin Animations: [Flipper City (By Svaarich)]
-- Updated Random Deed Function To Include New Options from OFW
-- Updated Assets: Dolphin Animations: [Rogue Master Custom Firmware (By Sasquach)] & [Narut0 (By Sasquach)]
-- OFW: Dolphin score points update **(WARNING!!! Dolphin Level will be reset after installing of this release!!!!)**
-- Updated view for desktop to exclude icons on the left and show minimal battery [By skizzophrenic/Talking-Sasquach](https://github.com/skizzophrenic/Talking-Sasquach/tree/main/Battery%20Only%20Top%20Status%20Bar)
-- Added: [Black Jack (By teeebor)](https://github.com/teeebor/flipper_games) (Thank you Haseo for PR)
-- Added: [Music Beeper (By OFW)](With Changes By qqMajiKpp/Haseo)
-- Chip 8 Removed, Tama Fix and Tanks Fixed [By Haseo](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/362)
-- Fixed Sub Remote Desktop Shortcut
-- Added: [Tuning Fork (By Unknown)][PR by skizzophrenic](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/360)
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-14 20:25 GMT`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-14 20:25 GMT`
 
 <details>
   <summary><B>TO DO / REMOVED</b></summary><br/>
@@ -233,7 +221,7 @@ $ ./fbt plugin_dist
 - [Sub-GHz Bruteforcer (By Ganapati & xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/pull/57)
 - [Sub-GHz Playlist (By darmiel)](https://github.com/darmiel/flipper-playlist)
 - [TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
-- [Tuning Fork (By Unknown)][PR by skizzophrenic](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/360)
+- [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork)
 - [UPC-A Generator (By McAzzaMan)](https://github.com/McAzzaMan/flipperzero-firmware/tree/UPC-A_Barcode_Generator/applications/barcode_generator)
 - [USB Keyboard (By huuck)](https://github.com/huuck/FlipperZeroUSBKeyboard)
 - [WAV Player (By Zlo)](https://github.com/flipperdevices/flipperzero-firmware/tree/zlo/wav-player) Updated by Atmanos & RogueMaster To Work
