@@ -42,10 +42,7 @@ typedef enum {
     TileTypeMine
 } TileType;
 
-typedef enum {
-    FieldEmpty, // <-- same goes for this
-    FieldMine
-} Field;
+typedef enum { FieldEmpty, FieldMine } Field;
 
 typedef struct {
     Field minefield[PLAYFIELD_WIDTH][PLAYFIELD_HEIGHT];
@@ -99,6 +96,8 @@ static void render_callback(Canvas* const canvas, void* ctx) {
     furi_string_printf(timeStr, "%01d:%02d", minutes, seconds);
     canvas_draw_str_aligned(canvas, 128, 0, AlignRight, AlignTop, furi_string_get_cstr(timeStr));
 
+    uint8_t* tile_to_draw;
+
     for(int y = 0; y < PLAYFIELD_HEIGHT; y++) {
         for(int x = 0; x < PLAYFIELD_WIDTH; x++) {
             if(x == minesweeper_state->cursor_x && y == minesweeper_state->cursor_y) {
@@ -106,114 +105,53 @@ static void render_callback(Canvas* const canvas, void* ctx) {
             }
             switch(minesweeper_state->playfield[x][y]) {
             case TileType0:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_0_bits);
+                tile_to_draw = tile_0_bits;
                 break;
             case TileType1:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_1_bits);
+                tile_to_draw = tile_1_bits;
                 break;
             case TileType2:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_2_bits);
+                tile_to_draw = tile_2_bits;
                 break;
             case TileType3:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_3_bits);
+                tile_to_draw = tile_3_bits;
                 break;
             case TileType4:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_4_bits);
+                tile_to_draw = tile_4_bits;
                 break;
             case TileType5:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_5_bits);
+                tile_to_draw = tile_5_bits;
                 break;
             case TileType6:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_6_bits);
+                tile_to_draw = tile_6_bits;
                 break;
             case TileType7:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_7_bits);
+                tile_to_draw = tile_7_bits;
                 break;
             case TileType8:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_8_bits);
+                tile_to_draw = tile_8_bits;
                 break;
             case TileTypeFlag:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_flag_bits);
+                tile_to_draw = tile_flag_bits;
                 break;
             case TileTypeUncleared:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_uncleared_bits);
+                tile_to_draw = tile_uncleared_bits;
                 break;
             case TileTypeMine:
-                canvas_draw_xbm(
-                    canvas,
-                    x * TILE_HEIGHT, // x
-                    8 + (y * TILE_WIDTH), // y
-                    TILE_WIDTH,
-                    TILE_HEIGHT,
-                    tile_mine_bits);
+                tile_to_draw = tile_mine_bits;
+                break;
+            default:
+                // this should never happen
+                tile_to_draw = tile_mine_bits;
                 break;
             }
+            canvas_draw_xbm(
+                canvas,
+                x * TILE_HEIGHT, // x
+                8 + (y * TILE_WIDTH), // y
+                TILE_WIDTH,
+                TILE_HEIGHT,
+                tile_to_draw);
             if(x == minesweeper_state->cursor_x && y == minesweeper_state->cursor_y) {
                 canvas_invert_color(canvas);
             }
@@ -311,7 +249,6 @@ static bool game_won(Minesweeper* minesweeper_state) {
     dialog_message_set_text(
         message, furi_string_get_cstr(tempStr), 64, 32, AlignCenter, AlignCenter);
     dialog_message_set_buttons(message, NULL, "Play again", NULL);
-    // TODO: create icon
     dialog_message_set_icon(message, NULL, 72, 17);
 
     DialogMessageButton choice = dialog_message_show(dialogs, message);
@@ -321,18 +258,23 @@ static bool game_won(Minesweeper* minesweeper_state) {
     return choice == DialogMessageButtonCenter;
 }
 
+// returns false if the move loses the game - otherwise true
 static bool play_move(Minesweeper* minesweeper_state, int cursor_x, int cursor_y) {
-    if(minesweeper_state->playfield[cursor_x][cursor_y] != TileTypeUncleared) {
-        // we're on an already uncovered field
+    if(minesweeper_state->playfield[cursor_x][cursor_y] == TileTypeFlag) {
+        // we're on a flagged field, do nothing
         return true;
     }
     if(minesweeper_state->minefield[cursor_x][cursor_y] == FieldMine) {
-        // TODO: player loses!
+        // player loses - draw mine
         minesweeper_state->playfield[cursor_x][cursor_y] = TileTypeMine;
         return false;
-    } else {
-        // get number of surrounding mines.
-        int hint = 0;
+    }
+
+    if(minesweeper_state->playfield[cursor_x][cursor_y] >= TileType1 &&
+       minesweeper_state->playfield[cursor_x][cursor_y] <= TileType8) {
+        // click on a cleared cell with a number
+        // count the flags around
+        int flags = 0;
         for(int y = cursor_y - 1; y <= cursor_y + 1; y++) {
             for(int x = cursor_x - 1; x <= cursor_x + 1; x++) {
                 if(x == cursor_x && y == cursor_y) {
@@ -341,18 +283,15 @@ static bool play_move(Minesweeper* minesweeper_state, int cursor_x, int cursor_y
                 }
                 // make sure we don't go OOB
                 if(x >= 0 && x < PLAYFIELD_WIDTH && y >= 0 && y < PLAYFIELD_HEIGHT) {
-                    if(minesweeper_state->minefield[x][y] == FieldMine) {
-                        hint++;
+                    if(minesweeper_state->playfield[x][y] == TileTypeFlag) {
+                        flags++;
                     }
                 }
             }
         }
-        // 〜(￣▽￣〜) don't judge me (〜￣▽￣)〜
-        minesweeper_state->playfield[cursor_x][cursor_y] = hint;
-        minesweeper_state->fields_cleared++;
-        FURI_LOG_D("Minesweeper", "Setting %d,%d to %d", cursor_x, cursor_y, hint);
-        if(hint == 0) {
-            // auto open surrounding fields.
+        int mines = minesweeper_state->playfield[cursor_x][cursor_y]; // ¯\_(ツ)_/¯
+        if(flags == mines) {
+            // auto uncover all non-flags around (to win faster ;)
             for(int auto_y = cursor_y - 1; auto_y <= cursor_y + 1; auto_y++) {
                 for(int auto_x = cursor_x - 1; auto_x <= cursor_x + 1; auto_x++) {
                     if(auto_x == cursor_x && auto_y == cursor_y) {
@@ -361,14 +300,57 @@ static bool play_move(Minesweeper* minesweeper_state, int cursor_x, int cursor_y
                     if(auto_x >= 0 && auto_x < PLAYFIELD_WIDTH && auto_y >= 0 &&
                        auto_y < PLAYFIELD_HEIGHT) {
                         if(minesweeper_state->playfield[auto_x][auto_y] == TileTypeUncleared) {
-                            play_move(minesweeper_state, auto_x, auto_y);
+                            if(!play_move(minesweeper_state, auto_x, auto_y)) {
+                                // flags were wrong, we got a mine!
+                                return false;
+                            }
                         }
                     }
                 }
             }
+            // we're done without hitting a mine - so return
+            return true;
         }
-        return true;
     }
+
+    // calculate number of surrounding mines.
+    int hint = 0;
+    for(int y = cursor_y - 1; y <= cursor_y + 1; y++) {
+        for(int x = cursor_x - 1; x <= cursor_x + 1; x++) {
+            if(x == cursor_x && y == cursor_y) {
+                // we're on the cell the user selected, so ignore.
+                continue;
+            }
+            // make sure we don't go OOB
+            if(x >= 0 && x < PLAYFIELD_WIDTH && y >= 0 && y < PLAYFIELD_HEIGHT) {
+                if(minesweeper_state->minefield[x][y] == FieldMine) {
+                    hint++;
+                }
+            }
+        }
+    }
+    // 〜(￣▽￣〜) don't judge me (〜￣▽￣)〜
+    minesweeper_state->playfield[cursor_x][cursor_y] = hint;
+    minesweeper_state->fields_cleared++;
+    FURI_LOG_D("Minesweeper", "Setting %d,%d to %d", cursor_x, cursor_y, hint);
+    if(hint == 0) {
+        // the field is "empty"
+        // auto open surrounding fields.
+        for(int auto_y = cursor_y - 1; auto_y <= cursor_y + 1; auto_y++) {
+            for(int auto_x = cursor_x - 1; auto_x <= cursor_x + 1; auto_x++) {
+                if(auto_x == cursor_x && auto_y == cursor_y) {
+                    continue;
+                }
+                if(auto_x >= 0 && auto_x < PLAYFIELD_WIDTH && auto_y >= 0 &&
+                   auto_y < PLAYFIELD_HEIGHT) {
+                    if(minesweeper_state->playfield[auto_x][auto_y] == TileTypeUncleared) {
+                        play_move(minesweeper_state, auto_x, auto_y);
+                    }
+                }
+            }
+        }
+    }
+    return true;
 }
 
 static void minesweeper_state_init(Minesweeper* const minesweeper_state) {
@@ -435,25 +417,25 @@ int32_t minesweeper_app(void* p) {
                     case InputKeyUp:
                         minesweeper_state->cursor_y--;
                         if(minesweeper_state->cursor_y < 0) {
-                            minesweeper_state->cursor_y = 0;
+                            minesweeper_state->cursor_y = PLAYFIELD_HEIGHT - 1;
                         }
                         break;
                     case InputKeyDown:
                         minesweeper_state->cursor_y++;
                         if(minesweeper_state->cursor_y >= PLAYFIELD_HEIGHT) {
-                            minesweeper_state->cursor_y = PLAYFIELD_HEIGHT - 1;
+                            minesweeper_state->cursor_y = 0;
                         }
                         break;
                     case InputKeyRight:
                         minesweeper_state->cursor_x++;
                         if(minesweeper_state->cursor_x >= PLAYFIELD_WIDTH) {
-                            minesweeper_state->cursor_x = PLAYFIELD_WIDTH - 1;
+                            minesweeper_state->cursor_x = 0;
                         }
                         break;
                     case InputKeyLeft:
                         minesweeper_state->cursor_x--;
                         if(minesweeper_state->cursor_x < 0) {
-                            minesweeper_state->cursor_x = 0;
+                            minesweeper_state->cursor_x = PLAYFIELD_WIDTH - 1;
                         }
                         break;
                     case InputKeyOk:
@@ -510,6 +492,9 @@ int32_t minesweeper_app(void* p) {
                     }
                 }
             }
+        } else {
+            // event timeout
+            ;
         }
         view_port_update(view_port);
         release_mutex(&state_mutex, minesweeper_state);
