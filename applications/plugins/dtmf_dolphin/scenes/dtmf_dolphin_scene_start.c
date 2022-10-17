@@ -3,8 +3,7 @@
 static void dtmf_dolphin_scene_start_main_menu_enter_callback(void* context, uint32_t index) {
     DTMFDolphinApp* app = context;
     uint8_t cust_event = 255;
-    switch (index)
-    {
+    switch(index) {
     case 0:
         cust_event = DTMFDolphinEventStartDialer;
         break;
@@ -12,16 +11,19 @@ static void dtmf_dolphin_scene_start_main_menu_enter_callback(void* context, uin
         cust_event = DTMFDolphinEventStartBluebox;
         break;
     case 2:
+        cust_event = DTMFDolphinEventStartRedboxUS;
+        break;
+    case 3:
+        cust_event = DTMFDolphinEventStartRedboxUK;
+        break;
+    case 4:
         cust_event = DTMFDolphinEventStartMisc;
         break;
     default:
         return;
     }
-    
-    view_dispatcher_send_custom_event(
-        app->view_dispatcher,
-        cust_event
-    );
+
+    view_dispatcher_send_custom_event(app->view_dispatcher, cust_event);
 }
 
 void dtmf_dolphin_scene_start_on_enter(void* context) {
@@ -30,21 +32,18 @@ void dtmf_dolphin_scene_start_on_enter(void* context) {
 
     // VariableItem* item;
     variable_item_list_set_enter_callback(
-        var_item_list,
-        dtmf_dolphin_scene_start_main_menu_enter_callback,
-        app);
+        var_item_list, dtmf_dolphin_scene_start_main_menu_enter_callback, app);
 
-    variable_item_list_add(var_item_list, "Dialer", 0, NULL, NULL);
-    variable_item_list_add(var_item_list, "Bluebox", 0, NULL, NULL);
-    variable_item_list_add(var_item_list, "Misc", 0, NULL, NULL);
+    variable_item_list_add(var_item_list, "Dialer", 0, NULL, context);
+    variable_item_list_add(var_item_list, "Bluebox", 0, NULL, context);
+    variable_item_list_add(var_item_list, "Redbox (US)", 0, NULL, context);
+    variable_item_list_add(var_item_list, "Redbox (UK)", 0, NULL, context);
+    variable_item_list_add(var_item_list, "Misc", 0, NULL, context);
 
     variable_item_list_set_selected_item(
-        var_item_list,
-        scene_manager_get_scene_state(app->scene_manager, DTMFDolphinSceneStart));
+        var_item_list, scene_manager_get_scene_state(app->scene_manager, DTMFDolphinSceneStart));
 
-    view_dispatcher_switch_to_view(
-        app->view_dispatcher,
-        DTMFDolphinViewMainMenu);
+    view_dispatcher_switch_to_view(app->view_dispatcher, DTMFDolphinViewMainMenu);
 }
 
 bool dtmf_dolphin_scene_start_on_event(void* context, SceneManagerEvent event) {
@@ -53,16 +52,30 @@ bool dtmf_dolphin_scene_start_on_event(void* context, SceneManagerEvent event) {
     bool consumed = false;
 
     if(event.type == SceneManagerEventTypeCustom) {
-        if (event.event == DTMFDolphinEventStartDialer) {
-            scene_manager_set_scene_state(app->scene_manager, DTMFDolphinSceneDialer, DTMFDolphinSceneStateDialer);
-            scene_manager_next_scene(app->scene_manager, DTMFDolphinSceneDialer);
-        } else if (event.event == DTMFDolphinEventStartBluebox) {
-            scene_manager_set_scene_state(app->scene_manager, DTMFDolphinSceneDialer, DTMFDolphinSceneStateBluebox);
-            scene_manager_next_scene(app->scene_manager, DTMFDolphinSceneDialer);
-        } else if (event.event == DTMFDolphinEventStartMisc) {
-            scene_manager_set_scene_state(app->scene_manager, DTMFDolphinSceneDialer, DTMFDolphinSceneStateMisc);
-            scene_manager_next_scene(app->scene_manager, DTMFDolphinSceneDialer);
+        uint8_t sc_state;
+
+        switch(event.event) {
+        case DTMFDolphinEventStartDialer:
+            sc_state = DTMFDolphinSceneStateDialer;
+            break;
+        case DTMFDolphinEventStartBluebox:
+            sc_state = DTMFDolphinSceneStateBluebox;
+            break;
+        case DTMFDolphinEventStartRedboxUS:
+            sc_state = DTMFDolphinSceneStateRedboxUS;
+            break;
+        case DTMFDolphinEventStartRedboxUK:
+            sc_state = DTMFDolphinSceneStateRedboxUK;
+            break;
+        case DTMFDolphinEventStartMisc:
+            sc_state = DTMFDolphinSceneStateMisc;
+            break;
+        default:
+            return consumed;
         }
+        scene_manager_set_scene_state(app->scene_manager, DTMFDolphinSceneDialer, sc_state);
+        scene_manager_next_scene(app->scene_manager, DTMFDolphinSceneDialer);
+
         consumed = true;
     }
     return consumed;
