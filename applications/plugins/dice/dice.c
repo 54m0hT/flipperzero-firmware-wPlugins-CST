@@ -124,29 +124,29 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             snprintf(state->strings[1], sizeof(state->strings[1]), "%s", eightBall[d1_i]);
         } else if(state->diceSelect == 228) {
             const char* eightBall[] = {
-                "I'd do it.",
-                "Hell, yeah!",
-                "You bet your life!",
-                "What are you waiting for?",
-                "You could do worse things.",
-                "Sure, I won't tell.",
-                "Yeah, you got this. Would I lie to you?",
-                "Looks like fun to me. ",
-                "Yeah, sure, why not?",
-                "DO IT!!!",
-                "Who's it gonna hurt?",
-                "Can you blame someone else?",
-                "Ask me again later.",
-                "Maybe, maybe not, I can't tell right now. ",
-                "Are you the betting type? ",
-                "Don't blame me if you get caught.",
-                "What have you got to lose?",
-                "I wouldn't if I were you.",
-                "My money's on the snowball.",
-                "Oh Hell no!"};
+                "Yo lo haria.",
+                "Demonios, Si!",
+                "Apuesta tu vida!",
+                "A que estas esperando?",
+                "Podrias ser peor.",
+                "Seguro, no lo contare",
+                "Si, seguro, te mentiria yo?",
+                "Parece divertido. ",
+                "Si, seguro. Por que no?",
+                "HAZLO!!!",
+                "A quien le va a doler?",
+                "Puedes culpar a otro?",
+                "Pregunta mas tarde.",
+                "Puede que si, o no, ahora no lo se. ",
+                "Te gusta apostar? ",
+                "No me culpes si te pillan.",
+                "Que puedes peder?",
+                "No lo haria si fuera tu.",
+                "Mi dinero esta en la bola de nieve.",
+                "Oh, diablos, no!"};
             state->diceRoll =
                 ((rand() % state->diceSelect) + 1); // JUST TO GET IT GOING? AND FIX BUG
-            snprintf(state->diceType[0], sizeof(state->diceType[0]), "%s", "Devil Ball");
+            snprintf(state->diceType[0], sizeof(state->diceType[0]), "%s", "Bola infernal");
             snprintf(
                 state->strings[0],
                 sizeof(state->strings[0]),
@@ -247,7 +247,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             }
         } else if(state->diceSelect == 232) {
             const char* diceOne[] = {
-                "Tu", "Tu eliges", "Nadie", "Todos", "Nariz", "El jugador de tu derecha"};
+                "Tu", "Tu eliges", "Nadie", "Todos", "Nariz", "El de tu derecha"};
             const char* diceTwo[] = {
                 "da un pequelo calo",
                 "solo relajate",
@@ -260,13 +260,13 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
                 "con los ojos cerrados",
                 "de rodillas",
                 "mientras te tapas la nariz",
-                "mientras da vueltas en circulo",
+                "mientras andas en circulo",
                 "a camara lenta"};
             const char* diceFour[] = {
                 "dos veces",
                 "entonces cuenta un chiste",
-                "entonces riete tan fuerte como puedas",
-                "con el jugador a tu izquierda",
+                "entonces riete muuuuy fuerte",
+                "con el de tu izquierda",
                 "entonces canta una cancion",
                 "entonces baila"};
             state->diceRoll =
