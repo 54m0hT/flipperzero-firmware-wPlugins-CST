@@ -1,5 +1,6 @@
 ### New changes
-* OFW PR: Fix dolphin level reset on update (OFW PR 1874 by nminaylov)
+* PR -> Power: remove % sign from desktop and center numbers (by @TQMatvey | PR #115)
+* Plugins: Heap Defence Game (aka Stack Attack) [(original by wquinoa & Vedmein)](https://github.com/Vedmein/flipperzero-firmware/tree/hd/svisto-perdelki) -> Ported to latest firmware by @xMasterX
 
 #### [🎲 Download extra apps pack](https://download-directory.github.io/?url=https://github.com/UberGuidoZ/Flipper/tree/main/Applications/Unleashed)
 
@@ -8,6 +9,7 @@
 [-> Download qFlipper 1.2.1 (allows .tgz installation) (official link)](https://update.flipperzero.one/builds/qFlipper/1.2.1/)
 
 ## Please support development of the project
+* Boosty: https://boosty.to/mmxdev
 * ETH/BSC/ERC20-Tokens: `0xFebF1bBc8229418FF2408C07AF6Afa49152fEc6a`
 * BTC: `bc1q0np836jk9jwr4dd7p6qv66d04vamtqkxrecck9`
 * DOGE: `D6R6gYgBn5LwTNmPyvAQR6bZ9EtGgFCpvv`
