@@ -80,10 +80,7 @@ def BuildAppElf(env, app):
                 *lib_def.cflags,
             ],
             CPPDEFINES=lib_def.cdefines,
-            CPPPATH=list(
-                os.path.join(app._appdir.path, cinclude)
-                for cinclude in lib_def.cincludes
-            ),
+            CPPPATH=list(map(app._appdir.Dir, lib_def.cincludes)),
         )
 
         lib = private_lib_env.StaticLibrary(
@@ -148,7 +145,7 @@ def BuildAppElf(env, app):
 
 
 def prepare_app_metadata(target, source, env):
-    sdk_cache = SdkCache(env.subst("$SDK_DEFINITION"), load_version_only=True)
+    sdk_cache = SdkCache(env["SDK_DEFINITION"].path, load_version_only=True)
 
     if not sdk_cache.is_buildable():
         raise UserError(
@@ -169,7 +166,7 @@ def prepare_app_metadata(target, source, env):
 
 
 def validate_app_imports(target, source, env):
-    sdk_cache = SdkCache(env.subst("$SDK_DEFINITION"), load_version_only=False)
+    sdk_cache = SdkCache(env["SDK_DEFINITION"].path, load_version_only=False)
     app_syms = set()
     with open(target[0].path, "rt") as f:
         for line in f:

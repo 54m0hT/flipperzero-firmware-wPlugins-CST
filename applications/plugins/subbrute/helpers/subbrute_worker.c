@@ -3,6 +3,7 @@
 #include <toolbox/stream/stream.h>
 #include <flipper_format.h>
 #include <flipper_format_i.h>
+#include <lib/subghz/protocols/protocol_items.h>
 
 #define TAG "SubBruteWorker"
 #define SUBBRUTE_TX_TIMEOUT 5
@@ -30,6 +31,8 @@ SubBruteWorker* subbrute_worker_alloc() {
     instance->decoder_result = NULL;
     instance->transmitter = NULL;
     instance->environment = subghz_environment_alloc();
+    subghz_environment_set_protocol_registry(
+        instance->environment, (void*)&subghz_protocol_registry);
 
     instance->transmit_mode = false;
 
@@ -185,8 +188,11 @@ bool subbrute_worker_start(SubBruteWorker* instance) {
 void subbrute_worker_stop(SubBruteWorker* instance) {
     furi_assert(instance);
 
-    instance->worker_running = false;
+    if(!instance->worker_running) {
+        return;
+    }
 
+    instance->worker_running = false;
     furi_thread_join(instance->thread);
 
     furi_hal_subghz_set_path(FuriHalSubGhzPathIsolate);

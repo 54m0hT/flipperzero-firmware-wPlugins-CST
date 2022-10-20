@@ -151,15 +151,18 @@ static bool subghz_protocol_keeloq_gen_data(SubGhzProtocolEncoderKeeloq* instanc
         instance->manufacture_name = "";
     }
 
-    // DTM Neo uses 12bit, simple learning
-    if((strcmp(instance->manufacture_name, "DTM_Neo") == 0)) {
+    // DTM Neo uses 12bit -> simple learning -- FAAC_RC,XT , Mutanco_Mutancode -> 12bit normal learning
+    if((strcmp(instance->manufacture_name, "DTM_Neo") == 0) ||
+       (strcmp(instance->manufacture_name, "FAAC_RC,XT") == 0) ||
+       (strcmp(instance->manufacture_name, "Mutanco_Mutancode") == 0)) {
         decrypt = btn << 28 | (instance->generic.serial & 0xFFF) << 16 | instance->generic.cnt;
     }
 
-    // Nice Smilo, MHouse, JCM has 8bit serial - simple learning
+    // Nice Smilo, MHouse, JCM, Normstahl -> 8bit serial - simple learning
     if((strcmp(instance->manufacture_name, "NICE_Smilo") == 0) ||
        (strcmp(instance->manufacture_name, "NICE_MHOUSE") == 0) ||
-       (strcmp(instance->manufacture_name, "JCM_Tech") == 0)) {
+       (strcmp(instance->manufacture_name, "JCM_Tech") == 0) ||
+       (strcmp(instance->manufacture_name, "Normstahl") == 0)) {
         decrypt = btn << 28 | (instance->generic.serial & 0xFF) << 16 | instance->generic.cnt;
     }
 
@@ -247,7 +250,7 @@ bool subghz_protocol_keeloq_create_data(
     uint8_t btn,
     uint16_t cnt,
     const char* manufacture_name,
-    SubGhzPresetDefinition* preset) {
+    SubGhzRadioPreset* preset) {
     furi_assert(context);
     SubGhzProtocolEncoderKeeloq* instance = context;
     instance->generic.serial = serial;
@@ -269,7 +272,7 @@ bool subghz_protocol_keeloq_bft_create_data(
     uint16_t cnt,
     uint32_t seed,
     const char* manufacture_name,
-    SubGhzPresetDefinition* preset) {
+    SubGhzRadioPreset* preset) {
     furi_assert(context);
     SubGhzProtocolEncoderKeeloq* instance = context;
     instance->generic.serial = serial;
@@ -947,7 +950,7 @@ uint8_t subghz_protocol_decoder_keeloq_get_hash_data(void* context) {
 bool subghz_protocol_decoder_keeloq_serialize(
     void* context,
     FlipperFormat* flipper_format,
-    SubGhzPresetDefinition* preset) {
+    SubGhzRadioPreset* preset) {
     furi_assert(context);
     SubGhzProtocolDecoderKeeloq* instance = context;
 

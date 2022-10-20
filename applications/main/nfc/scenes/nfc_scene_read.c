@@ -69,6 +69,8 @@ bool nfc_scene_read_on_event(void* context, SceneManagerEvent event) {
             consumed = true;
         } else if(event.event == NfcWorkerEventReadMfUltralight) {
             notification_message(nfc->notifications, &sequence_success);
+            // Set unlock password input to 0xFFFFFFFF only on fresh read
+            memset(nfc->byte_input_store, 0xFF, 4);
             scene_manager_next_scene(nfc->scene_manager, NfcSceneMfUltralightReadSuccess);
             consumed = true;
         } else if(event.event == NfcWorkerEventReadMfClassicDone) {
@@ -82,6 +84,16 @@ bool nfc_scene_read_on_event(void* context, SceneManagerEvent event) {
         } else if(event.event == NfcWorkerEventReadBankCard) {
             notification_message(nfc->notifications, &sequence_success);
             scene_manager_next_scene(nfc->scene_manager, NfcSceneEmvReadSuccess);
+            consumed = true;
+        } else if(event.event == NfcWorkerEventReadPassport) {
+            notification_message(nfc->notifications, &sequence_success);
+            if(nfc->dev->dev_data.mrtd_data.auth_success) {
+                scene_manager_next_scene(nfc->scene_manager, NfcScenePassportReadAuthSuccess);
+                //TODO: } else if(nfc->dev->dev_data.mrtd_data.auth.method != MrtdAuthMethodNone) {
+                //scene_manager_next_scene(nfc->scene_manager, NfcScenePassportReadAuthFailed);
+            } else {
+                scene_manager_next_scene(nfc->scene_manager, NfcScenePassportReadSuccess);
+            }
             consumed = true;
         } else if(event.event == NfcWorkerEventReadMfClassicDictAttackRequired) {
             if(mf_classic_dict_check_presence(MfClassicDictTypeFlipper)) {

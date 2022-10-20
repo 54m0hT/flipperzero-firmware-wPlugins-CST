@@ -30,7 +30,7 @@ typedef struct {
     uint8_t playerOneScore;
     uint8_t playerTwoScore;
     char rollTime[1][15];
-    char diceType[1][8];
+    char diceType[1][11];
     char strings[5][45];
     char theScores[1][45];
     bool letsRoll;
@@ -52,7 +52,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
     }
 
     canvas_set_font(canvas, FontSecondary);
-    if(state->diceSelect < 229) {
+    if(state->diceSelect < 220) {
         if(state->diceQty == 1) {
             elements_button_left(canvas, "x1");
         } else if(state->diceQty == 2) {
@@ -114,6 +114,39 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             state->diceRoll =
                 ((rand() % state->diceSelect) + 1); // JUST TO GET IT GOING? AND FIX BUG
             snprintf(state->diceType[0], sizeof(state->diceType[0]), "%s", "BOLA8");
+            snprintf(
+                state->strings[0],
+                sizeof(state->strings[0]),
+                "%s at %s",
+                state->diceType[0],
+                state->rollTime[0]);
+            uint8_t d1_i = rand() % COUNT_OF(eightBall);
+            snprintf(state->strings[1], sizeof(state->strings[1]), "%s", eightBall[d1_i]);
+        } else if(state->diceSelect == 228) {
+            const char* eightBall[] = {
+                "Yo lo haria.",
+                "Demonios, Si!",
+                "Apuesta tu vida!",
+                "A que estas esperando?",
+                "Podrias ser peor.",
+                "Seguro, no lo contare",
+                "Si, seguro, te mentiria yo?",
+                "Parece divertido. ",
+                "Si, seguro. Por que no?",
+                "HAZLO!!!",
+                "A quien le va a doler?",
+                "Puedes culpar a otro?",
+                "Pregunta mas tarde.",
+                "Puede que si, o no, ahora no lo se. ",
+                "Te gusta apostar? ",
+                "No me culpes si te pillan.",
+                "Que puedes peder?",
+                "No lo haria si fuera tu.",
+                "Mi dinero esta en la bola de nieve.",
+                "Oh, diablos, no!"};
+            state->diceRoll =
+                ((rand() % state->diceSelect) + 1); // JUST TO GET IT GOING? AND FIX BUG
+            snprintf(state->diceType[0], sizeof(state->diceType[0]), "%s", "Bola infernal");
             snprintf(
                 state->strings[0],
                 sizeof(state->strings[0]),
@@ -214,7 +247,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             }
         } else if(state->diceSelect == 232) {
             const char* diceOne[] = {
-                "Tu", "Tu eliges", "Nadie", "Todos", "Nariz", "El jugador de tu derecha"};
+                "Tu", "Tu eliges", "Nadie", "Todos", "Nariz", "El de tu derecha"};
             const char* diceTwo[] = {
                 "da un pequelo calo",
                 "solo relajate",
@@ -227,13 +260,13 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
                 "con los ojos cerrados",
                 "de rodillas",
                 "mientras te tapas la nariz",
-                "mientras da vueltas en circulo",
+                "mientras andas en circulo",
                 "a camara lenta"};
             const char* diceFour[] = {
                 "dos veces",
                 "entonces cuenta un chiste",
-                "entonces riete tan fuerte como puedas",
-                "con el jugador a tu izquierda",
+                "entonces riete muuuuy fuerte",
+                "con el de tu izquierda",
                 "entonces canta una cancion",
                 "entonces baila"};
             state->diceRoll =
@@ -328,6 +361,11 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             canvas_draw_str_aligned(canvas, 64, 26, AlignCenter, AlignCenter, state->strings[2]);
             canvas_draw_str_aligned(canvas, 64, 34, AlignCenter, AlignCenter, state->strings[3]);
             canvas_draw_str_aligned(canvas, 64, 42, AlignCenter, AlignCenter, state->strings[4]);
+        } else if(state->diceSelect == 228 || state->diceSelect == 229) {
+            canvas_set_font(canvas, FontBatteryPercent);
+            canvas_draw_str_aligned(canvas, 64, 20, AlignCenter, AlignCenter, state->strings[1]);
+            canvas_set_font(canvas, FontSecondary);
+            canvas_draw_str_aligned(canvas, 64, 8, AlignCenter, AlignCenter, state->strings[0]);
         } else {
             canvas_set_font(canvas, FontPrimary);
             canvas_draw_str_aligned(canvas, 64, 20, AlignCenter, AlignCenter, state->strings[1]);
@@ -346,7 +384,7 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
             canvas_draw_str_aligned(canvas, 64, 34, AlignCenter, AlignCenter, state->theScores[0]);
         }
     }
-    if(state->diceSelect == 229) {
+    if(state->diceSelect == 229 || state->diceSelect == 228) {
         elements_button_center(canvas, "Agitar");
     } else if(state->diceSelect == 231) {
         elements_button_center(canvas, "Dibujar");
@@ -377,6 +415,8 @@ static void dice_render_callback(Canvas* const canvas, void* ctx) {
         elements_button_right(canvas, "d100");
     } else if(state->diceSelect == 229) {
         elements_button_right(canvas, "BOLA8");
+    } else if(state->diceSelect == 228) {
+        elements_button_right(canvas, "BOLAD");
     } else if(state->diceSelect == 230) {
         elements_button_right(canvas, "SEXO");
     } else if(state->diceSelect == 231) {
@@ -487,6 +527,8 @@ int32_t dice_app(void* p) {
                         } else if(plugin_state->diceSelect == 231) {
                             plugin_state->diceSelect = 229;
                         } else if(plugin_state->diceSelect == 229) {
+                            plugin_state->diceSelect = 228;
+                        } else if(plugin_state->diceSelect == 228) {
                             if(plugin_state->desktop_settings->is_dumbmode) {
                                 plugin_state->diceSelect = 59;
                             } else {
