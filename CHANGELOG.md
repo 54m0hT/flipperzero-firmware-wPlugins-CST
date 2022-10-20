@@ -1,14 +1,5 @@
 ### New changes
-* Plugins: SubGHz Bruteforcer - added Chamberlain 7bit and 8bit
-### Previous changes
-* PR -> NFC: New mifare classic keys (by @ankris812 | PR #119)
-* New API version 3.2 -> 4.1 (due to breaking changes in subghz part) (old apps needs to be recompiled, update for extra apps pack is coming soon)
-* OFW PR: WeatherStation plugin and SubGHz changes (OFW PR 1833 by Skorpionm)
-* OFW: Allow pins 0 and 1 as RTS/DTR for USB UART Bridge
-* OFW: Picopass: Read Elite
-* OFW: SubGhz: CAME Wrong number of bits in key (add protocol Airforce)
-* OFW: Forced RAW receive option for Infrared CLI 
-* OFW: scripts: fixed c2 bundle format
+* PR: New Frequency analyzer, history of 4 elements, ability to select frequency from history and hold OK to go into Read (by @derskythe | PR #121)
 
 #### [🎲 Download extra apps pack](https://download-directory.github.io/?url=https://github.com/UberGuidoZ/Flipper/tree/main/Applications/Unleashed)
 
