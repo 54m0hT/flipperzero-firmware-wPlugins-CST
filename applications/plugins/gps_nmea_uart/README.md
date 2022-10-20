@@ -1,5 +1,7 @@
 # GPS for Flipper Zero
 
+[Original link](https://github.com/ezod/flipperzero-gps)
+
 A simple Flipper Zero application for NMEA 0183 serial GPS modules, such as the [Adafruit Ultimate GPS Breakout].
 
 Heavy lifting (NMEA parsing) provided by [minmea], which is included in this repository.

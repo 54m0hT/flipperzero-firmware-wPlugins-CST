@@ -1,6 +1,6 @@
 App(
-    appid="NMEA0183_GPS",
-    name="[NMEA0183] GPS",
+    appid="NMEA_GPS",
+    name="[NMEA] GPS",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="gps_app",
     cdefines=["APP_GPS"],

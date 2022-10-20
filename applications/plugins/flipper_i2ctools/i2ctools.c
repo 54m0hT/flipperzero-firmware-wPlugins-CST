@@ -37,7 +37,7 @@ typedef enum {
     SCAN_VIEW,
     SNIFF_VIEW,
     SEND_VIEW,
-    PLAY_VIEW,
+    //PLAY_VIEW,
 
     /* Know menu Size*/
     MENU_SIZE
@@ -128,8 +128,8 @@ void i2ctools_draw_main_menu(Canvas* canvas, i2cToolsData* data) {
             canvas, SNIFF_MENU_X, SNIFF_MENU_Y, AlignLeft, AlignTop, SNIFF_MENU_TEXT);
         canvas_draw_str_aligned(
             canvas, SEND_MENU_X, SEND_MENU_Y, AlignLeft, AlignTop, SEND_MENU_TEXT);
-        canvas_draw_str_aligned(
-            canvas, PLAY_MENU_X, PLAY_MENU_Y, AlignLeft, AlignTop, PLAY_MENU_TEXT);
+        /*canvas_draw_str_aligned(
+            canvas, PLAY_MENU_X, PLAY_MENU_Y, AlignLeft, AlignTop, PLAY_MENU_TEXT);*/
 
         canvas_draw_rbox(canvas, 60, SCAN_MENU_Y - 2, 60, 13, 3);
         canvas_set_color(canvas, ColorWhite);
@@ -143,8 +143,8 @@ void i2ctools_draw_main_menu(Canvas* canvas, i2cToolsData* data) {
             canvas, SCAN_MENU_X, SCAN_MENU_Y, AlignLeft, AlignTop, SCAN_MENU_TEXT);
         canvas_draw_str_aligned(
             canvas, SEND_MENU_X, SEND_MENU_Y, AlignLeft, AlignTop, SEND_MENU_TEXT);
-        canvas_draw_str_aligned(
-            canvas, PLAY_MENU_X, PLAY_MENU_Y, AlignLeft, AlignTop, PLAY_MENU_TEXT);
+        /*canvas_draw_str_aligned(
+            canvas, PLAY_MENU_X, PLAY_MENU_Y, AlignLeft, AlignTop, PLAY_MENU_TEXT);*/
 
         canvas_draw_rbox(canvas, 60, SNIFF_MENU_Y - 2, 60, 13, 3);
         canvas_set_color(canvas, ColorWhite);
@@ -158,8 +158,8 @@ void i2ctools_draw_main_menu(Canvas* canvas, i2cToolsData* data) {
             canvas, SCAN_MENU_X, SCAN_MENU_Y, AlignLeft, AlignTop, SCAN_MENU_TEXT);
         canvas_draw_str_aligned(
             canvas, SNIFF_MENU_X, SNIFF_MENU_Y, AlignLeft, AlignTop, SNIFF_MENU_TEXT);
-        canvas_draw_str_aligned(
-            canvas, PLAY_MENU_X, PLAY_MENU_Y, AlignLeft, AlignTop, PLAY_MENU_TEXT);
+        /*canvas_draw_str_aligned(
+            canvas, PLAY_MENU_X, PLAY_MENU_Y, AlignLeft, AlignTop, PLAY_MENU_TEXT);*/
 
         canvas_draw_rbox(canvas, 60, SEND_MENU_Y - 2, 60, 13, 3);
         canvas_set_color(canvas, ColorWhite);
@@ -478,9 +478,9 @@ void i2ctools_draw_callback(Canvas* canvas, void* ctx) {
     case SEND_VIEW:
         i2ctools_draw_send_view(canvas, i2c_addr);
         break;
-    case PLAY_VIEW:
+    /*case PLAY_VIEW:
         i2ctools_draw_record_view(canvas, i2c_addr);
-        break;
+        break;*/
     default:
         break;
     }
@@ -566,7 +566,7 @@ int32_t i2ctools_app(void* p) {
 
         } else if(event.key == InputKeyDown && event.type == InputTypeRelease) {
             if(i2caddrs->current_menu == MAIN_VIEW) {
-                if(i2caddrs->main_menu_index < 3) {
+                if(i2caddrs->main_menu_index < 2) {
                     i2caddrs->main_menu_index++;
                 }
             } else if(i2caddrs->current_menu == SCAN_VIEW) {
@@ -596,9 +596,9 @@ int32_t i2ctools_app(void* p) {
                     i2caddrs->current_menu = SNIFF_VIEW;
                 } else if(i2caddrs->main_menu_index == 2) {
                     i2caddrs->current_menu = SEND_VIEW;
-                } else if(i2caddrs->main_menu_index == 3) {
+                } /*else if(i2caddrs->main_menu_index == 3) {
                     i2caddrs->current_menu = PLAY_VIEW;
-                }
+                }*/
             } else if(i2caddrs->current_menu == SCAN_VIEW) {
                 scan_i2c_bus(i2caddrs);
             } else if(i2caddrs->current_menu == SEND_VIEW) {
