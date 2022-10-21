@@ -8,7 +8,27 @@ extern "C" int32_t sam_app(void* p) {
 
     voice.begin();
     voice.say(
-        "Welcome to Matrix. Ha, ha, ha. ");
+        "Welcome to Matrix little human. ");
+
+    return 0;
+}
+
+extern "C" int32_t sam_app_yes(void* p) {
+    UNUSED(p);
+
+    voice.begin();
+    voice.say(
+        "Yes");
+
+    return 0;
+}
+
+extern "C" int32_t sam_app_no(void* p) {
+    UNUSED(p);
+
+    voice.begin();
+    voice.say(
+        "No");
 
     return 0;
 }
