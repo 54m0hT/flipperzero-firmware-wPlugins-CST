@@ -20,6 +20,8 @@ typedef enum {
     ChamberlainFileProtocol,
     LinearFileProtocol,
     PrincetonFileProtocol,
+    ClemsaFileProtocol,
+    BETTFileProtocol,
     RAWFileProtocol,
     TotalFileProtocol,
 } SubBruteFileProtocol;

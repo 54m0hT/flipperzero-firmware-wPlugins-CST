@@ -267,6 +267,8 @@ static const char* subbrute_protocol_file_types[] = {
     [ChamberlainFileProtocol] = "Cham_Code",
     [LinearFileProtocol] = "Linear",
     [PrincetonFileProtocol] = "Princeton",
+    [ClemsaFileProtocol] = "Clemsa",
+    [BETTFileProtocol] = "BETT",
     [RAWFileProtocol] = "RAW"};
 
 /**
