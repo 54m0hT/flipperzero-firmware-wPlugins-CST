@@ -2,8 +2,6 @@
 #include <notification/notification_messages.h>
 
 #include "ui.h"
-#include "card.h"
-#include "util.h"
 
 #define LINE_HEIGHT 16
 #define ITEM_PADDING 4
@@ -13,25 +11,20 @@ const char MoneyMul[4] = {'K', 'B', 'T', 'S'};
 void draw_player_scene(Canvas* const canvas, const GameState* game_state) {
     int max_card = game_state->player_card_count;
 
-    if(max_card > 0) drawPlayerDeck((game_state->player_cards), max_card, canvas);
+    if(max_card > 0) draw_deck((game_state->player_cards), max_card, canvas);
 
-    if(game_state->dealer_card_count > 0) drawCardBackAt(13, 5, canvas);
+    if(game_state->dealer_card_count > 0) draw_card_back_at(13, 5, canvas);
 
     max_card = game_state->dealer_card_count;
     if(max_card > 1) {
-        drawCardAt(
-            2,
-            2,
-            game_state->dealer_cards[1].pip,
-            game_state->dealer_cards[1].character,
-            Normal,
-            canvas);
+        draw_card_at(
+            2, 2, game_state->dealer_cards[1].pip, game_state->dealer_cards[1].character, canvas);
     }
 }
 
 void draw_dealer_scene(Canvas* const canvas, const GameState* game_state) {
     uint8_t max_card = game_state->dealer_card_count;
-    drawPlayerDeck((game_state->dealer_cards), max_card, canvas);
+    draw_deck((game_state->dealer_cards), max_card, canvas);
 }
 
 void popup_frame(Canvas* const canvas) {
@@ -140,8 +133,8 @@ void settings_page(Canvas* const canvas, const GameState* gameState) {
         startY -= (LINE_HEIGHT * (gameState->selectedMenu + 1)) - 64;
     }
 
-    int scrollHeight = round(64 / 7.0) + ITEM_PADDING * 2;
-    int scrollPos = 64 / (7.0 / (gameState->selectedMenu + 1)) - ITEM_PADDING * 2;
+    int scrollHeight = round(64 / 6.0) + ITEM_PADDING * 2;
+    int scrollPos = 64 / (6.0 / (gameState->selectedMenu + 1)) - ITEM_PADDING * 2;
 
     canvas_set_color(canvas, ColorBlack);
     canvas_draw_box(canvas, 123, scrollPos, 4, scrollHeight);
@@ -165,33 +158,25 @@ void settings_page(Canvas* const canvas, const GameState* gameState) {
         gameState->settings.round_price > 10,
         gameState->settings.round_price < gameState->settings.starting_money,
         gameState->selectedMenu == 1);
-    snprintf(drawChar, sizeof(drawChar), "%li", gameState->settings.animation_margin);
-    draw_menu(
-        canvas,
-        "Anim. margin",
-        drawChar,
-        2 * LINE_HEIGHT + startY,
-        gameState->settings.animation_margin > 0,
-        gameState->settings.animation_margin < gameState->settings.animation_duration,
-        gameState->selectedMenu == 2);
+
     snprintf(drawChar, sizeof(drawChar), "%li", gameState->settings.animation_duration);
     draw_menu(
         canvas,
         "Anim. length",
         drawChar,
-        3 * LINE_HEIGHT + startY,
-        gameState->settings.animation_duration > gameState->settings.animation_margin,
+        2 * LINE_HEIGHT + startY,
+        gameState->settings.animation_duration > 0,
         gameState->settings.animation_duration < 2000,
-        gameState->selectedMenu == 3);
+        gameState->selectedMenu == 2);
     snprintf(drawChar, sizeof(drawChar), "%li", gameState->settings.message_duration);
     draw_menu(
         canvas,
         "Popup time",
         drawChar,
-        4 * LINE_HEIGHT + startY,
+        3 * LINE_HEIGHT + startY,
         gameState->settings.message_duration > 0,
         gameState->settings.message_duration < 2000,
-        gameState->selectedMenu == 4);
+        gameState->selectedMenu == 3);
     //    draw_menu(canvas, "Sound", gameState->settings.sound_effects ? "Yes" : "No",
     //              5 * LINE_HEIGHT + startY,
     //              true,
