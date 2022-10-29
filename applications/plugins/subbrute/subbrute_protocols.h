@@ -11,9 +11,14 @@ typedef enum {
     ChamberlainFileProtocol,
     LinearFileProtocol,
     PrincetonFileProtocol,
-    ClemsaFileProtocol,
-    BETTFileProtocol,
     RAWFileProtocol,
+    BETTFileProtocol,
+    ClemsaFileProtocol,
+    DoitrandFileProtocol,
+    GateTXFileProtocol,
+    MagellanFileProtocol,
+    IntertechnoV3FileProtocol,
+    UnknownFileProtocol,
     TotalFileProtocol,
 } SubBruteFileProtocol;
 
