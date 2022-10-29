@@ -228,8 +228,21 @@ bool desktop_scene_main_on_event(void* context, SceneManagerEvent event) {
             consumed = true;
             break;
         }
+        case DesktopMainEventOpenArkanoid: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/Arkanoid.fap"));
+            consumed = true;
+            break;
+        }
+        case DesktopMainEventOpenHeap: {
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Games/Heap_Defence.fap"));
+            consumed = true;
+            break;
+        }
         case DesktopMainEventOpenSubRemote: {
-            loader_start(desktop->loader, FLIPPER_APPS[2].name, NULL);
+            LoaderStatus status = loader_start(
+                desktop->loader, "Applications", EXT_PATH("/apps/Main/SubGHz_Remote.fap"));
             consumed = true;
             break;
         }

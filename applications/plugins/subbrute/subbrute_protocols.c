@@ -205,7 +205,7 @@ const SubBruteProtocol subbrute_protocol_linear_10bit_310 = {
  * BF existing dump
  */
 const SubBruteProtocol subbrute_protocol_load_file =
-    {0, 0, 0, 3, FuriHalSubGhzPresetOok650Async, RAWFileProtocol};
+    {0, 0, 0, 3, FuriHalSubGhzPresetOok650Async, UnknownFileProtocol};
 
 static const char* subbrute_protocol_names[] = {
     [SubBruteAttackCAME12bit303] = "CAME 12bit 303MHz",
@@ -267,9 +267,14 @@ static const char* subbrute_protocol_file_types[] = {
     [ChamberlainFileProtocol] = "Cham_Code",
     [LinearFileProtocol] = "Linear",
     [PrincetonFileProtocol] = "Princeton",
-    [ClemsaFileProtocol] = "Clemsa",
+    [RAWFileProtocol] = "RAW",
     [BETTFileProtocol] = "BETT",
-    [RAWFileProtocol] = "RAW"};
+    [ClemsaFileProtocol] = "Clemsa",
+    [DoitrandFileProtocol] = "Doitrand",
+    [GateTXFileProtocol] = "GateTX",
+    [MagellanFileProtocol] = "Magellan",
+    [IntertechnoV3FileProtocol] = "Intertechno_V3",
+    [UnknownFileProtocol] = "Unknown"};
 
 /**
  * Values to not use less memory for packet parse operations
@@ -287,6 +292,10 @@ const char* subbrute_protocol_name(SubBruteAttacks index) {
 
 const SubBruteProtocol* subbrute_protocol(SubBruteAttacks index) {
     return subbrute_protocol_registry[index];
+}
+
+uint8_t subbrute_protocol_repeats_count(SubBruteAttacks index) {
+    return subbrute_protocol_registry[index]->repeat;
 }
 
 const char* subbrute_protocol_preset(FuriHalSubGhzPreset preset) {
@@ -314,7 +323,7 @@ SubBruteFileProtocol subbrute_protocol_file_protocol_name(FuriString* name) {
         }
     }
 
-    return RAWFileProtocol;
+    return UnknownFileProtocol;
 }
 
 void subbrute_protocol_default_payload(
@@ -340,7 +349,13 @@ void subbrute_protocol_default_payload(
     furi_string_free(buffer);
 
 #ifdef FURI_DEBUG
-    //FURI_LOG_D(TAG, "candidate: %s, step: %lld", furi_string_get_cstr(candidate), step);
+    FURI_LOG_D(
+        TAG,
+        "candidate: %s, step: %lld, repeat: %d, te: %s",
+        furi_string_get_cstr(candidate),
+        step,
+        repeat,
+        te ? "true" : "false");
 #endif
     stream_clean(stream);
     if(te) {
@@ -374,7 +389,13 @@ void subbrute_protocol_file_payload(
     furi_string_replace_at(candidate, load_index * 3, 3, subbrute_payload_byte);
 
 #ifdef FURI_DEBUG
-    FURI_LOG_D(TAG, "candidate: %s, step: %lld", furi_string_get_cstr(candidate), step);
+    FURI_LOG_D(
+        TAG,
+        "candidate: %s, step: %lld, repeat: %d, te: %s",
+        furi_string_get_cstr(candidate),
+        step,
+        repeat,
+        te ? "true" : "false");
 #endif
     stream_clean(stream);
 

@@ -98,7 +98,33 @@ bool desktop_main_input_callback(InputEvent* event, void* context) {
                 // PREFER TO OPEN GAMES MENU
                 main_view->callback(DesktopMainEventOpen2048, main_view->context); // OPENS 2048
             } else if(event->key == InputKeyLeft) {
+                main_view->callback(
+                    DesktopMainEventOpenTetris, main_view->context); // OPENS TETRIS
+            }
+        } else if(event->type == InputTypeLong) {
+            if(event->key == InputKeyOk) {
+                main_view->callback(DesktopAnimationEventNewIdleAnimation, main_view->context);
+            } else if(event->key == InputKeyUp) {
+                main_view->callback(DesktopMainEventOpenDOOM, main_view->context); // OPENS DOOM
+            } else if(event->key == InputKeyDown) {
+                main_view->callback(
+                    DesktopMainEventOpenZombiez, main_view->context); // OPENS Zombiez
+            } else if(event->key == InputKeyLeft) {
                 main_view->callback(DesktopMainEventOpenClock, main_view->context); // OPENS CLOCK
+            }
+        }
+    } else {
+        if(event->type == InputTypeShort) {
+            if(event->key == InputKeyOk) {
+                main_view->callback(DesktopMainEventOpenSnake, main_view->context); // OPENS SNAKE
+            } else if(event->key == InputKeyUp) {
+                main_view->callback(DesktopMainEventOpenLockMenu, main_view->context);
+            } else if(event->key == InputKeyDown) {
+                main_view->callback(
+                    DesktopMainEventOpenTetris, main_view->context); // OPENS Tetris
+            } else if(event->key == InputKeyLeft) {
+                main_view->callback(
+                    DesktopMainEventOpenArkanoid, main_view->context); // OPENS Arkanoid
             }
         } else if(event->type == InputTypeLong) {
             if(event->key == InputKeyOk) {
@@ -110,31 +136,7 @@ bool desktop_main_input_callback(InputEvent* event, void* context) {
                     DesktopMainEventOpenZombiez, main_view->context); // OPENS Zombiez
             } else if(event->key == InputKeyLeft) {
                 main_view->callback(
-                    DesktopMainEventOpenTetris, main_view->context); // OPENS TETRIS
-            }
-        }
-    } else {
-        if(event->type == InputTypeShort) {
-            if(event->key == InputKeyOk) {
-                main_view->callback(DesktopMainEventOpenDice, main_view->context); // OPENS Dice
-            } else if(event->key == InputKeyUp) {
-                main_view->callback(DesktopMainEventOpenLockMenu, main_view->context);
-            } else if(event->key == InputKeyDown) {
-                main_view->callback(DesktopMainEventOpen2048, main_view->context); // OPENS 2048
-            } else if(event->key == InputKeyLeft) {
-                main_view->callback(DesktopMainEventOpenClock, main_view->context); // OPENS CLOCK
-            }
-        } else if(event->type == InputTypeLong) {
-            if(event->key == InputKeyOk) {
-                main_view->callback(DesktopAnimationEventNewIdleAnimation, main_view->context);
-            } else if(event->key == InputKeyUp) {
-                main_view->callback(DesktopMainEventOpenSnake, main_view->context); // OPENS SNAKE
-            } else if(event->key == InputKeyDown) {
-                main_view->callback(
-                    DesktopMainEventOpenZombiez, main_view->context); // OPENS Zombiez
-            } else if(event->key == InputKeyLeft) {
-                main_view->callback(
-                    DesktopMainEventOpenTetris, main_view->context); // OPENS TETRIS
+                    DesktopMainEventOpenHeap, main_view->context); // OPENS Heap Defence
             }
         }
     }

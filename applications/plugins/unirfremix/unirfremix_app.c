@@ -8,8 +8,6 @@
 #include <notification/notification.h>
 #include <notification/notification_messages.h>
 
-#include <assets_icons.h>
-
 #include <flipper_format/flipper_format_i.h>
 #include <lib/toolbox/path.h>
 #include <applications/main/subghz/subghz_i.h>
@@ -19,6 +17,8 @@
 #include <lib/subghz/types.h>
 #include <lib/subghz/protocols/keeloq.h>
 #include <lib/subghz/protocols/star_line.h>
+
+#include <SubGHz_Remote_icons.h>
 
 #define UNIRFMAP_FOLDER "/ext/subghz/unirf"
 #define UNIRFMAP_EXTENSION ".txt"
@@ -626,9 +626,10 @@ static bool unirfremix_send_sub(UniRFRemix* app, FlipperFormat* fff_data) {
         furi_hal_gpio_init(&gpio_cc1101_g0, GpioModeInput, GpioPullNo, GpioSpeedLow);
 
         furi_hal_subghz_idle();
+
         furi_hal_subghz_set_frequency_and_path(app->txpreset->frequency);
+        furi_hal_gpio_write(&gpio_cc1101_g0, false);
         furi_hal_gpio_init(&gpio_cc1101_g0, GpioModeOutputPushPull, GpioPullNo, GpioSpeedLow);
-        furi_hal_gpio_write(&gpio_cc1101_g0, true);
 
         if(!furi_hal_subghz_tx()) {
             FURI_LOG_E(TAG, "Sending not allowed");

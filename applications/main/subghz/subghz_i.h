@@ -14,6 +14,7 @@
 #include "views/subghz_test_packet.h"
 #endif
 #include <gui/gui.h>
+#include <assets_icons.h>
 #include <dialogs/dialogs.h>
 #include <gui/scene_manager.h>
 #include <notification/notification_messages.h>
@@ -72,6 +73,9 @@ struct SubGhzTxRx {
     uint8_t hopper_timeout;
     uint8_t hopper_idx_frequency;
     SubGhzRxKeyState rx_key_state;
+
+    float raw_threshold_rssi;
+    uint8_t raw_threshold_rssi_low_count;
 };
 
 typedef struct SubGhzTxRx SubGhzTxRx;
