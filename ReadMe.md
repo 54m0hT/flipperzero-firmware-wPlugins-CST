@@ -11,19 +11,11 @@
 
 - To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
 - Known Issues:	 `Chess`
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-28 13:20 EST`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-28 13:20 EST`
-- Animations: Trimmed out the Flipper animations. `/ext/dolphin` folder on your Flipper should now be managed by you! [Copy this folder (RM Select)](https://github.com/RogueMaster/awesome-flipperzero-withModules/tree/rogue_main/dolphin-RMselect) or [this folder (RM minimal)](https://github.com/RogueMaster/awesome-flipperzero-withModules/tree/rogue_main/dolphin-minimal) if you don't want to do the work but want more animations.
-- Animations: File `/ext/dolphin/manifest.txt` no longer will get overwritten. Any automatic building of animations is disabled [here](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fbe9175e0c828a54e651ee11f64f10f21e36a907).
-- Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
-- iButton: [Fixed issue when loading iButton keys or U2F token from Archive app #382 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/382)
-- Updated: [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922)
-- Animations: Painting speech bubbles updated from FalsePhilosopher
-- ReADDED: Assets: Includes New Dolphin Animations: [Sharingan (By Haseo)]
-- - With speed optimizations by RogueMaster. 
-- - Rename the [minimal animation file](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/assets/resources/dolphin/manifest.txt.exampleMin) to see it, or [RM select](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/assets/resources/dolphin/manifest.txt.exampleRM) if you have copied over [the RM select](https://github.com/RogueMaster/awesome-flipperzero-withModules/tree/rogue_main/dolphin-RMselect) animations.
-- Updated: [i2c Tools (By NaejEL)](https://github.com/NaejEL/flipperzero-i2ctools)
-- Updated: [GPS (By ezod)](https://github.com/ezod/flipperzero-gps) `Req: NMEA 0183`
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-10-29 02:37 EST`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-10-29 02:37 EST`
+- Game Mode now requires to HOLD LEFT to enter Clock.
+- Can someone confirm that the new i2ctools replace: [I²C-Scanner #1431 (By GitChris3004)](https://github.com/flipperdevices/flipperzero-firmware/pull/1431)? Does it also, GPIO: Feature to read EEPROM of SFP Modules using I2C [(By marcusju)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/198)?
+- [Music Player Back (By GMMan)](https://github.com/GMMan/flipperzero-firmware/tree/music-player-back)
 
 <details>
   <summary><B>TO DO / REMOVED</b></summary><br/>
@@ -104,6 +96,8 @@ $ ./fbt plugin_dist
 - Animations: RM FW Update image [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/257)
 - Animations: SubGHZ Scanning image with Pikachu [Thanks to Panzer00Z](https://github.com/Panzer00Z/flipperzero-firmware/blob/3a548ea9bb181c9348d8afb427890c411456134e/assets/icons/SubGhz/Scanning_123x52.png)
 - Animations: Trimmed out the Flipper animations. `/ext/dolphin` folder on your Flipper should now be managed by you! [Copy this folder (RM Select)](https://github.com/RogueMaster/awesome-flipperzero-withModules/tree/rogue_main/dolphin-RMselect) or [this folder (RM minimal)](https://github.com/RogueMaster/awesome-flipperzero-withModules/tree/rogue_main/dolphin-minimal) if you don't want to do the work but want more animations.
+- [Archive: File Browser Ordering (By Dig03)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/389)
+- [Archive: Browser: Context menu to show file content (By askoriy)](https://github.com/DarkFlippers/unleashed-firmware/pull/139)
 - Archive: FAPs are now launchable from Archive [By RogueMaster], thanks xMasterX for the suggestion
 - Assets: Includes a NFC Level 50 Z3lda Amiibo
 - Assets: Includes a NFC Rick Roll link
@@ -197,13 +191,14 @@ $ ./fbt plugin_dist
 - [Chess (By Okalachev)](https://github.com/okalachev/flipperzero-firmware/tree/chess) Crashes 1st load if FW <~750KB or every load on larger FW  `Broken?`
 - [Dice Roller Including SEX/WAR/8BALL/WEED DICE (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/dice/dice.c)
 - [Doom (By p4nic4ttack)](https://github.com/p4nic4ttack/doom-flipper-zero/)
-- [Flappy Bird (By DroomOne)](https://github.com/DroomOne/flipperzero-firmware/tree/dev/applications/flappy_bird)
+- [Flappy Bird (By DroomOne)](https://github.com/DroomOne/flipperzero-firmware/tree/dev/applications/flappy_bird) [Flappy: Border hitboxes, bigger Pilars (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/114) [Increase pilars line width to improve visibility (By ahumeniy)](https://github.com/DarkFlippers/unleashed-firmware/pull/140)
 - [Game of Life (Updated to work by tgxn) (By itsyourbedtime)](https://github.com/tgxn/flipperzero-firmware/blob/dev/applications/game_of_life/game_of_life.c)
 - [Heap Defence (By xMasterX)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fc776446de9fdd553b221c02668b925b689378d8) [(original by wquinoa & Vedmein)](https://github.com/Vedmein/flipperzero-firmware/tree/hd/svisto-perdelki)
 - [Mandelbrot Set (By Possibly-Matt)](https://github.com/Possibly-Matt/flipperzero-firmware-wPlugins)
 - [Minesweeper (By panki27)](https://github.com/panki27/minesweeper)
 - [Monty Hall (By DevMilanIan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/203)
-- [Snake (By OlegSchwann)[OFW]](https://github.com/flipperdevices/flipperzero-firmware/pull/829)(With updates from DrZlo13, xMasterX, QtRoS and RogueMaster) [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922)
+- [Snake (By OlegSchwann)[OFW]](https://github.com/flipperdevices/flipperzero-firmware/pull/829)(With updates from DrZlo13, xMasterX, QtRoS and RogueMaster) [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922) [Turns anywhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/125) [Food Spawns Anywwhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/130)
+- [T-Rex (By gelin)](https://github.com/gelin/t-rex-runner) WIP
 - [TAMA P1 (By GMMan)](https://github.com/GMMan/flipperzero-firmware/tree/tama-p1) requires [this rom](https://tinyurl.com/tamap1) IN `tama_p1` on SD as `rom.bin` to make it work.
 - [Tanks (By Alexgr13)](https://github.com/alexgr13/flipperzero-firmware/tree/fork/dev/applications/tanks-game)
 - [Tetris (By jeffplang)](https://github.com/jeffplang/flipperzero-firmware/tree/tetris_game/applications/tetris_game)
@@ -215,7 +210,7 @@ $ ./fbt plugin_dist
 <details>
   <summary><B>PLUGINS</b></summary><br/>
 
-- [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipperzero-firmware/tree/totp_plugin)
+- [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
 - [Bluetooth Remote (By Cutch)[OFW]](https://github.com/flipperdevices/flipperzero-firmware/pull/1330)
 - [BPM Tapper (By panki27)](https://github.com/panki27/bpm-tapper)
 - [Calculator (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
@@ -227,6 +222,7 @@ $ ./fbt plugin_dist
 - [Dolphin Backup (By nminaylov)[OFW]](https://github.com/flipperdevices/flipperzero-firmware/pull/1384) Modified by RogueMaster
 - [Dolphin Restorer (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/1384) Cloned by RogueMaster
 - [DTMF Dolphin (By litui)](https://github.com/litui/dtmf_dolphin)
+- [Flashlight (By xMasterX)](https://github.com/xMasterX/flipper-flashlight)
 - [GPS (By ezod)](https://github.com/ezod/flipperzero-gps) `Req: NMEA 0183`
 - [i2c Tools (By NaejEL)](https://github.com/NaejEL/flipperzero-i2ctools)
 - [IFTTT Virtual Button (By Ferrazzi)](https://github.com/Ferrazzi/FlipperZero_IFTTT_Virtual_Button) `Req: ESP8266 w/ IFTTT FW Flashed`
