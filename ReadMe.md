@@ -9,19 +9,10 @@
 
 <b>Latest Updates:</b>
 
-- To avoid Application errors and duplicates, delete /ext/apps before doing the RM firmware update
-- To avoid Animations missing, restore your /ext/dolphin after the RM firmware update
 - Known Issues:	 `Chess`
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-04 05:00 EST`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-04 05:00 EST`
-- Added: [DHT Monitor (By quen0n)](https://github.com/quen0n/FipperZero-DHT-Monitor)
-- Added some stupid breaks for default switch cases.
-- Updated: [IFTTT Virtual Button (By Ferrazzi)](https://github.com/Ferrazzi/FlipperZero_IFTTT_Virtual_Button) `Req: ESP8266 w/ IFTTT FW Flashed`
-- Fixes for slower animations to be MUCH faster
-- [BadUSB: BadUSB as FAP #396 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/396)
-- [RFID: LFRFID AS FAP #397 (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/397) (With Thanks to @ESurge)
-- [Infrared: Infrared AS FAP #398 (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/398) (With Thanks to @ESurge)
-- Issues NFC Magic merge encountered, reverted for now.
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-04 15:00 EST`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-04 15:00 EST`
+- Updated Clock Animation In Konami Mode
 
 <details>
   <summary><B>TO DO / REMOVED</b></summary><br/>
@@ -139,11 +130,11 @@ $ ./fbt plugin_dist
 - iButton: [Fixed issue when loading iButton keys or U2F token from Archive app #382 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/382)
 - iButton: iButton.fap loader apps and available as Favorites [Thanks to ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/336)
 - Icon Decode/Encode [(Thanks to PixlEmly)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/55/files)
-- [Infrared: Infrared AS FAP #398 (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/398) (With Thanks to @ESurge)
+- [Infrared: Infrared AS FAP #398 (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/398) (With Thanks to @ESurge) [Restored Infrared and RFID CLI #405 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/405)
 - Infrared: Universal AC, Audio, Fans & Projectors from [Unleashed/Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware)
 - Plugins: 2048, Arkanoid, Snake, and Tetris show score. Thanks to [whoamins](https://github.com/flipperdevices/flipperzero-firmware/commit/7feda832ede1ba8468eff2ca055fef3ddbdc16ac) and [DevMilanIan](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/188) With position changes by RogueMaster. Also all + Tic Tac Toe updated by [Unleashed/Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware) for stability.
 - Plugins: Icon for Clock [Thanks to Redlink](https://github.com/redlink2/flipperzero-firmware/tree/menuChanges)
-- [RFID: LFRFID AS FAP #397 (By ROgueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/397) (With Thanks to ESurge)
+- [RFID: LFRFID AS FAP #397 (By ROgueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/397) (With Thanks to ESurge) [Restored Infrared and RFID CLI #405 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/405)
 - Settings: "Lock W PIN + Off" add to UP menu [(By RogueMaster)]
 - Settings: Actual PIN Lock [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/desktop/desktop.c)
 - Settings: Auto-Lock Options Added: 10s+15s+90s [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/desktop/desktop_settings/scenes/desktop_settings_scene_start.c)
