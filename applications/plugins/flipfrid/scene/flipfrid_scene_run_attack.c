@@ -486,6 +486,8 @@ void flipfrid_scene_run_attack_on_tick(FlipFridState* context) {
                         context->payload[i] = (uint8_t)strtol(temp_str, NULL, 16);
                     }
                     break;
+                default:
+                    break;
                 }
             }
         }
@@ -545,6 +547,8 @@ void flipfrid_scene_run_attack_on_event(FlipFridEvent event, FlipFridState* cont
                 furi_string_reset(context->notification_msg);
                 notification_message(context->notify, &sequence_blink_stop);
                 context->current_scene = SceneEntryPoint;
+                break;
+            default:
                 break;
             }
         }

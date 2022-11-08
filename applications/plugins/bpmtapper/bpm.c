@@ -146,7 +146,7 @@ static void render_callback(Canvas* const canvas, void* ctx) {
     canvas_draw_str_aligned(canvas, 70, 10, AlignLeft, AlignBottom, furi_string_get_cstr(tempStr));
     furi_string_reset(tempStr);
 
-    furi_string_printf(tempStr, "Interval: %dms", bpm_state->interval);
+    furi_string_printf(tempStr, "Interval: %ldms", bpm_state->interval);
     canvas_draw_str_aligned(canvas, 5, 20, AlignLeft, AlignBottom, furi_string_get_cstr(tempStr));
     furi_string_reset(tempStr);
 
@@ -235,6 +235,8 @@ int32_t bpm_tapper_app(void* p) {
                     case InputKeyBack:
                         // Exit the plugin
                         processing = false;
+                        break;
+                    default:
                         break;
                     }
                 }
