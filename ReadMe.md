@@ -10,9 +10,8 @@
 <b>Latest Updates:</b>
 
 - Known Issues:	 `Chess`
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-13 13:32 EST`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-13 13:32 EST`
-- Added: [Wii EC Analyser (By csBlueChip)](https://github.com/csBlueChip/FlipperZero_WiiEC)
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-14 18:55 EST`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-14 18:55 EST`
 - Added: [USB Midi (By DrZlo13)](https://github.com/DrZlo13/flipper-zero-usb-midi)
 - Cleanup for: Settings: Rename from App [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/409)
 - Added: [Air Mouse (By ginkage)](https://github.com/ginkage/FlippAirMouse/)
@@ -59,11 +58,13 @@ Contact me on [Discord](https://discord.gg/gF2bBUzAFe) if you want a renamed Fli
   ```shell
 $ git clone --recursive https://github.com/RogueMaster/flipperzero-firmware-wPlugins.git
 $ cd flipperzero-firmware-wPlugins/
-$ ./fbt resources icons
 $ ./fbt updater_package
 
 # If building FAPS:
-$ ./fbt plugin_dist
+$ ./fbt fap_dist
+
+# If building image assets:
+$ ./fbt resources icons dolphin_ext
 ```
 </details>
       </td> </tr>
