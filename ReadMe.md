@@ -4,7 +4,7 @@ This firmware is a fork of [Unleashed/xMasterX](https://github.com/DarkFlippers/
 
 This software is for experimental purposes only and is not meant for any illegal activity/purposes. We do not condone illegal activity and strongly encourage keeping transmissions to legal/valid uses allowed by law.
 
-<a href="https://github.com/DarkFlippers/unleashed-firmware" target="_blank"><img src="https://user-images.githubusercontent.com/10697207/186202043-26947e28-b1cc-459a-8f20-ffcc7fc0c71c.png" align="center" alt="fzCUSTOM" border="0" width="95%" height="95%"></a>
+<a href="https://github.com/DarkFlippers/unleashed-firmware" target="_blank"><img src="https://user-images.githubusercontent.com/10697207/186202043-26947e28-b1cc-459a-8f20-ffcc7fc0c71c.png" alt="fzCUSTOM" border="0" width="15%"></a>
 
 
 ## Support Us!
@@ -21,11 +21,12 @@ Thank you to all the supporters!
 ## Latest Updates
 
 - Known Issues:	 `Chess`
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-14 18:55 EST`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-14 18:55 EST`
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-16 01:18 EST`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-16 01:18 EST`
 - Added: [USB Midi (By DrZlo13)](https://github.com/DrZlo13/flipper-zero-usb-midi)
 - Cleanup for: Settings: Rename from App [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/409)
 - Added: [Air Mouse (By ginkage)](https://github.com/ginkage/FlippAirMouse/)
+- Added: [Counter (By Krulknul)](https://github.com/Krulknul/dolphin-counter)
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
@@ -189,6 +190,7 @@ $ ./fbt resources icons dolphin_ext
 - [Calculator (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
 - [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
 - [Clock/Stopwatch (By CompaqDisc, Stopwatch & Sound Alert By RogueMaster)](https://gist.github.com/CompaqDisc/4e329c501bd03c1e801849b81f48ea61) [12/24HR (By non-bin)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/254) [Refactoring (By GMMan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/256)
+- [Counter (By Krulknul)](https://github.com/Krulknul/dolphin-counter)
 - [DAP Link (By DrZlo13)[OFW]](https://github.com/flipperdevices/flipperzero-firmware/pull/1897)
 - [Deauther PWNDTOOLS V2.6.0 (By HEX0DAYS)](https://github.com/HEX0DAYS/FlipperZero-PWNDTOOLS) `Req: ESP8266` [Original](https://github.com/SpacehuhnTech/esp8266_deauther)
 - [DHT Temp Monitor (By quen0n)](https://github.com/quen0n/FipperZero-DHT-Monitor) `Req: DHT11/DHT22(AM2302)/AM2301`
