@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <dolphin/dolphin.h>
 #include <dialogs/dialogs.h>
+#include <gui/canvas_i.h>
+
 #include <math.h>
 #include "util.h"
 #include "defines.h"
@@ -216,7 +218,6 @@ void dealer_card_animation(const void* ctx, Canvas* const canvas) {
             t,
             false,
             canvas);
-        //        draw_deck(game_state->dealer_cards, game_state->dealer_card_count, canvas);
     }
 }
 
@@ -238,7 +239,6 @@ void player_card_animation(const void* ctx, Canvas* const canvas) {
 
     draw_card_animation(
         animatingCard, (Vector){32, -CARD_HEIGHT}, (Vector){0, 32}, end, t, true, canvas);
-    //    draw_deck(game_state->dealer_cards, game_state->player_card_count, canvas);
 }
 //endregion
 
@@ -548,6 +548,7 @@ int32_t blackjack_app(void* p) {
     add_menu(game_state->menu, "Double", doubleAction);
     add_menu(game_state->menu, "Hit", hitAction);
     add_menu(game_state->menu, "Stay", stayAction);
+    set_card_graphics(&I_card_graphics);
 
     game_state->state = GameStateStart;
 
@@ -623,6 +624,7 @@ int32_t blackjack_app(void* p) {
     delete_mutex(&state_mutex);
 
 free_and_exit:
+    free(game_state->deck.cards);
     free_menu(game_state->menu);
     queue_clear(&(game_state->queue_state));
     free(game_state);
