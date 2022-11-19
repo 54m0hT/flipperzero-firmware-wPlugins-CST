@@ -23,17 +23,14 @@ Thank you to all the supporters!
 - Known Issues:	 `Chess`
 - Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-17 11:40 EST`
 - Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-17 11:40 EST`
-- Added: [USB Midi (By DrZlo13)](https://github.com/DrZlo13/flipper-zero-usb-midi)
-- Cleanup for: Settings: Rename from App [(Thanks to E_Surge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/409)
-- Added: [Air Mouse (By ginkage)](https://github.com/ginkage/FlippAirMouse/)
-- Added: [Counter (By Krulknul)](https://github.com/Krulknul/dolphin-counter)
 - Updated: [BlackJack (By teeebor)](https://github.com/teeebor/flipper_games)
-- Added: [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
+- Updated: [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
 - Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
-- Updated: [DTMF Dolphin (By litui)](https://github.com/litui/dtmf_dolphin)
-- Added: [HEX Viewer (By QtRoS)](https://github.com/QtRoS/flipperzero-firmware)
-- Updated: [T-Rex (By gelin)](https://github.com/gelin/t-rex-runner) WIP
-- Updated: [i2c Tools (By NaejEL)](https://github.com/NaejEL/flipperzero-i2ctools)
+- Updated: [Snake Plugin: Store game state on close and restore it on restart, show highscore #1922 (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922)
+- Added: [Blocking USB driver API #2009 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2009)
+- Added: [SubGhz: add protocol "Ansonic" #2000 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2000)
+- Added: [Core: thread allocation shortcut #2007 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2007)
+- Added: [WS: add protocol GT-WT02 #2001 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2001)
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
@@ -252,4 +249,8 @@ $ ./fbt resources icons dolphin_ext
 - [Decode RAW recordings #1667 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1667)
 - [NFC - Machine Readable Travel Documents #1866 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1866)
 - [nfc: NTAG password auto capture (and other password-related changes) #1843 (By GMMan)](https://github.com/flipperdevices/flipperzero-firmware/pull/1843)
-
+- [Snake Plugin: Store game state on close and restore it on restart, show highscore #1922 (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922)
+- [Blocking USB driver API #2009 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2009)
+- [SubGhz: add protocol "Ansonic" #2000 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2000)
+- [Core: thread allocation shortcut #2007 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2007)
+- [WS: add protocol GT-WT02 #2001 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2001)
