@@ -77,6 +77,12 @@ FIRMWARE_APPS = {
         # Debug
         # "debug_apps",
     ],
+    "unit_tests": [
+        "basic_services",
+        "updater_app",
+        "unit_tests",
+        "nfc",
+    ],
     "debug_pack": [
         # Svc
         "basic_services",
@@ -89,6 +95,9 @@ FIRMWARE_APPS = {
         # "basic_plugins",
         # Debug
         # "debug_apps",
+        # "updater_app",
+        # "unit_tests",
+        # "nfc",
     ],
 }
 

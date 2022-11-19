@@ -43,7 +43,15 @@ typedef enum {
     GameStateDealer,
 } PlayState;
 
-typedef enum { DirectionUp, DirectionRight, DirectionDown, DirectionLeft, Select, None } Direction;
+typedef enum {
+    DirectionUp,
+    DirectionDown,
+    DirectionRight,
+    DirectionLeft,
+    Select,
+    Back,
+    None
+} Direction;
 
 typedef struct {
     Card player_cards[21];
