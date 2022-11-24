@@ -15,11 +15,20 @@ Thank you to all the supporters!
 ## Latest Updates
 
 - Known Issues:	 `Chess`
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-22 16:04 EST`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-22 16:04 EST`
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-11-24 14:48 EST`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-11-24 14:48 EST`
 - Added: [Zero Tracker (By DrZZlo13)](https://github.com/DrZlo13/flipper-zero-music-tracker)
 - Updated: [DHT Temp Monitor (By quen0n)](https://github.com/quen0n/FipperZero-DHT-Monitor) `Req: DHT11/DHT22(AM2302)/AM2301`
+- Updated: [Sub-GHz Bruteforcer (By Ganapati & xMasterX)](https://github.com/derskythe/flipperzero-subbrute/tree/master)
+- Updated: [Wii EC Analyser (By csBlueChip)](https://github.com/csBlueChip/FlipperZero_WiiEC)
 - Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- Updated: [Temperature Sensor (By Mywk)](https://github.com/Mywk/FlipperTemperatureSensor) `Req: HTU2XD, SHT2X, SI702X, SI700X, SI701X or AM2320`
+- Updated: [Zero Tracker (By DrZZlo13)](https://github.com/DrZlo13/flipper-zero-music-tracker)
+- Added: [Password Generator (By anakod)](https://github.com/anakod/flipper_passgen)
+- Updated: [Timelapse (By theageoflove)](https://github.com/theageoflove/flipperzero-zeitraffer)
+- Added: [NRF24 Scanner (By vad7)](https://github.com/vad7/nrf24scan)
+- Some new Mifare Possible keys for transport cards by novacard.ru [from vadrozh](https://github.com/DarkFlippers/unleashed-firmware/pull/181)
+- Animation fixes [by TalkingSasquach](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/360)
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
@@ -210,8 +219,10 @@ $ ./fbt resources icons dolphin_ext
 - [Music Player (By DrZlo13)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/1189)
 - [NFC Magic (By gornekich)](https://github.com/flipperdevices/flipperzero-firmware/pull/1966)
 - [NRF Sniff (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/nrfsniff) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/nrfsniff) from nocomp/Frog/UberGuidoZ) `Req: NRF24`
+- [NRF24 Scanner (By vad7)](https://github.com/vad7/nrf24scan)
 - [Ocarina (By invalidna-me)](https://github.com/invalidna-me/flipperzero-ocarina) [Here are the LOTZ Songs](https://www.zeldadungeon.net/wiki/Ocarina_of_Time_Songs)
 - [Paint (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
+- [Password Generator (By anakod)](https://github.com/anakod/flipper_passgen)
 - [PicoPass Reader (By Bettse)](https://github.com/flipperdevices/flipperzero-firmware/pull/1366)
 - [Pomodoro Timer (By sbrin)](https://github.com/sbrin/flipperzero_pomodoro)
 - [RFID Fuzzer (By Ganapati)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/245) [Changes by Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware)
@@ -220,9 +231,9 @@ $ ./fbt resources icons dolphin_ext
 - [Sentry Safe (By H4ckd4ddy)](https://github.com/H4ckd4ddy/flipperzero-sentry-safe-plugin) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/sentry_safe) from [UberGuidoZ](https://github.com/UberGuidoZ/))
 - [Signal Generator (By nminaylov)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/1793)
 - [Spectrum Analyzer (By jolcese)](https://github.com/jolcese/flipperzero-firmware/tree/spectrum/applications/spectrum_analyzer) [Updates (for testing) Thanks to theY4Kman](https://github.com/theY4Kman/flipperzero-firmware)
-- [Sub-GHz Bruteforcer (By Ganapati & xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/pull/57)
+- [Sub-GHz Bruteforcer (By Ganapati & xMasterX)](https://github.com/derskythe/flipperzero-subbrute/tree/master)
 - [Sub-GHz Playlist (By darmiel)](https://github.com/darmiel/flipper-playlist)
-- [Temperature Sensor (By Mywk)](https://github.com/Mywk/FlipperTemperatureSensor) `Req: HTU21D / SI7021`
+- [Temperature Sensor (By Mywk)](https://github.com/Mywk/FlipperTemperatureSensor) `Req: HTU2XD, SHT2X, SI702X, SI700X, SI701X or AM2320`
 - [Temperature Sensor (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/commit/9c4612e571db42f5e6123a3f159e01337453a6af) `Req: AM2320`
 - [Timelapse (By theageoflove)](https://github.com/theageoflove/flipperzero-zeitraffer)
 - [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork)
@@ -243,8 +254,3 @@ $ ./fbt resources icons dolphin_ext
 - [NFC - Machine Readable Travel Documents #1866 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1866)
 - [nfc: NTAG password auto capture (and other password-related changes) #1843 (By GMMan)](https://github.com/flipperdevices/flipperzero-firmware/pull/1843)
 - [Snake Plugin: Store game state on close and restore it on restart, show highscore #1922 (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922)
-- [WS: add protocol GT-WT02 #2001 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2001)
-- [Infrared: Add Olimpia Splendid AC #2038 (By asprosvetova)](https://github.com/flipperdevices/flipperzero-firmware/pull/2038)
-- [SubGhz: add protocol Nice_Flo 20bit #1983 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/1983)
-- [SubGhz: add protocol "Ansonic" #2000 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2000)
-- [Fix U2F HID vulnerability #2042 (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/2042)
