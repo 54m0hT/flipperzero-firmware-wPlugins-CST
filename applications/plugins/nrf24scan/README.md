@@ -2,6 +2,30 @@
 
 An [NRF24](https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf) driver for the [Flipper Zero](https://flipperzero.one/) device. The NRF24 is a popular line of 2.4GHz radio transceivers from Nordic Semiconductors. This library is not currently complete, but functional.
 
+Settings file (default addr.txt) format:<br><br>
+
+Rate: 0/1/2 - rate in Mbps (=0.25/1/2)<br>
+Ch: 0..125 - default channel          <br>
+ESB: 0/1 (1 - Enhanced ShockBurst)    <br>
+DPL: 0/1 (1 - Dynamic Payload Length) <br>
+CRC: 0/1/2 (CRC length)<br>
+Payload: 1..32 (bytes)                <br>
+P0: address pipe #0 in hex (max 5 bytes, LSB last)<br>
+P1: address pipe #1 in hex (max 5 bytes, LSB last)<br>
+P2: address pipe #2, LSB in hex (1 byte)   <br>
+P3: address pipe #3, LSB in hex (1 byte)   <br>
+P4: address pipe #4, LSB in hex (1 byte)   <br>
+P5: address pipe #5, LSB in hex (1 byte)   <br>
+captured data in raw format, first byte = address # 0..5, Payload len if DPL<br>
+... up to MAX_LOG_RECORDS-1<br>
+<br><br>
+In the list of the received:<br>
+Press OK - send the packet,<br>
+Long press OK - view addresses.<br>
+<br>
+<br>
+<br>
+<br>
 <img src="https://raw.githubusercontent.com/vad7/nrf24scan/master/Screenshot-1.png">
 <br>
 <img src="https://raw.githubusercontent.com/vad7/nrf24scan/master/Screenshot-2.png">
@@ -9,7 +33,7 @@ An [NRF24](https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Prel
 ## PinOut from from NoComp/Frog
 <img src="https://media.discordapp.net/attachments/937479784726949900/994495234618687509/unknown.png?width=567&height=634">
 
-# Mousejack / NRF24 pinout by UberGuidoZ
+# NRF24 pinout by UberGuidoZ
 2/A7 on FZ goes to MOSI/6 on nrf24l01<br>
 3/A6 on FZ goes to MISO/7 on nrf24l01<br>
 4/A4 on FZ goes to CSN/4 on nrf24l01<br>
@@ -21,4 +45,3 @@ IRQ/8 is left disconnected on nrf24l01
 ![NRF_Pins](https://user-images.githubusercontent.com/57457139/178093717-39effd5c-ebe2-4253-b13c-70517d7902f9.png)
 If the nRF module is acting a bit flakey, try adding a capacitor to the vcc/gnd lines! I've not tried the Plus model so it may have a bigger need for a cap. Otherwise, I haven't had any major issues. Anything from a 3.3 uF to 10 uF should do. (Watch your positive/negative placement! Negative to ground.) I learned if you wanna get fancy, include a 0.1 uF cap in parallel. The 3.3 uF to 10 uF will respond to slow freq changes while the 0.1 uF will respond to the high freq switching spikes that the larger one cannot. That said, a single 10 uF will likely suffice for the Mousejack attack. ¯\\\_(ツ)_/¯
 ![NRF_Capacitor](https://user-images.githubusercontent.com/57457139/178169959-d030f9a6-d2ac-46af-af8b-470ff092c8a7.jpg)
-
