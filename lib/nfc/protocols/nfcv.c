@@ -276,9 +276,28 @@ void nfcv_emu_alloc(NfcVData* data) {
         data->emulation.nfcv_signal, NFCV_SIG_EOF, data->emulation.nfcv_resp_eof);
 }
 
-static void nfcv_emu_send_raw(NfcVData* nfcv, uint8_t* data, uint8_t length) {
+static void nfcv_emu_send(
+    FuriHalNfcTxRxContext* tx_rx,
+    NfcVData* nfcv,
+    uint8_t* data,
+    uint8_t length,
+    NfcVSendFlags flags) {
+    /* picked default value (0) to match the most common format */
+    if(!flags) {
+        flags = NfcVSendFlagsSof | NfcVSendFlagsCrc | NfcVSendFlagsEof |
+                NfcVSendFlagsOneSubcarrier | NfcVSendFlagsHighRate;
+    }
+
+    if(flags & NfcVSendFlagsCrc) {
+        nfcv_crc(data, length);
+        length += 2;
+    }
+
     digital_sequence_clear(nfcv->emulation.nfcv_signal);
-    digital_sequence_add(nfcv->emulation.nfcv_signal, NFCV_SIG_SOF);
+
+    if(flags & NfcVSendFlagsSof) {
+        digital_sequence_add(nfcv->emulation.nfcv_signal, NFCV_SIG_SOF);
+    }
 
     for(int bit_total = 0; bit_total < length * 8; bit_total++) {
         uint32_t byte_pos = bit_total / 8;
@@ -290,20 +309,17 @@ static void nfcv_emu_send_raw(NfcVData* nfcv, uint8_t* data, uint8_t length) {
             (data[byte_pos] & bit_val) ? NFCV_SIG_BIT1 : NFCV_SIG_BIT0);
     }
 
-    digital_sequence_add(nfcv->emulation.nfcv_signal, NFCV_SIG_EOF);
+    if(flags & NfcVSendFlagsEof) {
+        digital_sequence_add(nfcv->emulation.nfcv_signal, NFCV_SIG_EOF);
+    }
 
     FURI_CRITICAL_ENTER();
     digital_sequence_send(nfcv->emulation.nfcv_signal);
     FURI_CRITICAL_EXIT();
     furi_hal_gpio_write(&gpio_spi_r_mosi, false);
-}
 
-static void
-    nfcv_emu_send(FuriHalNfcTxRxContext* tx_rx, NfcVData* nfcv, uint8_t* data, uint8_t length) {
-    nfcv_crc(data, length);
-    nfcv_emu_send_raw(nfcv, data, length + 2);
     if(tx_rx->sniff_tx) {
-        tx_rx->sniff_tx(data, (length + 2) * 8, false, tx_rx->sniff_context);
+        tx_rx->sniff_tx(data, length * 8, false, tx_rx->sniff_context);
     }
 }
 
@@ -352,6 +368,7 @@ void nfcv_emu_handle_packet(
     uint8_t payload_offset = address_offset + (addressed ? 8 : 0);
     uint8_t* address = &payload[address_offset];
     uint8_t response_buffer[32];
+    NfcVSendFlags response_flags = NfcVSendFlagsNormal;
 
     if(addressed && nfcv_uidcmp(address, nfc_data->uid)) {
         FURI_LOG_D(TAG, "addressed command 0x%02X, but not for us:", command);
@@ -407,7 +424,7 @@ void nfcv_emu_handle_packet(
         response_buffer[1] = nfcv_data->dsfid;
         nfcv_uidcpy(&response_buffer[2], nfc_data->uid);
 
-        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 10);
+        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 10, response_flags);
         snprintf(nfcv_data->last_command, sizeof(nfcv_data->last_command), "INVENTORY");
         break;
     }
@@ -434,7 +451,7 @@ void nfcv_emu_handle_packet(
 
     case ISO15693_SELECT: {
         response_buffer[0] = ISO15693_NOERROR;
-        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1);
+        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1, response_flags);
         snprintf(nfcv_data->last_command, sizeof(nfcv_data->last_command), "SELECT");
         break;
     }
@@ -444,14 +461,15 @@ void nfcv_emu_handle_packet(
 
         if(block >= nfcv_data->block_num) {
             response_buffer[0] = ISO15693_ERROR_BLOCK_WRITE;
-            nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1);
+            nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1, response_flags);
         } else {
             response_buffer[0] = ISO15693_NOERROR;
             memcpy(
                 &response_buffer[1],
                 &nfcv_data->data[nfcv_data->block_size * block],
                 nfcv_data->block_size);
-            nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1 + nfcv_data->block_size);
+            nfcv_emu_send(
+                tx_rx, nfcv_data, response_buffer, 1 + nfcv_data->block_size, response_flags);
         }
         snprintf(nfcv_data->last_command, sizeof(nfcv_data->last_command), "READ BLOCK %d", block);
         break;
@@ -470,7 +488,7 @@ void nfcv_emu_handle_packet(
                 &response_buffer[1],
                 nfcv_data->block_size);
         }
-        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1);
+        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1, response_flags);
         snprintf(
             nfcv_data->last_command,
             sizeof(nfcv_data->last_command),
@@ -493,7 +511,7 @@ void nfcv_emu_handle_packet(
         response_buffer[13] = nfcv_data->block_size - 1; /* block size */
         response_buffer[14] = nfcv_data->ic_ref; /* IC reference */
 
-        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 15);
+        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 15, response_flags);
         snprintf(nfcv_data->last_command, sizeof(nfcv_data->last_command), "SYSTEMINFO");
 
         break;
@@ -507,7 +525,7 @@ void nfcv_emu_handle_packet(
         response_buffer[1] = nfcv_data->sub_data.slix_l.rand[1];
         response_buffer[2] = nfcv_data->sub_data.slix_l.rand[0];
 
-        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 3);
+        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 3, response_flags);
         snprintf(
             nfcv_data->last_command,
             sizeof(nfcv_data->last_command),
@@ -548,7 +566,7 @@ void nfcv_emu_handle_packet(
         if(!pass_expect || pass_expect == pass_received) {
             nfcv_data->sub_data.slix_l.privacy = false;
             response_buffer[0] = ISO15693_NOERROR;
-            nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1);
+            nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1, response_flags);
             snprintf(
                 nfcv_data->last_command,
                 sizeof(nfcv_data->last_command),
@@ -570,7 +588,7 @@ void nfcv_emu_handle_packet(
     case ISO15693_CMD_NXP_ENABLE_PRIVACY: {
         response_buffer[0] = ISO15693_NOERROR;
 
-        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1);
+        nfcv_emu_send(tx_rx, nfcv_data, response_buffer, 1, response_flags);
         snprintf(
             nfcv_data->last_command,
             sizeof(nfcv_data->last_command),
