@@ -33,7 +33,7 @@
 #define NFCV_SIG_BIT1 2
 #define NFCV_SIG_EOF 3
 
-/*  */
+/* ISO15693 command codes */
 #define ISO15693_INVENTORY 0x01
 #define ISO15693_STAYQUIET 0x02
 #define ISO15693_READBLOCK 0x20
@@ -50,25 +50,7 @@
 #define ISO15693_GET_SYSTEM_INFO 0x2B
 #define ISO15693_READ_MULTI_SECSTATUS 0x2C
 
-// ISO15693 MANUFACTURER CODES
-#define ISO15693_MANUFACTURER_NXP 0x04
-
-// ISO15693-3 CUSTOM NXP COMMANDS
-#define ISO15693_CMD_NXP_SET_EAS 0xA2
-#define ISO15693_CMD_NXP_RESET_EAS 0xA3
-#define ISO15693_CMD_NXP_LOCK_EAS 0xA4
-#define ISO15693_CMD_NXP_EAS_ALARM 0xA5
-#define ISO15693_CMD_NXP_PASSWORD_PROTECT_EAS_AFI 0xA6
-#define ISO15693_CMD_NXP_WRITE_EAS_ID 0xA7
-#define ISO15693_CMD_NXP_INVENTORY_PAGE_READ 0xB0
-#define ISO15693_CMD_NXP_INVENTORY_PAGE_READ_FAST 0xB1
-#define ISO15693_CMD_NXP_GET_RANDOM_NUMBER 0xB2
-#define ISO15693_CMD_NXP_SET_PASSWORD 0xB3
-#define ISO15693_CMD_NXP_WRITE_PASSWORD 0xB4
-#define ISO15693_CMD_NXP_DESTROY 0xB9
-#define ISO15693_CMD_NXP_ENABLE_PRIVACY 0xBA
-
-// ISO15693 RESPONSE ERROR CODES
+/* ISO15693 RESPONSE ERROR CODES */
 #define ISO15693_NOERROR 0x00
 #define ISO15693_ERROR_CMD_NOT_SUP 0x01 // Command not supported
 #define ISO15693_ERROR_CMD_NOT_REC 0x02 // Command not recognized (eg. parameter error)
@@ -93,11 +75,6 @@ typedef enum {
     NfcVTypeSlix2 = 4,
 } NfcVType;
 
-typedef struct {
-    uint8_t key_eas[4];
-    uint8_t rand[2];
-} NfcVSlixData;
-
 typedef enum {
     NfcVSendFlagsNormal = 0,
     NfcVSendFlagsSof = 1 << 0,
@@ -117,31 +94,10 @@ typedef struct {
     uint8_t key_eas[4];
     uint8_t rand[2];
     bool privacy;
-} NfcVSlix2Data;
-
-typedef struct {
-    uint8_t key_read[4];
-    uint8_t key_write[4];
-    uint8_t key_privacy[4];
-    uint8_t key_destroy[4];
-    uint8_t key_eas[4];
-    uint8_t rand[2];
-    bool privacy;
-} NfcVSlixSData;
-
-typedef struct {
-    uint8_t key_privacy[4];
-    uint8_t key_destroy[4];
-    uint8_t key_eas[4];
-    uint8_t rand[2];
-    bool privacy;
-} NfcVSlixLData;
+} NfcVSlixData;
 
 typedef union {
     NfcVSlixData slix;
-    NfcVSlix2Data slix2;
-    NfcVSlixSData slix_s;
-    NfcVSlixLData slix_l;
 } NfcVSubtypeData;
 
 typedef struct {
@@ -155,7 +111,33 @@ typedef struct {
     DigitalSignal* nfcv_resp_unmod_256;
     DigitalSignal* nfcv_resp_unmod_768;
     DigitalSequence* nfcv_signal;
-} NfcVEmuData;
+} NfcVEmuAir;
+
+typedef struct {
+    uint8_t* frame; /* ISO15693-2 incoming raw data from air layer */
+    uint8_t frame_length; /* ISO15693-2 length of incoming data */
+
+    uint8_t flags; /* ISO15693-3 flags of the header as specified */
+    uint8_t command; /* ISO15693-3 command at offset 1 as specified */
+    bool addressed; /* ISO15693-3 flags: addressed frame */
+    bool advanced; /* ISO15693-3 command: advanced command */
+    uint8_t address_offset; /* ISO15693-3 offset of the address in frame, if addressed is set */
+    uint8_t payload_offset; /* ISO15693-3 offset of the payload in frame */
+
+    uint8_t response_buffer[128]; /* pre-allocated response buffer */
+    NfcVSendFlags response_flags; /* flags to use when sending response */
+} NfcVEmuProtocolCtx;
+
+typedef void (*NfcVEmuProtocolHandler)(
+    FuriHalNfcTxRxContext* tx_rx,
+    FuriHalNfcDevData* nfc_data,
+    void* nfcv_data,
+    uint8_t* payload,
+    uint32_t payload_length);
+typedef bool (*NfcVEmuProtocolFilter)(
+    FuriHalNfcTxRxContext* tx_rx,
+    FuriHalNfcDevData* nfc_data,
+    void* nfcv_data);
 
 typedef struct {
     /* common ISO15693 fields */
@@ -169,7 +151,10 @@ typedef struct {
     /* specfic variant infos */
     NfcVType type;
     NfcVSubtypeData sub_data;
-    NfcVEmuData emulation;
+    NfcVEmuAir emu_air;
+    NfcVEmuProtocolCtx emu_protocol_ctx;
+    NfcVEmuProtocolHandler emu_protocol_handler;
+    NfcVEmuProtocolFilter emu_protocol_filter;
 
     /* runtime data */
     char last_command[128];
@@ -190,8 +175,15 @@ bool nfcv_read_card(NfcVReader* reader, FuriHalNfcDevData* nfc_data, NfcVData* d
 
 void nfcv_emu_init(FuriHalNfcDevData* nfc_data, NfcVData* nfcv_data);
 void nfcv_emu_deinit(NfcVData* nfcv_data);
+
 bool nfcv_emu_loop(
     FuriHalNfcTxRxContext* tx_rx,
     FuriHalNfcDevData* nfc_data,
     NfcVData* nfcv_data,
     uint32_t timeout_ms);
+void nfcv_emu_send(
+    FuriHalNfcTxRxContext* tx_rx,
+    NfcVData* nfcv,
+    uint8_t* data,
+    uint8_t length,
+    NfcVSendFlags flags);

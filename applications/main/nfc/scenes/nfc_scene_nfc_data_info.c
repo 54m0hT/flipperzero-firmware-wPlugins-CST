@@ -131,23 +131,23 @@ void nfc_scene_nfc_data_info_on_enter(void* context) {
             furi_string_cat_printf(
                 temp_str,
                 " Read     %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_s.key_read));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_read));
             furi_string_cat_printf(
                 temp_str,
                 " Write    %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_s.key_write));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_write));
             furi_string_cat_printf(
                 temp_str,
                 " Privacy  %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_s.key_privacy));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_privacy));
             furi_string_cat_printf(
                 temp_str,
                 " Destroy  %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_s.key_destroy));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_destroy));
             furi_string_cat_printf(
                 temp_str,
                 " EAS      %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_s.key_eas));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_eas));
             break;
         case NfcVTypeSlixL:
             furi_string_cat_printf(temp_str, "Type: SLIX-L\n");
@@ -155,15 +155,15 @@ void nfc_scene_nfc_data_info_on_enter(void* context) {
             furi_string_cat_printf(
                 temp_str,
                 " Privacy  %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_l.key_privacy));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_privacy));
             furi_string_cat_printf(
                 temp_str,
                 " Destroy  %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_l.key_destroy));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_destroy));
             furi_string_cat_printf(
                 temp_str,
                 " EAS      %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix_l.key_eas));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_eas));
             break;
         case NfcVTypeSlix2:
             furi_string_cat_printf(temp_str, "Type: SLIX2\n");
@@ -171,23 +171,23 @@ void nfc_scene_nfc_data_info_on_enter(void* context) {
             furi_string_cat_printf(
                 temp_str,
                 " Read     %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix2.key_read));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_read));
             furi_string_cat_printf(
                 temp_str,
                 " Write    %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix2.key_write));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_write));
             furi_string_cat_printf(
                 temp_str,
                 " Privacy  %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix2.key_privacy));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_privacy));
             furi_string_cat_printf(
                 temp_str,
                 " Destroy  %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix2.key_destroy));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_destroy));
             furi_string_cat_printf(
                 temp_str,
                 " EAS      %08lX\n",
-                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix2.key_eas));
+                nfc_scene_nfc_data_info_get_key(nfcv_data->sub_data.slix.key_eas));
             break;
         default:
             furi_string_cat_printf(temp_str, "\e#ISO15693 (unknown)\n");
@@ -280,7 +280,7 @@ bool nfc_scene_nfc_data_info_on_event(void* context, SceneManagerEvent event) {
     if(event.type == SceneManagerEventTypeCustom) {
         if(event.event == GuiButtonTypeRight) {
             if(protocol == NfcDeviceProtocolMifareDesfire) {
-                scene_manager_next_scene(nfc->scene_manager, NfcSceneMfDesfireApp);
+                scene_manager_next_scene(nfc->scene_manager, NfcSceneMfDesfireData);
                 consumed = true;
             } else if(protocol == NfcDeviceProtocolMifareUl) {
                 scene_manager_next_scene(nfc->scene_manager, NfcSceneMfUltralightData);
