@@ -1,5 +1,5 @@
 entry,status,name,type,params
-Version,+,7.53,,
+Version,+,8.11,,
 Header,+,applications/services/bt/bt_service/bt.h,,
 Header,+,applications/services/cli/cli.h,,
 Header,+,applications/services/cli/cli_vcp.h,,
@@ -136,6 +136,7 @@ Header,+,lib/libusb_stm32/inc/hid_usage_simulation.h,,
 Header,+,lib/libusb_stm32/inc/hid_usage_sport.h,,
 Header,+,lib/libusb_stm32/inc/hid_usage_telephony.h,,
 Header,+,lib/libusb_stm32/inc/hid_usage_vr.h,,
+Header,-,lib/libusb_stm32/inc/stm32_compat.h,,
 Header,+,lib/libusb_stm32/inc/usb.h,,
 Header,+,lib/libusb_stm32/inc/usb_cdc.h,,
 Header,+,lib/libusb_stm32/inc/usb_cdca.h,,
@@ -726,13 +727,21 @@ Function,+,dialog_message_set_text,void,"DialogMessage*, const char*, uint8_t, u
 Function,+,dialog_message_show,DialogMessageButton,"DialogsApp*, const DialogMessage*"
 Function,+,dialog_message_show_storage_error,void,"DialogsApp*, const char*"
 Function,-,difftime,double,"time_t, time_t"
+Function,-,digital_sequence_add,void,"DigitalSequence*, uint8_t"
+Function,-,digital_sequence_alloc,DigitalSequence*,"uint32_t, const GpioPin*"
+Function,-,digital_sequence_clear,void,DigitalSequence*
+Function,-,digital_sequence_free,void,DigitalSequence*
+Function,-,digital_sequence_send,_Bool,DigitalSequence*
+Function,-,digital_sequence_set_signal,void,"DigitalSequence*, uint8_t, DigitalSignal*"
+Function,-,digital_signal_add,void,"DigitalSignal*, uint32_t"
+Function,-,digital_signal_add_pulse,void,"DigitalSignal*, uint32_t, _Bool"
 Function,-,digital_signal_alloc,DigitalSignal*,uint32_t
 Function,-,digital_signal_append,_Bool,"DigitalSignal*, DigitalSignal*"
 Function,-,digital_signal_free,void,DigitalSignal*
 Function,-,digital_signal_get_edge,uint32_t,"DigitalSignal*, uint32_t"
 Function,-,digital_signal_get_edges_cnt,uint32_t,DigitalSignal*
 Function,-,digital_signal_get_start_level,_Bool,DigitalSignal*
-Function,-,digital_signal_prepare_arr,void,DigitalSignal*
+Function,-,digital_signal_prepare,void,DigitalSignal*
 Function,-,digital_signal_send,void,"DigitalSignal*, const GpioPin*"
 Function,-,diprintf,int,"int, const char*, ..."
 Function,+,dir_walk_alloc,DirWalk*,Storage*
@@ -836,6 +845,7 @@ Function,+,file_browser_worker_folder_enter,void,"BrowserWorker*, FuriString*, i
 Function,+,file_browser_worker_folder_exit,void,BrowserWorker*
 Function,+,file_browser_worker_folder_refresh,void,"BrowserWorker*, int32_t"
 Function,+,file_browser_worker_free,void,BrowserWorker*
+Function,+,file_browser_worker_is_in_start_folder,_Bool,BrowserWorker*
 Function,+,file_browser_worker_load,void,"BrowserWorker*, uint32_t, uint32_t"
 Function,+,file_browser_worker_set_callback_context,void,"BrowserWorker*, void*"
 Function,+,file_browser_worker_set_config,void,"BrowserWorker*, FuriString*, const char*, _Bool"
@@ -1138,7 +1148,7 @@ Function,+,furi_hal_ibutton_start_drive_in_isr,void,
 Function,+,furi_hal_ibutton_start_interrupt,void,
 Function,+,furi_hal_ibutton_start_interrupt_in_isr,void,
 Function,+,furi_hal_ibutton_stop,void,
-Function,+,furi_hal_info_get,void,"FuriHalInfoValueCallback, void*"
+Function,+,furi_hal_info_get,void,"PropertyValueCallback, char, void*"
 Function,+,furi_hal_infrared_async_rx_set_capture_isr_callback,void,"FuriHalInfraredRxCaptureCallback, void*"
 Function,+,furi_hal_infrared_async_rx_set_timeout,void,uint32_t
 Function,+,furi_hal_infrared_async_rx_set_timeout_isr_callback,void,"FuriHalInfraredRxTimeoutCallback, void*"
@@ -1203,10 +1213,10 @@ Function,+,furi_hal_nfc_tx_rx_full,_Bool,FuriHalNfcTxRxContext*
 Function,-,furi_hal_os_init,void,
 Function,+,furi_hal_os_tick,void,
 Function,+,furi_hal_power_check_otg_status,void,
+Function,+,furi_hal_power_debug_get,void,"PropertyValueCallback, void*"
 Function,+,furi_hal_power_deep_sleep_available,_Bool,
 Function,+,furi_hal_power_disable_external_3_3v,void,
 Function,+,furi_hal_power_disable_otg,void,
-Function,+,furi_hal_power_dump_state,void,
 Function,+,furi_hal_power_enable_external_3_3v,void,
 Function,+,furi_hal_power_enable_otg,void,
 Function,+,furi_hal_power_gauge_is_ok,_Bool,
@@ -1219,7 +1229,7 @@ Function,+,furi_hal_power_get_battery_temperature,float,FuriHalPowerIC
 Function,+,furi_hal_power_get_battery_voltage,float,FuriHalPowerIC
 Function,+,furi_hal_power_get_pct,uint8_t,
 Function,+,furi_hal_power_get_usb_voltage,float,
-Function,+,furi_hal_power_info_get,void,"FuriHalPowerInfoCallback, void*"
+Function,+,furi_hal_power_info_get,void,"PropertyValueCallback, char, void*"
 Function,-,furi_hal_power_init,void,
 Function,+,furi_hal_power_insomnia_enter,void,
 Function,+,furi_hal_power_insomnia_exit,void,
@@ -2006,12 +2016,24 @@ Function,+,nfc_device_save_shadow,_Bool,"NfcDevice*, const char*"
 Function,+,nfc_device_set_loading_callback,void,"NfcDevice*, NfcLoadingCallback, void*"
 Function,+,nfc_device_set_name,void,"NfcDevice*, const char*"
 Function,+,nfc_file_select,_Bool,NfcDevice*
+Function,-,nfc_util_bytes2num,uint64_t,"uint8_t*, uint8_t"
+Function,-,nfc_util_even_parity32,uint8_t,uint32_t
+Function,-,nfc_util_num2bytes,void,"uint64_t, uint8_t, uint8_t*"
+Function,-,nfc_util_odd_parity8,uint8_t,uint8_t
 Function,-,nfca_append_crc16,void,"uint8_t*, uint16_t"
 Function,-,nfca_emulation_handler,_Bool,"uint8_t*, uint16_t, uint8_t*, uint16_t*"
 Function,-,nfca_get_crc16,uint16_t,"uint8_t*, uint16_t"
 Function,-,nfca_signal_alloc,NfcaSignal*,
 Function,-,nfca_signal_encode,void,"NfcaSignal*, uint8_t*, uint16_t, uint8_t*"
 Function,-,nfca_signal_free,void,NfcaSignal*
+Function,-,nfcv_emu_deinit,void,NfcVData*
+Function,-,nfcv_emu_init,void,"FuriHalNfcDevData*, NfcVData*"
+Function,-,nfcv_emu_loop,_Bool,"FuriHalNfcTxRxContext*, FuriHalNfcDevData*, NfcVData*, uint32_t"
+Function,-,nfcv_emu_send,void,"FuriHalNfcTxRxContext*, NfcVData*, uint8_t*, uint8_t, NfcVSendFlags"
+Function,-,nfcv_inventory,ReturnCode,uint8_t*
+Function,-,nfcv_read_blocks,ReturnCode,"NfcVReader*, NfcVData*"
+Function,-,nfcv_read_card,_Bool,"NfcVReader*, FuriHalNfcDevData*, NfcVData*"
+Function,-,nfcv_read_sysinfo,ReturnCode,"FuriHalNfcDevData*, NfcVData*"
 Function,+,notification_internal_message,void,"NotificationApp*, const NotificationSequence*"
 Function,+,notification_internal_message_block,void,"NotificationApp*, const NotificationSequence*"
 Function,+,notification_message,void,"NotificationApp*, const NotificationSequence*"
@@ -2092,6 +2114,7 @@ Function,+,powf,float,"float, float"
 Function,-,powl,long double,"long double, long double"
 Function,-,printf,int,"const char*, ..."
 Function,-,prng_successor,uint32_t,"uint32_t, uint32_t"
+Function,+,property_value_out,void,"PropertyValueContext*, const char*, unsigned int, ..."
 Function,+,protocol_dict_alloc,ProtocolDict*,"const ProtocolBase**, size_t"
 Function,+,protocol_dict_decoders_feed,ProtocolId,"ProtocolDict*, _Bool, uint32_t"
 Function,+,protocol_dict_decoders_feed_by_feature,ProtocolId,"ProtocolDict*, uint32_t, _Bool, uint32_t"
@@ -2113,6 +2136,14 @@ Function,+,protocol_dict_render_brief_data,void,"ProtocolDict*, FuriString*, siz
 Function,+,protocol_dict_render_data,void,"ProtocolDict*, FuriString*, size_t"
 Function,+,protocol_dict_set_data,void,"ProtocolDict*, size_t, const uint8_t*, size_t"
 Function,-,pselect,int,"int, fd_set*, fd_set*, fd_set*, const timespec*, const sigset_t*"
+Function,-,pulse_reader_alloc,PulseReader*,"const GpioPin*, uint32_t"
+Function,-,pulse_reader_free,void,PulseReader*
+Function,-,pulse_reader_receive,uint32_t,"PulseReader*, int"
+Function,-,pulse_reader_samples,uint32_t,PulseReader*
+Function,-,pulse_reader_set_bittime,void,"PulseReader*, uint32_t"
+Function,-,pulse_reader_set_timebase,void,"PulseReader*, PulseReaderUnit"
+Function,-,pulse_reader_start,void,PulseReader*
+Function,-,pulse_reader_stop,void,PulseReader*
 Function,-,putc,int,"int, FILE*"
 Function,-,putc_unlocked,int,"int, FILE*"
 Function,-,putchar,int,int
@@ -2337,10 +2368,14 @@ Function,+,rpc_session_set_context,void,"RpcSession*, void*"
 Function,+,rpc_session_set_send_bytes_callback,void,"RpcSession*, RpcSendBytesCallback"
 Function,+,rpc_session_set_terminated_callback,void,"RpcSession*, RpcSessionTerminatedCallback"
 Function,+,rpc_system_app_confirm,void,"RpcAppSystem*, RpcAppSystemEvent, _Bool"
+Function,+,rpc_system_app_exchange_data,void,"RpcAppSystem*, const uint8_t*, size_t"
 Function,+,rpc_system_app_get_data,const char*,RpcAppSystem*
 Function,+,rpc_system_app_send_exited,void,RpcAppSystem*
 Function,+,rpc_system_app_send_started,void,RpcAppSystem*
 Function,+,rpc_system_app_set_callback,void,"RpcAppSystem*, RpcAppSystemCallback, void*"
+Function,+,rpc_system_app_set_data_exchange_callback,void,"RpcAppSystem*, RpcAppSystemDataExchangeCallback, void*"
+Function,+,rpc_system_app_set_error_code,void,"RpcAppSystem*, uint32_t"
+Function,+,rpc_system_app_set_error_text,void,"RpcAppSystem*, const char*"
 Function,-,rpmatch,int,const char*
 Function,+,saved_struct_load,_Bool,"const char*, void*, size_t, uint8_t, uint8_t"
 Function,+,saved_struct_save,_Bool,"const char*, void*, size_t, uint8_t, uint8_t"
@@ -4827,6 +4862,7 @@ Variable,-,subghz_protocol_nice_flor_s_encoder,const SubGhzProtocolEncoder,
 Variable,-,subghz_protocol_phoenix_v2,const SubGhzProtocol,
 Variable,-,subghz_protocol_phoenix_v2_decoder,const SubGhzProtocolDecoder,
 Variable,-,subghz_protocol_phoenix_v2_encoder,const SubGhzProtocolEncoder,
+Variable,-,subghz_protocol_pocsag,const SubGhzProtocol,
 Variable,-,subghz_protocol_power_smart,const SubGhzProtocol,
 Variable,-,subghz_protocol_power_smart_decoder,const SubGhzProtocolDecoder,
 Variable,-,subghz_protocol_power_smart_encoder,const SubGhzProtocolEncoder,
