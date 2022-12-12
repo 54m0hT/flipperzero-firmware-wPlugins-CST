@@ -5,9 +5,10 @@
 #include <notification/notification_messages.h>
 #include <flipper_format/flipper_format.h>
 #include "gpio_item.h"
+#include "GPIO_Intervalometer_icons.h"
 
-#define CONFIG_FILE_DIRECTORY_PATH "/ext/apps/Misc"
-#define CONFIG_FILE_PATH CONFIG_FILE_DIRECTORY_PATH "/zeitraffer.conf"
+#define CONFIG_FILE_DIRECTORY_PATH "/ext/apps_data/intravelometer"
+#define CONFIG_FILE_PATH CONFIG_FILE_DIRECTORY_PATH "/intravelometer.conf"
 
 // Часть кода покрадена из https://github.com/zmactep/flipperzero-hello-world
 
@@ -19,6 +20,7 @@ bool InfiniteShot = false; // Бесконечная съёмка
 bool Bulb = false; // Режим BULB
 int32_t Backlight = 0; // Подсветка: вкл/выкл/авто
 int32_t Delay = 3; // Задержка на отскочить
+bool Work = false;
 
 const NotificationSequence sequence_click = {
     &message_note_c7,
@@ -58,13 +60,38 @@ static void draw_callback(Canvas* canvas, void* ctx) {
 
     switch(Backlight) {
     case 1:
-        canvas_draw_str(canvas, 3, 55, "Backlight: ON");
+        canvas_draw_str(canvas, 13, 55, "ON");
         break;
     case 2:
-        canvas_draw_str(canvas, 3, 55, "Backlight: OFF");
+        canvas_draw_str(canvas, 13, 55, "OFF");
         break;
     default:
-        canvas_draw_str(canvas, 3, 55, "Backlight: AUTO");
+        canvas_draw_str(canvas, 13, 55, "AUTO");
+    }
+
+    //canvas_draw_icon(canvas, 90, 17, &I_ButtonUp_7x4);
+    //canvas_draw_icon(canvas, 100, 17, &I_ButtonDown_7x4);
+    //canvas_draw_icon(canvas, 27, 17, &I_ButtonLeftSmall_3x5);
+    //canvas_draw_icon(canvas, 37, 17, &I_ButtonRightSmall_3x5);
+    //canvas_draw_icon(canvas, 3, 48, &I_Pin_star_7x7);
+
+    canvas_draw_icon(canvas, 85, 41, &I_ButtonUp_7x4);
+    canvas_draw_icon(canvas, 85, 57, &I_ButtonDown_7x4);
+    canvas_draw_icon(canvas, 59, 48, &I_ButtonLeft_4x7);
+    canvas_draw_icon(canvas, 72, 48, &I_ButtonRight_4x7);
+    canvas_draw_icon(canvas, 3, 48, &I_Pin_star_7x7);
+
+    canvas_set_font(canvas, FontPrimary);
+    canvas_draw_str(canvas, 65, 55, "F");
+
+    canvas_set_font(canvas, FontPrimary);
+    canvas_draw_str(canvas, 85, 55, "S");
+
+    canvas_draw_icon(canvas, 59, 48, &I_ButtonLeft_4x7);
+    canvas_draw_icon(canvas, 72, 48, &I_ButtonRight_4x7);
+
+    if(Work) {
+        canvas_draw_icon(canvas, 106, 46, &I_loading_10px);
     }
 }
 
@@ -161,8 +188,7 @@ int32_t zeitraffer_app(void* p) {
             if(event.input.type == InputTypeShort) { // Короткие нажатия
 
                 if(event.input.key == InputKeyBack) {
-                    if(furi_timer_is_running(
-                           timer)) { // Если таймер запущен - нефиг мацать кнопки!
+                    if(Work) { // Если таймер запущен - нефиг мацать кнопки!
                         notification_message(notifications, &sequence_error);
                     } else {
                         WorkCount = Count;
@@ -212,8 +238,10 @@ int32_t zeitraffer_app(void* p) {
                     if(furi_timer_is_running(timer)) {
                         notification_message(notifications, &sequence_click);
                         furi_timer_stop(timer);
+                        Work = false;
                     } else {
                         furi_timer_start(timer, 1000);
+                        Work = true;
 
                         if(WorkCount == 0) WorkCount = Count;
 
