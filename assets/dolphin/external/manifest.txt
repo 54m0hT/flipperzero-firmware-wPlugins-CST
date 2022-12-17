@@ -22,13 +22,6 @@ Min level: 1
 Max level: 30
 Weight: 7
 
-Name: Sasquach_D1g1talRa1n_128x64
-Min butthurt: 0
-Max butthurt: 14
-Min level: 1
-Max level: 30
-Weight: 7
-
 Name: Sasquach_Narut0_128x64
 Min butthurt: 0
 Max butthurt: 14
@@ -49,6 +42,13 @@ Max butthurt: 14
 Min level: 1
 Max level: 30
 Weight: 7
+
+Name: L1_Happy_holidays_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 30
+Weight: 14
 
 Name: L1_New_year_128x64
 Min butthurt: 0
@@ -86,6 +86,13 @@ Max level: 30
 Weight: 7
 
 Name: L1_Painting_128x64
+Min butthurt: 0
+Max butthurt: 14
+Min level: 1
+Max level: 30
+Weight: 7
+
+Name: L2_Wake_up_128x64
 Min butthurt: 0
 Max butthurt: 14
 Min level: 1

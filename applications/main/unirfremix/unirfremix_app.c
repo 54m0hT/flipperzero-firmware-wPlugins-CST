@@ -728,7 +728,7 @@ static void input_callback(InputEvent* input_event, void* ctx) {
 void unirfremix_subghz_alloc(UniRFRemix* app) {
     // load subghz presets
     app->setting = subghz_setting_alloc();
-    subghz_setting_load(app->setting, EXT_PATH("subghz/assets/setting_user.txt"), false);
+    subghz_setting_load(app->setting, EXT_PATH("subghz/assets/setting_user.txt"));
 
     // load mfcodes
     app->environment = subghz_environment_alloc();
@@ -828,6 +828,7 @@ int32_t unirfremix_app(void* p) {
 
     DialogsFileBrowserOptions browser_options;
     dialog_file_browser_set_basic_options(&browser_options, UNIRFMAP_EXTENSION, &I_sub1_10px);
+    browser_options.base_path = UNIRFMAP_FOLDER;
 
     bool res = dialog_file_browser_show(dialogs, app->file_path, app->file_path, &browser_options);
 
