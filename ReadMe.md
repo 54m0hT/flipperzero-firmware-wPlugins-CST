@@ -7,13 +7,14 @@ This software is for experimental purposes only and is not meant for any illegal
 Everyone gives much of their uncompensated free time to ensure the success of the Flipper Zero!
 Thank you to all the supporters!
 
-- [Patreon for compiled releases for any updates](https://www.patreon.com/RogueMaster) - regular releases will occur weekly or with main FW version updates.
+- [PATREON for compiled releases for any updates](https://www.patreon.com/RogueMaster) - regular releases will occur weekly or with main FW version updates.
 - [Support us if you like what you see](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/SUPPORT.md)! 😄🚀💸
 - Donations: BTC: `3MPQbKmGRCstg4FjnadfHa3woCT94JkR2a`
 - Donations: ETH: `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f`
 - [Join THE Flipper Uncensored Discord](https://discord.gg/gF2bBUzAFe)
 
-## Latest Updates - [LATEST RELEASE on PATREON: 2022-12-16 17:40 PM](https://www.patreon.com/posts/76015588)
+## Latest Updates - [LATEST RELEASE on PATREON: 2022-12-18 15:41 PM](https://www.patreon.com/posts/76082530)
+# [BUILDS NOW AVAILABLE WITH STOCK, RM SELECT, RM MINIMAL (default) and RM 18PLUS ANIMATIONS](https://www.patreon.com/RogueMaster)
 
 - Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md): `2022-12-16 17:40 EST`
 - Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-12-16 17:40 EST`
@@ -24,6 +25,8 @@ Thank you to all the supporters!
 - Updated: [Count Down Timer (By 0w0mewo)](https://github.com/0w0mewo/fpz_cntdown_timer)
 - Added: [Yatzee (By emfleak)](https://github.com/emfleak/flipperzero-yatzee)
 - Added: [Orgasmotron (By qqmajikpp)](https://github.com/qqmajikpp/flipperzero-firmware-wPlugins)
+- Updated: [NRF24 Scanner v2.0b (By vad7)](https://github.com/vad7/nrf24scan)
+- Updated: [Sub-GHz Bruteforcer (By Ganapati & xMasterX)](https://github.com/derskythe/flipperzero-subbrute/tree/master) with [Honeywell Protocol](https://github.com/derskythe/flipperzero-subbrute/pull/4)
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
