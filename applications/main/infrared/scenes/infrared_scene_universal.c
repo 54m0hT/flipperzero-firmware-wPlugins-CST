@@ -24,7 +24,6 @@ void infrared_scene_universal_on_enter(void* context) {
         SubmenuIndexUniversalTV,
         infrared_scene_universal_submenu_callback,
         context);
-    submenu_set_selected_item(submenu, 0);
 
     submenu_add_item(
         submenu,
@@ -60,6 +59,8 @@ void infrared_scene_universal_on_enter(void* context) {
         SubmenuIndexUniversalAirConditioner,
         infrared_scene_universal_submenu_callback,
         context);
+
+    submenu_set_selected_item(submenu, 0);
 
     view_dispatcher_switch_to_view(infrared->view_dispatcher, InfraredViewSubmenu);
 }

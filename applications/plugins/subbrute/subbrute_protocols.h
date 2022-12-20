@@ -19,6 +19,10 @@ typedef enum {
     MagellanFileProtocol,
     IntertechnoV3FileProtocol,
     AnsonicFileProtocol,
+    SMC5326FileProtocol,
+    UNILARMFileProtocol,
+    PT2260FileProtocol,
+    HoneywellFileProtocol,
     UnknownFileProtocol,
     TotalFileProtocol,
 } SubBruteFileProtocol;
@@ -46,6 +50,14 @@ typedef enum {
     SubBruteAttackChamberlain7bit390,
     SubBruteAttackLinear10bit300,
     SubBruteAttackLinear10bit310,
+    SubBruteAttackUNILARM24bit330,
+    SubBruteAttackUNILARM24bit433,
+    SubBruteAttackSMC532624bit330,
+    SubBruteAttackSMC532624bit433,
+    SubBruteAttackPT226024bit315,
+    SubBruteAttackPT226024bit330,
+    SubBruteAttackPT226024bit390,
+    SubBruteAttackPT226024bit433,
     SubBruteAttackLoadFile,
     SubBruteAttackTotalCount,
 } SubBruteAttacks;
@@ -53,7 +65,7 @@ typedef enum {
 typedef struct {
     uint32_t frequency;
     uint8_t bits;
-    uint8_t te;
+    uint32_t te;
     uint8_t repeat;
     FuriHalSubGhzPreset preset;
     SubBruteFileProtocol file;
@@ -69,15 +81,16 @@ const char* subbrute_protocol_name(SubBruteAttacks index);
 
 void subbrute_protocol_default_payload(
     Stream* stream,
+    SubBruteFileProtocol file,
     uint64_t step,
     uint8_t bits,
-    uint8_t te,
+    uint32_t te,
     uint8_t repeat);
 void subbrute_protocol_file_payload(
     Stream* stream,
     uint64_t step,
     uint8_t bits,
-    uint8_t te,
+    uint32_t te,
     uint8_t repeat,
     uint8_t bit_index,
     uint64_t file_key,
@@ -89,7 +102,7 @@ void subbrute_protocol_default_generate_file(
     SubBruteFileProtocol file,
     uint64_t step,
     uint8_t bits,
-    uint8_t te,
+    uint32_t te,
     uint8_t repeat);
 void subbrute_protocol_file_generate_file(
     Stream* stream,
@@ -98,7 +111,7 @@ void subbrute_protocol_file_generate_file(
     SubBruteFileProtocol file,
     uint64_t step,
     uint8_t bits,
-    uint8_t te,
+    uint32_t te,
     uint8_t repeat,
     uint8_t bit_index,
     uint64_t file_key,
