@@ -14,7 +14,7 @@
 #include <u8g2.h>
 
 #define TAG "nrf24scan"
-#define VERSION "2.0b"
+#define VERSION "2.0"
 #define MAX_CHANNEL 125
 #define MAX_ADDR 6
 
@@ -40,7 +40,8 @@
 #define SNIFF_FILENAME "sniff.txt" // settings for sniff mode
 #define LOG_FILENAME "log"
 #define LOG_FILEEXT ".txt"
-#define MAX_LOG_RECORDS 100
+#define MAX_LOG_RECORDS 200
+#define MAX_FOUND_RECORDS 100
 #define LOG_REC_SIZE 34 // max packet size
 #define VIEW_LOG_MAX_X 22
 #define VIEW_LOG_WIDTH_B 10 // bytes
@@ -58,7 +59,6 @@ Nrf24Scan* APP;
 uint8_t what_doing = 0; // 0 - setup, 1 - view log, 2 - view addresses
 uint8_t what_to_do =
     1; // 0 - view, 1 - view & sniff, 2 - view & read, 3 - view & read selected addr
-uint32_t key_press_seq_ok = 0;
 uint8_t save_settings = 0;
 char screen_buf[64];
 char addr_file_name[32];
@@ -85,9 +85,9 @@ struct ADDRS {
 
 struct ADDRS addrs;
 struct ADDRS addrs_sniff;
-struct ADDRS addrs_found;
-uint16_t found_total[6];
 bool sniff_loaded = 0;
+int16_t found_total;
+int16_t view_found = -1;
 
 int8_t log_to_file = 0; // 0 - no, 1 - yes(new), 2 - append, -1 - only clear
 uint16_t log_arr_idx;
@@ -98,7 +98,6 @@ uint16_t last_packet_send = -1;
 uint8_t last_packet_send_st = 0;
 int16_t find_channel_period = 0; // sec
 uint8_t menu_selected = 0;
-uint8_t view_details_type = 1; // 0 - sniff addrs, 1 - found addrs
 uint32_t start_time;
 uint8_t view_log_decode_PCF =
     0; // view log: 1 - decode packet control field (9b) when ESB off. After pipe # (hex): <Payload len 6b><PID_2b+NO_ACK_1b>
@@ -165,18 +164,8 @@ void clear_log() {
     log_arr_idx = 0;
     view_log_arr_idx = 0;
     last_packet_send = -1;
-    memset(&addrs_found, 0, sizeof(addrs_found));
-    view_details_type = 0;
-    memset(&found_total, 0, sizeof(found_total));
-}
-
-void allocate_log_array() {
-    APP->log_arr = malloc(LOG_REC_SIZE * MAX_LOG_RECORDS);
-    if(APP->log_arr == NULL) {
-        FURI_LOG_E(TAG, "Not enouch memory: %d", LOG_REC_SIZE * MAX_LOG_RECORDS);
-        strcpy(addr_file_name, "MEMORY LOW!");
-    }
-    clear_log();
+    found_total = 0;
+    view_found = 0;
 }
 
 void write_to_log_file(Storage* storage, bool f_settings) {
@@ -472,9 +461,9 @@ static void prepare_nrf24(bool fsend_packet) {
     uint8_t erx_addr = (1 << 0); // Enable RX_P0
     struct ADDRS* adr = what_to_do == 1 ? &addrs_sniff : &addrs;
     if(!fsend_packet) {
-        if(adr->addr_count == 0) return;
         uint8_t payload = NRF_Payload;
         if(what_to_do == 1) { // SNIFF
+            if(adr->addr_count == 0) return;
             //payload += 5 + NRF_CRC; // + addr_max + CRC
             //if(NRF_ESB)	payload += 2;
             //if(payload > 32) payload = 32;
@@ -486,7 +475,8 @@ static void prepare_nrf24(bool fsend_packet) {
                 nrf24_HANDLE,
                 REG_FEATURE,
                 0); // Enables the W_TX_PAYLOAD_NOACK command, Disable Payload with ACK, set Dynamic Payload
-        } else {
+        } else if(what_to_do == 2) {
+            if(adr->addr_count == 0) return;
             nrf24_write_reg(
                 nrf24_HANDLE,
                 REG_CONFIG,
@@ -494,7 +484,7 @@ static void prepare_nrf24(bool fsend_packet) {
                          NRF_CRC == 2 ? 0b1100 :
                                         0))); // Mask all interrupts
             nrf24_write_reg(
-                nrf24_HANDLE, REG_SETUP_RETR, NRF_ESB ? 0x11 : 0); // Automatic Retransmission
+                nrf24_HANDLE, REG_SETUP_RETR, NRF_ESB ? 0x01 : 0); // Automatic Retransmission
             nrf24_write_reg(
                 nrf24_HANDLE,
                 REG_EN_AA,
@@ -506,51 +496,84 @@ static void prepare_nrf24(bool fsend_packet) {
                     4 + 1 :
                     1); // Enables the W_TX_PAYLOAD_NOACK command, Disable Payload with ACK, set Dynamic Payload
         }
-        nrf24_set_maclen(nrf24_HANDLE, adr->addr_len);
-        nrf24_set_mac(REG_RX_ADDR_P0, adr->addr_P0, adr->addr_len);
-        uint8_t tmp[5] = {0};
-        nrf24_read_reg(nrf24_HANDLE, REG_RX_ADDR_P0, tmp, adr->addr_len);
-        for(uint8_t i = 0; i < adr->addr_len / 2; i++) {
-            uint8_t tb = tmp[i];
-            tmp[i] = tmp[adr->addr_len - i - 1];
-            tmp[adr->addr_len - i - 1] = tb;
+        if(what_to_do == 3) {
+            uint8_t* p = APP->log_arr + view_log_arr_idx * LOG_REC_SIZE;
+            uint8_t addr_size = (*(p + 1) & 0b11) + 2;
+            nrf24_set_maclen(nrf24_HANDLE, addr_size);
+            nrf24_set_mac(REG_RX_ADDR_P0, p + 2, addr_size);
+            memcpy(addrs.addr_P0, p + 2, addr_size);
+            addrs.addr_count = 1;
+            addrs.addr_len = addr_size;
+            nrf24_write_reg(nrf24_HANDLE, RX_PW_P0, *(p + 1) >> 3);
+            nrf24_write_reg(nrf24_HANDLE, REG_EN_RXADDR, erx_addr);
+            nrf24_write_reg(nrf24_HANDLE, REG_RF_CH, *p & 0x7F);
+            nrf24_write_reg(
+                nrf24_HANDLE,
+                REG_CONFIG,
+                0x70 | ((NRF_CRC == 1 ? 0b1000 :
+                         NRF_CRC == 2 ? 0b1100 :
+                                        0))); // Mask all interrupts
+            if(*(p + 1) & 0b100) { // ESB
+                nrf24_write_reg(nrf24_HANDLE, REG_SETUP_RETR, 0x01); // Automatic Retransmission
+                nrf24_write_reg(nrf24_HANDLE, REG_EN_AA, 0x3F); // Auto acknowledgement
+                nrf24_write_reg(
+                    nrf24_HANDLE,
+                    REG_FEATURE,
+                    *(p + 2 + addr_size) >> 2 != 0x33 ?
+                        4 + 1 :
+                        1); // Enables the W_TX_PAYLOAD_NOACK command, Disable Payload with ACK, set Dynamic Payload
+            } else {
+                nrf24_write_reg(nrf24_HANDLE, REG_SETUP_RETR, 0); // Automatic Retransmission
+                nrf24_write_reg(nrf24_HANDLE, REG_EN_AA, 0); // Auto acknowledgement
+            }
+        } else {
+            nrf24_set_maclen(nrf24_HANDLE, adr->addr_len);
+            nrf24_set_mac(REG_RX_ADDR_P0, adr->addr_P0, adr->addr_len);
+            uint8_t tmp[5] = {0};
+            nrf24_read_reg(nrf24_HANDLE, REG_RX_ADDR_P0, tmp, adr->addr_len);
+            for(uint8_t i = 0; i < adr->addr_len / 2; i++) {
+                uint8_t tb = tmp[i];
+                tmp[i] = tmp[adr->addr_len - i - 1];
+                tmp[adr->addr_len - i - 1] = tb;
+            }
+            NRF_ERROR = memcmp(adr->addr_P0, tmp, adr->addr_len) != 0;
+            FURI_LOG_D(TAG, "Payload: %d", payload);
+            nrf24_write_reg(nrf24_HANDLE, RX_PW_P0, payload);
+            if(adr->addr_count > 1) {
+                nrf24_set_mac(REG_RX_ADDR_P1, adr->addr_P1, adr->addr_len);
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P1, payload);
+                erx_addr |= (1 << 1); // Enable RX_P1
+            } else
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P1, 0);
+            if(adr->addr_count > 2) {
+                nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P2, &adr->addr_P2, 1);
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P2, payload);
+                erx_addr |= (1 << 2); // Enable RX_P2
+            } else
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P2, 0);
+            if(adr->addr_count > 3) {
+                nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P3, &adr->addr_P3, 1);
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P3, payload);
+                erx_addr |= (1 << 3); // Enable RX_P3
+            } else
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P3, 0);
+            if(adr->addr_count > 4) {
+                nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P4, &adr->addr_P4, 1);
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P4, payload);
+                erx_addr |= (1 << 4); // Enable RX_P4
+            } else
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P4, 0);
+            if(adr->addr_count > 5) {
+                nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P5, &adr->addr_P5, 1);
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P5, payload);
+                erx_addr |= (1 << 5); // Enable RX_P5
+            } else
+                nrf24_write_reg(nrf24_HANDLE, RX_PW_P5, 0);
+            nrf24_write_reg(
+                nrf24_HANDLE, REG_DYNPD, NRF_DPL ? 0x3F : 0); // Enable dynamic payload reg
+            nrf24_write_reg(nrf24_HANDLE, REG_EN_RXADDR, erx_addr);
+            nrf24_write_reg(nrf24_HANDLE, REG_RF_CH, NRF_channel);
         }
-        NRF_ERROR = memcmp(adr->addr_P0, tmp, adr->addr_len) != 0;
-        FURI_LOG_D(TAG, "Payload: %d", payload);
-        nrf24_write_reg(nrf24_HANDLE, RX_PW_P0, payload);
-        if(adr->addr_count > 1) {
-            nrf24_set_mac(REG_RX_ADDR_P1, adr->addr_P1, adr->addr_len);
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P1, payload);
-            erx_addr |= (1 << 1); // Enable RX_P1
-        } else
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P1, 0);
-        if(adr->addr_count > 2) {
-            nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P2, &adr->addr_P2, 1);
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P2, payload);
-            erx_addr |= (1 << 2); // Enable RX_P2
-        } else
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P2, 0);
-        if(adr->addr_count > 3) {
-            nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P3, &adr->addr_P3, 1);
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P3, payload);
-            erx_addr |= (1 << 3); // Enable RX_P3
-        } else
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P3, 0);
-        if(adr->addr_count > 4) {
-            nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P4, &adr->addr_P4, 1);
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P4, payload);
-            erx_addr |= (1 << 4); // Enable RX_P4
-        } else
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P4, 0);
-        if(adr->addr_count > 5) {
-            nrf24_write_buf_reg(nrf24_HANDLE, REG_RX_ADDR_P5, &adr->addr_P5, 1);
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P5, payload);
-            erx_addr |= (1 << 5); // Enable RX_P5
-        } else
-            nrf24_write_reg(nrf24_HANDLE, RX_PW_P5, 0);
-        nrf24_write_reg(nrf24_HANDLE, REG_DYNPD, NRF_DPL ? 0x3F : 0); // Enable dynamic payload reg
-        nrf24_write_reg(nrf24_HANDLE, REG_EN_RXADDR, erx_addr);
-        nrf24_write_reg(nrf24_HANDLE, REG_RF_CH, NRF_channel);
     }
     nrf24_flush_rx(nrf24_HANDLE);
     nrf24_flush_tx(nrf24_HANDLE);
@@ -568,6 +591,7 @@ static void start_scanning() {
         correct_NRF_Payload_sniff_min();
         view_log_decode_CRC = NRF_CRC;
     } else if(sniff_loaded) { // Switch from sniff to scan/view
+        // to do...
     }
     prepare_nrf24(false);
     if(NRF_ERROR) {
@@ -578,42 +602,25 @@ static void start_scanning() {
     start_time = furi_get_tick();
 }
 
-bool check_addr_found(uint8_t* pkt) {
-    uint8_t idx = 255;
-    if(addrs_found.addr_count > 0 && memcmp(addrs_found.addr_P0, pkt, addrs_found.addr_len) == 0) {
-        idx = 0;
-        goto x_end;
-    }
-    if(addrs_found.addr_count > 1 &&
-       memcmp(addrs_found.addr_P1, pkt, addrs_found.addr_len - 1) == 0) {
-        if(addrs_found.addr_P1[addrs_found.addr_len - 1] == pkt[addrs_found.addr_len - 1]) {
-            idx = 1;
-            goto x_end;
-        }
-        if(addrs_found.addr_count > 2 && addrs_found.addr_P2 == pkt[addrs_found.addr_len - 1]) {
-            idx = 2;
-            goto x_end;
-        }
-        if(addrs_found.addr_count > 3 && addrs_found.addr_P3 == pkt[addrs_found.addr_len - 1]) {
-            idx = 3;
-            goto x_end;
-        }
-        if(addrs_found.addr_count > 4 && addrs_found.addr_P4 == pkt[addrs_found.addr_len - 1]) {
-            idx = 4;
-            goto x_end;
-        }
-        if(addrs_found.addr_count > 5 && addrs_found.addr_P5 == pkt[addrs_found.addr_len - 1]) {
-            idx = 5;
-            goto x_end;
-        }
-    }
+/*
+bool check_addr_found(uint8_t *pkt)
+{
+	uint8_t idx = 255;
+	if(addrs_found.addr_count > 0 && memcmp(addrs_found.addr_P0, pkt, addrs_found.addr_len) == 0) { idx = 0; goto x_end; }
+	if(addrs_found.addr_count > 1 && memcmp(addrs_found.addr_P1, pkt, addrs_found.addr_len - 1) == 0) {
+		if(addrs_found.addr_P1[addrs_found.addr_len - 1] == pkt[addrs_found.addr_len - 1]) { idx = 1; goto x_end; }
+		if(addrs_found.addr_count > 2 && addrs_found.addr_P2 == pkt[addrs_found.addr_len - 1]) { idx = 2; goto x_end; }
+		if(addrs_found.addr_count > 3 && addrs_found.addr_P3 == pkt[addrs_found.addr_len - 1]) { idx = 3; goto x_end; }
+		if(addrs_found.addr_count > 4 && addrs_found.addr_P4 == pkt[addrs_found.addr_len - 1]) { idx = 4; goto x_end; }
+		if(addrs_found.addr_count > 5 && addrs_found.addr_P5 == pkt[addrs_found.addr_len - 1]) { idx = 5; goto x_end; }
+	}
 x_end:
-    if(idx < sizeof(found_total) / sizeof(found_total[0])) {
-        found_total[idx]++;
-        return true;
-    } else
-        return false;
+	if(idx < sizeof(found_total) / sizeof(found_total[0])) {
+		found_total[idx]++;
+		return true;
+	} else return false;
 }
+*/
 
 // start bitnum = 7
 uint32_t calc_crc(uint32_t crc, uint8_t* ptr, uint8_t bitnum, uint16_t bits) {
@@ -652,7 +659,7 @@ bool check_packet(uint8_t* pkt, uint16_t size) {
     uint8_t b = *pkt;
     if(b == 0x55 || b == 0xAA || b == 0x00 || b == 0xFF)
         return false; // skip pkt when address begin with
-    uint32_t prevcrc;
+    uint32_t prevcrc = 0xFFFFFFFF;
     bool found = false;
     uint8_t addr_size = 3;
     for(; addr_size <= 5; addr_size++) {
@@ -661,16 +668,18 @@ bool check_packet(uint8_t* pkt, uint16_t size) {
             if((_payload > size - addr_size - 2 - view_log_decode_CRC && _payload != 0x33))
                 continue;
             uint8_t* p = pkt + addr_size;
-            if(addr_size == 3) {
+            if(prevcrc == 0xFFFFFFFF) {
                 prevcrc = calc_crc(
                     view_log_decode_CRC == 2 ? 0xFFFF : 0xFF,
                     pkt,
                     7,
                     3 * 8); // crc for smallest addr
-            } else {
-                prevcrc = calc_crc(prevcrc, p - 1, 7, 8);
             }
-            uint32_t crc = prevcrc;
+            uint32_t crc;
+            if(addr_size > 3)
+                crc = calc_crc(prevcrc, p - (addr_size - 3), 7, 8 * (addr_size - 3));
+            else
+                crc = prevcrc;
             if(_payload != 0x33) { // DPL
                 crc = calc_crc(crc, p, 7, 9 + _payload * 8);
                 if(crc == get_shifted_crc(p + _payload + 1)) {
@@ -736,61 +745,87 @@ bool check_packet(uint8_t* pkt, uint16_t size) {
             if(found) break;
         }
     }
-    if(found && furi_log_get_level() == FuriLogLevelDebug) {
-        char dbuf[65];
-        dbuf[0] = 0;
-        add_to_str_hex_bytes(dbuf, (char*)pkt, size);
-        FURI_LOG_D(TAG, "PKT%02X: %s (%d)", *(pkt - 1), dbuf, size);
-    }
-    if(found && addrs_found.addr_count < 6) {
-        if(addrs_found.addr_count == 0) {
-            memcpy(addrs_found.addr_P0, pkt, addr_size);
-            addrs_found.addr_len = addr_size;
-            found_total[0]++;
-            addrs_found.addr_count++;
-        } else if(addr_size == addrs_found.addr_len) {
-            if(!check_addr_found(pkt)) {
-                if(addrs_found.addr_count == 1) {
-                    memcpy(addrs_found.addr_P1, pkt, addr_size);
-                    found_total[1]++;
-                    addrs_found.addr_count++;
-                } else if(addrs_found.addr_count == 2) {
-                    if(memcmp(addrs_found.addr_P1, pkt, addr_size - 1) == 0) {
-                        addrs_found.addr_P2 = pkt[addr_size - 1];
-                        found_total[2]++;
-                        addrs_found.addr_count++;
-                    } else if(memcmp(addrs_found.addr_P0, pkt, addr_size - 1) == 0) {
-                        uint8_t tmp[5];
-                        memcpy(tmp, addrs_found.addr_P1, addr_size); // swap P0-P1
-                        memcpy(addrs_found.addr_P1, addrs_found.addr_P0, addr_size);
-                        memcpy(addrs_found.addr_P0, tmp, addr_size);
-                        uint32_t n = found_total[0];
-                        found_total[0] = found_total[1];
-                        found_total[1] = n;
-                        addrs_found.addr_P2 = pkt[addr_size - 1];
-                        found_total[2]++;
-                        addrs_found.addr_count++;
-                    }
-                } else if(addrs_found.addr_count >= 3) {
-                    if(memcmp(addrs_found.addr_P1, pkt, addr_size - 1) == 0) {
-                        if(addrs_found.addr_count == 3) {
-                            addrs_found.addr_P3 = pkt[addr_size - 1];
-                            found_total[3]++;
-                            addrs_found.addr_count++;
-                        } else if(addrs_found.addr_count == 4) {
-                            addrs_found.addr_P4 = pkt[addr_size - 1];
-                            found_total[4]++;
-                            addrs_found.addr_count++;
-                        } else if(addrs_found.addr_count == 5) {
-                            addrs_found.addr_P5 = pkt[addr_size - 1];
-                            found_total[5]++;
-                            addrs_found.addr_count++;
-                        }
-                    }
+    if(found) {
+        if(furi_log_get_level() == FuriLogLevelDebug) {
+            char dbuf[65];
+            dbuf[0] = 0;
+            add_to_str_hex_bytes(dbuf, (char*)pkt, size);
+            FURI_LOG_D(TAG, "PKT%02X: %s (%d)", *(pkt - 1), dbuf, size);
+        }
+        int16_t i = 0;
+        for(; i < found_total; i++) {
+            if(APP->found[i].addr_size != addr_size) continue;
+            if(memcmp(APP->found[i].addr, pkt, addr_size) == 0) break;
+        }
+        if(i != found_total) { // found
+            APP->found[i].total++;
+        } else {
+            uint8_t* p = APP->log_arr + 2;
+            for(i = 0; i < log_arr_idx; i++, p += LOG_REC_SIZE) {
+                if((*(p - 2) & 0x80) && (*(p - 1) & 0b11) + 2 == addr_size && pkt != p) {
+                    if(memcmp(p, pkt, addr_size) == 0) break;
                 }
             }
+            if(i != log_arr_idx && found_total < MAX_FOUND_RECORDS) { // found -> 2
+                memset(&APP->found[found_total], 0, sizeof(struct FOUND));
+                memcpy(APP->found[found_total].addr, pkt, addr_size);
+                APP->found[found_total].addr_size = addr_size;
+                APP->found[found_total].total = 2;
+                if(found_total == 0) view_found = 0;
+                found_total++;
+            }
         }
+        /*
+		if(addrs_found.addr_count == 0) {
+			memcpy(addrs_found.addr_P0, pkt, addr_size);
+			addrs_found.addr_len = addr_size;
+			found_total[0]++;
+			addrs_found.addr_count++;
+		} else if(addr_size == addrs_found.addr_len) {
+			if(!check_addr_found(pkt)) {
+				if(addrs_found.addr_count == 1) {
+					memcpy(addrs_found.addr_P1, pkt, addr_size);
+					found_total[1]++;
+					addrs_found.addr_count++;
+				} else if(addrs_found.addr_count == 2) {
+					if(memcmp(addrs_found.addr_P1, pkt, addr_size - 1) == 0) {
+						addrs_found.addr_P2 = pkt[addr_size - 1];
+						found_total[2]++;
+						addrs_found.addr_count++;
+					} else if(memcmp(addrs_found.addr_P0, pkt, addr_size - 1) == 0) {
+						uint8_t tmp[5];
+						memcpy(tmp, addrs_found.addr_P1, addr_size); // swap P0-P1
+						memcpy(addrs_found.addr_P1, addrs_found.addr_P0, addr_size);
+						memcpy(addrs_found.addr_P0, tmp, addr_size);
+						uint32_t n = found_total[0];
+						found_total[0] = found_total[1];
+						found_total[1] = n;
+						addrs_found.addr_P2 = pkt[addr_size - 1];
+						found_total[2]++;
+						addrs_found.addr_count++;
+					}
+				} else if(addrs_found.addr_count >= 3) {
+					if(memcmp(addrs_found.addr_P1, pkt, addr_size - 1) == 0) {
+						if(addrs_found.addr_count == 3) {
+							addrs_found.addr_P3 = pkt[addr_size - 1];
+							found_total[3]++;
+							addrs_found.addr_count++;
+						} else if(addrs_found.addr_count == 4) {
+							addrs_found.addr_P4 = pkt[addr_size - 1];
+							found_total[4]++;
+							addrs_found.addr_count++;
+						} else if(addrs_found.addr_count == 5) {
+							addrs_found.addr_P5 = pkt[addr_size - 1];
+							found_total[5]++;
+							addrs_found.addr_count++;
+						}
+					}
+				}
+			}
+		}
+*/
     }
+
     return found;
 }
 
@@ -802,7 +837,7 @@ bool nrf24_read_newpacket() {
     uint8_t st;
     /* test pkts	
 	static int iii = 0;
-    char ppp[][65] = { 	"42E4A65544CC4AD9B25655A93E25669895572162DDA295524660D2",
+    char ppp[][65] = { 	"54A545109411544BAAE50110A3282512A9A1152A565B22AAA48AB751A5",
 						"C8C8C0CE7A81018007202FFFFC", 
 						"EAEC8C8C2CE3C0101006FB737A",
 						"BEBFFFEC8C8C1CC00542AF7CFF7DBEAFE3397FEAFEF1DDFA4AEF7FDBB7CDEABC",
@@ -973,7 +1008,14 @@ static void render_callback(Canvas* const canvas, void* ctx) {
         canvas_draw_str(canvas, 10, 30, screen_buf);
         if(what_to_do == 1)
             snprintf(screen_buf, sizeof(screen_buf), "Min Payl: %d", NRF_Payload_sniff_min);
-        else
+        else if(what_to_do == 3) {
+            uint8_t* p = APP->log_arr + view_log_arr_idx * LOG_REC_SIZE;
+            snprintf(
+                screen_buf,
+                sizeof(screen_buf),
+                "Payload: %d",
+                log_arr_idx && (*p & 0x80) ? *(p + 1) >> 3 : NRF_Payload);
+        } else
             snprintf(screen_buf, sizeof(screen_buf), "Payload: %d", NRF_Payload);
         canvas_draw_str(canvas, 78, 30, screen_buf);
         strcpy(screen_buf, "Next Ch time: "); // menu_selected = 3
@@ -998,7 +1040,7 @@ static void render_callback(Canvas* const canvas, void* ctx) {
         canvas_draw_str(canvas, 10, 50, screen_buf);
         if(what_to_do) { // menu_selected = 5
             if(NRF_ERROR)
-                snprintf(screen_buf, sizeof(screen_buf), "nRF24L01+ R/W ERROR!");
+                snprintf(screen_buf, sizeof(screen_buf), "nRF24L01+ r/w ERROR!");
             else {
                 if(what_to_do == 1)
                     snprintf(screen_buf, sizeof(screen_buf), "Start sniff");
@@ -1186,8 +1228,16 @@ static void render_callback(Canvas* const canvas, void* ctx) {
                 }
                 uint16_t y = 14 + i * 7;
                 canvas_draw_str(canvas, 3 * 5, y, screen_buf);
-                uint16_t x = snprintf(screen_buf, sizeof(screen_buf), "%d", page + i + 1);
-                canvas_draw_str(canvas, 0, y, screen_buf);
+                uint16_t x = page + i + 1;
+                if(x > 99) {
+                    snprintf(screen_buf, 16, "%d", x);
+                    canvas_draw_str(canvas, 1, y, screen_buf + 1);
+                    canvas_draw_frame(canvas, 0, y - 2, 1, 2);
+                    x = 2;
+                } else {
+                    x = snprintf(screen_buf, 16, "%d", x);
+                    canvas_draw_str(canvas, 0, y, screen_buf);
+                }
                 if(crcptr) { // 5x7 font, 9 lines
                     canvas_draw_str(canvas, x * 5, y, "=");
                     int n = crcptr - (uint8_t*)ptr;
@@ -1211,54 +1261,61 @@ static void render_callback(Canvas* const canvas, void* ctx) {
         }
     } else {
         canvas_set_font(canvas, FontBatteryPercent); // 5x7 font, 9 lines
-        struct ADDRS* a;
-        if(what_to_do == 1) {
-            if(view_details_type && addrs_found.addr_count) {
-                a = &addrs_found;
-                canvas_draw_str(canvas, 0, 1 * 7, "Found addr:");
-            } else {
-                a = &addrs_sniff;
-                canvas_draw_str(canvas, 0, 1 * 7, "Sniff prefix:");
+        if(view_found >= 0) {
+            snprintf(screen_buf, 50, "Found > 1: %d", found_total);
+            canvas_draw_str(canvas, 0, 1 * 7, screen_buf);
+            int16_t idx = view_found * 7;
+            for(uint8_t i = 0; i < 7; i++, idx++) {
+                if(idx >= found_total) break;
+                snprintf(screen_buf, 16, "%d. ", idx + 1);
+                add_to_str_hex_bytes(
+                    screen_buf, (char*)APP->found[idx].addr, APP->found[idx].addr_size);
+                if(APP->found[idx].addr_size == 3)
+                    strcat(screen_buf, "    ");
+                else if(APP->found[idx].addr_size == 4)
+                    strcat(screen_buf, "  ");
+                snprintf(screen_buf + strlen(screen_buf), 16, " - %d", APP->found[idx].total);
+                canvas_draw_str(canvas, 0, (2 + i) * 7, screen_buf);
             }
         } else {
-            a = &addrs;
-            canvas_draw_str(canvas, 0, 1 * 7, "Addresses:");
-        }
-        if(a->addr_count > 0) {
-            snprintf(screen_buf, sizeof(screen_buf), "P0: ");
-            add_to_str_hex_bytes(screen_buf, (char*)a->addr_P0, a->addr_len);
-            snprintf(screen_buf + strlen(screen_buf), 16, " - %d", found_total[0]);
-            canvas_draw_str(canvas, 0, 2 * 7, screen_buf);
-        }
-        if(a->addr_count > 1) {
-            snprintf(screen_buf, sizeof(screen_buf), "P1: ");
-            add_to_str_hex_bytes(screen_buf, (char*)a->addr_P1, a->addr_len);
-            snprintf(screen_buf + strlen(screen_buf), 16, " - %d", found_total[1]);
-            canvas_draw_str(canvas, 0, 3 * 7, screen_buf);
-        }
-        if(a->addr_count > 2) {
-            canvas_draw_str(canvas, 0, 4 * 7, "P2: ");
-            snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P2);
-            snprintf(screen_buf + strlen(screen_buf), 16, " - %d", found_total[2]);
-            canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 4 * 7, screen_buf);
-        }
-        if(a->addr_count > 3) {
-            canvas_draw_str(canvas, 0, 5 * 7, "P3: ");
-            snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P3);
-            snprintf(screen_buf + strlen(screen_buf), 16, " - %d", found_total[3]);
-            canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 5 * 7, screen_buf);
-        }
-        if(a->addr_count > 4) {
-            canvas_draw_str(canvas, 0, 6 * 7, "P4: ");
-            snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P4);
-            snprintf(screen_buf + strlen(screen_buf), 16, " - %d", found_total[4]);
-            canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 6 * 7, screen_buf);
-        }
-        if(a->addr_count > 5) {
-            canvas_draw_str(canvas, 0, 7 * 7, "P5: ");
-            snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P5);
-            snprintf(screen_buf + strlen(screen_buf), 16, " - %d", found_total[5]);
-            canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 7 * 7, screen_buf);
+            struct ADDRS* a;
+            if(what_to_do == 1) {
+                a = &addrs_sniff;
+                canvas_draw_str(canvas, 0, 1 * 7, "Sniff prefix:");
+            } else {
+                a = &addrs;
+                canvas_draw_str(canvas, 0, 1 * 7, "Addresses:");
+            }
+            if(a->addr_count > 0) {
+                snprintf(screen_buf, sizeof(screen_buf), "P0: ");
+                add_to_str_hex_bytes(screen_buf, (char*)a->addr_P0, a->addr_len);
+                canvas_draw_str(canvas, 0, 2 * 7, screen_buf);
+            }
+            if(a->addr_count > 1) {
+                snprintf(screen_buf, sizeof(screen_buf), "P1: ");
+                add_to_str_hex_bytes(screen_buf, (char*)a->addr_P1, a->addr_len);
+                canvas_draw_str(canvas, 0, 3 * 7, screen_buf);
+            }
+            if(a->addr_count > 2) {
+                canvas_draw_str(canvas, 0, 4 * 7, "P2: ");
+                snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P2);
+                canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 4 * 7, screen_buf);
+            }
+            if(a->addr_count > 3) {
+                canvas_draw_str(canvas, 0, 5 * 7, "P3: ");
+                snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P3);
+                canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 5 * 7, screen_buf);
+            }
+            if(a->addr_count > 4) {
+                canvas_draw_str(canvas, 0, 6 * 7, "P4: ");
+                snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P4);
+                canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 6 * 7, screen_buf);
+            }
+            if(a->addr_count > 5) {
+                canvas_draw_str(canvas, 0, 7 * 7, "P5: ");
+                snprintf(screen_buf, sizeof(screen_buf), "%02X", a->addr_P5);
+                canvas_draw_str(canvas, (4 + (a->addr_len - 1) * 2) * 5, 7 * 7, screen_buf);
+            }
         }
         if(log_arr_idx) {
             uint8_t* ptr = APP->log_arr + view_log_arr_idx * LOG_REC_SIZE;
@@ -1278,7 +1335,7 @@ static void render_callback(Canvas* const canvas, void* ctx) {
         }
         screen_buf[0] = 'v';
         strcpy(screen_buf + 1, VERSION);
-        canvas_draw_str(canvas, 104, 7, screen_buf);
+        canvas_draw_str(canvas, 105, 7, screen_buf);
         if(view_log_decode_PCF || view_log_decode_CRC) {
             strcpy(screen_buf, "Decode: ");
             if(view_log_decode_PCF) strcat(screen_buf, "ESB ");
@@ -1304,9 +1361,20 @@ int32_t nrf24scan_app(void* p) {
         free(APP->plugin_state);
         return 255;
     }
+    APP->log_arr = malloc(LOG_REC_SIZE * MAX_LOG_RECORDS);
+    if(APP->log_arr == NULL) {
+        FURI_LOG_E(TAG, "Not enouch memory: %d", LOG_REC_SIZE * MAX_LOG_RECORDS);
+        strcpy(addr_file_name, "MEMORY LOW!");
+    }
+    clear_log();
+    APP->found = malloc(sizeof(struct FOUND) * MAX_FOUND_RECORDS);
+    if(APP->found == NULL) {
+        FURI_LOG_E(TAG, "Not enouch memory: %d", sizeof(struct FOUND) * MAX_FOUND_RECORDS);
+        strcpy(addr_file_name, "MEMORY LOW!!");
+    }
+
     memset((uint8_t*)&addrs, 0, sizeof(addrs));
     memset((uint8_t*)&addrs_sniff, 0, sizeof(addrs_sniff));
-    memset((uint8_t*)&addrs_found, 0, sizeof(addrs_found));
     nrf24_init();
 
     // Set system callbacks
@@ -1348,7 +1416,6 @@ int32_t nrf24scan_app(void* p) {
     file_stream_close(file_stream);
     stream_free(file_stream);
     furi_string_free(path);
-    allocate_log_array();
 
     PluginEvent event;
     for(bool processing = true; processing;) {
@@ -1371,7 +1438,7 @@ int32_t nrf24scan_app(void* p) {
                             view_log_arr_idx -= event.input.type == InputTypeRepeat ? 10 : 1;
                             if(view_log_arr_idx >= log_arr_idx) view_log_arr_idx = 0;
                         } else if(what_doing == 2) {
-                            view_details_type = 0;
+                            if(view_found > -1) view_found--;
                         }
                     }
                     break;
@@ -1386,7 +1453,7 @@ int32_t nrf24scan_app(void* p) {
                             view_log_arr_idx += event.input.type == InputTypeRepeat ? 10 : 1;
                             if(view_log_arr_idx >= log_arr_idx) view_log_arr_idx = log_arr_idx - 1;
                         } else if(what_doing == 2) {
-                            view_details_type = 1;
+                            if(view_found < found_total / 7) view_found++;
                         }
                     }
                     break;
@@ -1517,7 +1584,11 @@ int32_t nrf24scan_app(void* p) {
                                 break;
                             case Menu_ok:
                                 if(what_to_do) {
-                                    if(addrs.addr_count || what_to_do == 1) {
+                                    if((addrs.addr_count ||
+                                        (what_to_do == 3 && log_arr_idx &&
+                                         *(APP->log_arr + view_log_arr_idx * LOG_REC_SIZE) &
+                                             0x80)) ||
+                                       what_to_do == 1) {
                                         if(log_to_file == -1) {
                                             log_to_file = 0;
                                             clear_log();
@@ -1529,7 +1600,6 @@ int32_t nrf24scan_app(void* p) {
                                     }
                                 } else
                                     what_doing = 1;
-                                key_press_seq_ok = event.input.sequence;
                                 break;
                             }
                         } else if(what_doing == 1) {
@@ -1541,7 +1611,6 @@ int32_t nrf24scan_app(void* p) {
                         if(what_doing == 0) {
                             if(menu_selected == Menu_enter_channel) {
                                 NRF_AA_OFF ^= 1;
-                                key_press_seq_ok = event.input.sequence;
                             } else if(menu_selected == Menu_log) { // Log
                                 if(log_arr_idx && (log_to_file == 1 || log_to_file == 2)) {
                                     write_to_log_file(APP->storage, false);
@@ -1559,7 +1628,6 @@ int32_t nrf24scan_app(void* p) {
                     else if(event.input.type == InputTypeShort) {
                         if(what_doing) what_doing--;
                         if(what_doing == 0) {
-                            memcpy(&addrs, &addrs_found, sizeof(addrs));
                             nrf24_set_idle(nrf24_HANDLE);
                         }
                     }
@@ -1596,6 +1664,7 @@ int32_t nrf24scan_app(void* p) {
     furi_message_queue_free(APP->event_queue);
     free(APP->plugin_state);
     if(APP->log_arr) free(APP->log_arr);
+    if(APP->found) free(APP->found);
     free(APP);
     return 0;
 }
