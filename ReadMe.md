@@ -16,7 +16,8 @@ Thank you to all the supporters!
 - Donations: ETH: `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f`
 - [Join THE Flipper Uncensored Discord](https://discord.gg/gF2bBUzAFe)
 
-## Latest Updates - [PATREON: Latest Release RM1221-1108-0.73.2-fc76f1b](https://www.patreon.com/posts/76202555)
+## Latest Updates - [PATREON: Latest Release RM1221-1723-0.73.2-f5edc15](https://www.patreon.com/posts/76216457) 
+
 ## [BUILDS NOW AVAILABLE WITH STOCK, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default) and RM 18PLUS ANIMATION SETS](https://www.patreon.com/RogueMaster/membership)
 
 - Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2022-12-21 10:55 EST`
@@ -26,6 +27,9 @@ Thank you to all the supporters!
 - [PATREON ONLY UPDATES: For STOCK Animations Release: Not Stoned, Passport display closer to OFW, Passport avatar from OFW, Top desktop bar from OFW & Internal Apps have OFW animation scenes](https://www.patreon.com/posts/76185159)
 - [PATREON ONLY UPDATES: For STOCK Animations Release: Desktop bar transparent, but the icons are shown](https://www.patreon.com/posts/76188388)
 - Swapped favorite buttons to fix Favorite location bug.
+- Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- Updated: [NRF24 Scanner v2.1 (By vad7)](https://github.com/vad7/nrf24scan)
+- Fixed passport to show more data for EXP
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
@@ -222,7 +226,7 @@ $ ./fbt resources icons dolphin_ext
 - [Music Player (By DrZlo13)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/1189)
 - [NFC Magic (By gornekich)](https://github.com/flipperdevices/flipperzero-firmware/pull/1966)
 - [NRF Sniff (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/nrfsniff) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/nrfsniff) from nocomp/Frog/UberGuidoZ) `Req: NRF24`
-- [NRF24 Scanner v2.0 (By vad7)](https://github.com/vad7/nrf24scan)
+- [NRF24 Scanner v2.1 (By vad7)](https://github.com/vad7/nrf24scan)
 - [Ocarina (By invalidna-me)](https://github.com/invalidna-me/flipperzero-ocarina) [Here are the LOTZ Songs](https://www.zeldadungeon.net/wiki/Ocarina_of_Time_Songs)
 - [Orgasmotron (By qqmajikpp)](https://github.com/qqmajikpp/flipperzero-firmware-wPlugins)
 - [Paint (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
