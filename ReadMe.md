@@ -16,17 +16,18 @@ Thank you to all the supporters!
 - Donations: ETH: `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f`
 - [Join THE Flipper Uncensored Discord](https://discord.gg/gF2bBUzAFe)
 
-## Latest Updates - [PATREON: Latest Release RM1224-0701-0.74.2-5d9926b](https://www.patreon.com/posts/76318937) 
+## Latest Updates - [PATREON: Latest Release RM1225-0136-0.74.2-133a5b8](https://www.patreon.com/posts/76346398) 
 
 ## [BUILDS NOW AVAILABLE WITH STOCK, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default) and RM 18PLUS ANIMATION SETS](https://www.patreon.com/RogueMaster/membership)
 
-- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2022-12-24 01:42 EST`
-- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-12-24 01:42 EST`
+- Last Synced/Checked [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware), changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2022-12-25 01:35 EST`
+- Last Synced/Checked [OFW](https://github.com/flipperdevices/flipperzero-firmware), changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-12-25 01:35 EST`
 - Updated: [WiFi (Marauder) v3.0 (By 0xchocolate)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion) `Req: ESP32 WITH MARAUDER FLASHED`
 - Updated: [BPM Tapper (By panki27)](https://github.com/panki27/bpm-tapper)
 - Updated: [Metronome (By panki27)](https://github.com/panki27/Metronome)
 - Updated: [Minesweeper (By panki27)](https://github.com/panki27/minesweeper)
 - Updated: [NRF24 Scanner v2.1 (By vad7)](https://github.com/vad7/nrf24scan)
+- Updated: [Barcode Generator (By McAzzaMan)](https://github.com/McAzzaMan/flipperzero-firmware/tree/UPC-A_Barcode_Generator/applications/barcode_generator) (from Unleashed/gid9798)
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
