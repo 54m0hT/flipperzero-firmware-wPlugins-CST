@@ -1,22 +1,22 @@
-<a href='https://www.patreon.com/RogueMaster/membership'><img src="patreon.png" width="30%"></a>
-
 # Flipper Zero FW [ROGUEMASTER]
 This firmware is a fork of [Unleashed/xMasterX](https://github.com/DarkFlippers/unleashed-firmware) and the main Flipper Devices FW! I will try to keep active development and updates from both in this build along with any other projects that can be found to be useful to the community. I try to keep this FW build the most cutting edge with updates from both and updates from active community projects.  
 
 This software is for experimental purposes only and is not meant for any illegal activity/purposes. We do not condone illegal activity and strongly encourage keeping transmissions to legal/valid uses allowed by law.
+
+<a href='https://www.patreon.com/RogueMaster/membership'><img src="patreon.png" width="30%"></a>
 
 ## [Support Us!](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/SUPPORT.md)
 Everyone gives much of their uncompensated free time to ensure the success of the Flipper Zero!
 Thank you to all the supporters!
 
 - [PATREON for compiled releases for any updates](https://www.patreon.com/RogueMaster) - releases will occur weekly or with main FW version updates.
-- Contact me on [Patreon](https://www.patreon.com/RogueMaster/membership) if you want a renamed Flipper. I can do custom names!
 - [Support us if you like what you see](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/SUPPORT.md)! 😄🚀💸
 - Donations: BTC: `3MPQbKmGRCstg4FjnadfHa3woCT94JkR2a`
 - Donations: ETH: `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f`
 - [Join THE Flipper Uncensored Discord](https://discord.gg/gF2bBUzAFe)
+- Contact me on [Patreon](https://www.patreon.com/RogueMaster/membership) if you want a renamed Flipper. I can do custom names!
 
-## Latest Updates - [PATREON: Latest Release RM1225-0136-0.74.2-133a5b8](https://www.patreon.com/posts/76346398) 
+## Latest Updates - [PATREON: Latest Release RM1226-0351-0.74.3-22fe32d](https://www.patreon.com/posts/76378849) 
 
 ## [BUILDS NOW AVAILABLE WITH STOCK, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default) and RM 18PLUS ANIMATION SETS](https://www.patreon.com/RogueMaster/membership)
 
@@ -28,6 +28,8 @@ Thank you to all the supporters!
 - Updated: [Minesweeper (By panki27)](https://github.com/panki27/minesweeper)
 - Updated: [NRF24 Scanner v2.1 (By vad7)](https://github.com/vad7/nrf24scan)
 - Updated: [Barcode Generator (By McAzzaMan)](https://github.com/McAzzaMan/flipperzero-firmware/tree/UPC-A_Barcode_Generator/applications/barcode_generator) (from Unleashed/gid9798)
+- Added Assets: Includes Fun SubGHz files: CVS/Walgreens CS Buttons & Honda Lock/Unlock.
+- AC Remote Update from OFW
 
 ## Install from Release
 FLASH STOCK FIRST BEFORE UPDATING TO CUSTOM FIRMWARE!
@@ -80,11 +82,12 @@ $ ./fbt resources icons dolphin_ext
 - [Archive: File Browser Ordering (By Dig03)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/389)
 - [Archive: Browser: Context menu to show file content (By askoriy)](https://github.com/DarkFlippers/unleashed-firmware/pull/139)
 - Archive: FAPs are now launchable from Archive [By RogueMaster], thanks xMasterX for the suggestion
+- Assets: Includes Fun SubGHz files: Honda Lock/Unlock, CVS and Walgreens Help signals
 - Assets: Includes a NFC Level 50 Z3lda Amiibo
 - Assets: Includes a NFC Rick Roll link
 - Assets: Includes New Dolphin Animations: [Listed Here](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/assets/resources/dolphin)
 - Assets: Includes sample Music Player tunes
-- Assets: Includes sample SubGHz assets for Crosswalk, Handicap Doors, Sextoys, Tesla Charge Port, and Unitree Go1 Robot Dog
+- Assets: Includes sample SubGHz assets for Crosswalk, CVS/Walgreens CS Buttons, Handicap Doors, Honda Lock/Unlock, Sextoys, Tesla Charge Port & Unitree Go1 Robot Dog.
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
 - Assets: Running DolphinRestorer.fap on new install will auto-level to Level 7.
 - [BadUSB: BadUSB as FAP #396 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/396)
