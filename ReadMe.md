@@ -24,12 +24,16 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM1230-1501-0.74.3-4c4f255](https://www.patreon.com/posts/76561146) 
+## Latest Updates - [PATREON: Latest Release RM1231-1330-0.74.3-4d61688](https://www.patreon.com/posts/76601971) 
 
-- Last Synced/Checked [Unleashed], changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2022-12-30 09:48 EST`
-- Last Synced/Checked [OFW], changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-12-30 09:48 EST`
+- Last Synced/Checked [Unleashed], changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2022-12-31 13:28 EST`
+- Last Synced/Checked [OFW], changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2022-12-31 13:28 EST`
 - Small fix for MRTD doc saving thanks to Bernie
 - Updated: [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
+- Assets: Includes SubGHz files: more CVS buttons and Lowes buttons
+- Assets: Includes SubGHz Playlist config update and SubGHz Remote config update for CVS, Lowes & Walgreens
+- Updated: [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD`
+- Added: [Rubik's Cube Scrambler (By RaZeSloth)](https://github.com/RaZeSloth/flipperzero-rubiks-cube-scrambler)
 
 <a name="release">
 
@@ -99,16 +103,15 @@ $ ./fbt dolphin_ext
 - [Archive: File Browser Ordering (By Dig03)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/389)
 - [Archive: Browser: Context menu to show file content (By askoriy)](https://github.com/DarkFlippers/unleashed-firmware/pull/139)
 - Archive: FAPs are now launchable from Archive [By RogueMaster], thanks xMasterX for the suggestion
-- Assets: Includes Fun SubGHz files: Honda Lock/Unlock, CVS and Walgreens Help signals
 - Assets: Includes a NFC Level 50 Z3lda Amiibo
 - Assets: Includes a NFC Rick Roll link
 - Assets: Includes New Dolphin Animations: [Listed Here](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/assets/resources/dolphin)
 - Assets: Includes sample Music Player tunes
-- Assets: Includes sample SubGHz assets for Crosswalk, CVS/Walgreens CS Buttons, Handicap Doors, Honda Lock/Unlock, Sextoys, Tesla Charge Port & Unitree Go1 Robot Dog.
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
 - Assets: Running DolphinRestorer.fap on new install will auto-level to Level 7.
+- Assets: Includes SubGHz assets for Crosswalk, CVS/Walgreens CS Buttons, Handicap Doors, Honda Lock/Unlock, Lowes, Sextoys, Tesla Charge Port & Unitree Go1 Robot Dog.
 - Assets: Includes SubGHz Gas Sign Captures by [0day](https://github.com/0dayCTF)
-- Assets: Includes SubGHz Playlist config and SubGHz Remote config for CVS & Walgreens.
+- Assets: Includes SubGHz Playlist config and SubGHz Remote config for CVS, Lowes & Walgreens.
 - Assets: Includes SubGHz Remote config for Gas_Sign_Edit [from UberGuidoZ](https://github.com/UberGuidoZ/Flipper)
 - Assets: Includes SubGHz Remote config for Riding_Dirty [from UberGuidoZ](https://github.com/UberGuidoZ/Flipper)
 - Assets: Includes SubGHz SexToy files [from UberGuidoZ](https://github.com/UberGuidoZ/Flipper)
@@ -204,6 +207,7 @@ $ ./fbt dolphin_ext
 - [Minesweeper (By panki27)](https://github.com/panki27/minesweeper)
 - [Monty Hall (By DevMilanIan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/203)
 - [Pong (By nmrr)](https://github.com/nmrr/flipperzero-pong)
+- [Rubik's Cube Scrambler (By RaZeSloth)](https://github.com/RaZeSloth/flipperzero-rubiks-cube-scrambler)
 - [Scorched Tanks (By jasniec)](https://github.com/jasniec/flipper-scorched-tanks-game)
 - [Snake (By OlegSchwann)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/829)(With updates from DrZlo13, xMasterX, QtRoS and RogueMaster) [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922) [Turns anywhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/125) [Food Spawns Anywwhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/130)
 - [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
@@ -277,7 +281,7 @@ $ ./fbt dolphin_ext
 - [Spectrum Analyzer (By jolcese)](https://github.com/jolcese/flipperzero-firmware/tree/spectrum/applications/spectrum_analyzer) [Updates (for testing) Thanks to theY4Kman](https://github.com/theY4Kman/flipperzero-firmware)
 - [Sub-GHz Bruteforcer v3.4 (By Ganapati/xMasterX/derskythe)](https://github.com/derskythe/flipperzero-subbrute/tree/master)
 - [Sub-GHz Playlist (By darmiel)](https://github.com/darmiel/flipper-playlist)
-- [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD`
+- [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD`
 - [Temperature Sensor (By Mywk)](https://github.com/Mywk/FlipperTemperatureSensor) `Req: HTU2XD, SHT2X, SI702X, SI700X, SI701X or AM2320`
 - [Toy Serial (By maybe-hello-world)](https://github.com/maybe-hello-world/flipper-bp)
 - [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork)
