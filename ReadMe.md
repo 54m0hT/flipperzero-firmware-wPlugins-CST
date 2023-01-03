@@ -18,16 +18,16 @@ This software is for experimental purposes only and is not meant for any illegal
 - Keep Your Flipper Up To Date With [PATREON membership](https://www.patreon.com/RogueMaster)
 - [PATREON for compiled releases](https://www.patreon.com/RogueMaster) for nearly ALL updates. Patreon Releases sometimes multiple times a day. GitHub releases will occur weekly or with OFW version updates.
 - [Contact me on Patreon to RENAME your Flipper](https://www.patreon.com/RogueMaster/membership) I can do custom names and custom animation sets with your custom build provided for every Patreon release.
-- [:fire: PATREON ANIMATION BUILDS AVAILABLE](https://www.patreon.com/RogueMaster/membership): ALL, DBZ, HACKZ, MARIO, ONE PIECE, RM 18PLUS, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default on GitHub), SAO, SCIENCE AND STOCK with all assets updated to look like stock.
+- [:fire: PATREON ANIMATION BUILDS AVAILABLE](https://www.patreon.com/RogueMaster/membership): ALL, 420, DBZ, HACKZ, MARIO, ONE PIECE, RM 18PLUS, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default on GitHub), SAO, SCIENCE AND STOCK with all assets updated to look like stock.
 - Donations: BTC: `3MPQbKmGRCstg4FjnadfHa3woCT94JkR2a`
 - Donations: ETH: `roguemaster.eth` or `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f`
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0103-1115-0.74.3-073fbc1](https://www.patreon.com/posts/76734881) 
+## Latest Updates - [PATREON: Latest Release RM0103-1602-0.74.3-413f87f](https://www.patreon.com/posts/76747898) 
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-02 04:13 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-02 04:13 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-03 14:22 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-03 14:22 EST`
 - Small fix for MRTD doc saving thanks to Bernie
 - Updated: [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
 - Assets: Includes SubGHz files: more CVS buttons and Lowes buttons
@@ -45,6 +45,11 @@ This software is for experimental purposes only and is not meant for any illegal
 - Updated: [Pomodoro 2 (By Th3Un1q3)](https://github.com/Th3Un1q3/flipp_pomodoro)
 - Passport updated to support more stuff. [Thanks to ESurge](https://github.com/ESurge/)
 - [ISO15693: update to latest sources (By g3gg0)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/484)
+- Unleashed: [Add 350Mhz to default SubGHz range](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/e99d57785d192948ff8cece37e4978b83cf5dde1#diff-f3daad7a0f634a8f5a5ef177bd1d0338dcb3f6d918c61c76910e4f40916ebe04)
+- Updated: [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD` [support for BME680 by g3gg0](https://github.com/quen0n/unitemp-flipperzero/pull/1)
+- Added: BadUSB: Assets for RickRoll, RogueMaster GitHub and RogueMaster Patreon
+- Added: NFC: Assets for RogueMaster GitHub and RogueMaster Patreon
+- [New Patreon Build: 420](https://www.patreon.com/posts/76747898)
 
 <a name="release">
 
@@ -130,6 +135,7 @@ $ ./fbt dolphin_ext
 - [BadUSB: BadUSB as FAP #396 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/396)
 - BadUSB: Added ignore DUCKY_LANG cmd to retain compatibility with existing scripts [(Thanks to v1nc)](https://github.com/v1nc/flipperzero-firmware)
 - BadUSB: Assets for Kiosk Evasion (By nocomp) and Wifi Stealer (By 7h30th3r0n3)
+- BadUSB: Assets for RickRoll, RogueMaster GitHub and RogueMaster Patreon
 - BadUSB: [Dummy decoy/bad usb keyboard layout #1525 (By dummy-decoy)](https://github.com/flipperdevices/flipperzero-firmware/pull/1525)
 - BadUSB: nb-NO Added norwegian keyboard layout [(By jd-raymaker)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/357)
 - BadUSB: show script errors on screen [(By CromFr)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/200)
@@ -164,6 +170,7 @@ $ ./fbt dolphin_ext
 - Icon Decode/Encode [(Thanks to PixlEmly)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/55/files)
 - [Infrared: Infrared AS FAP #398 (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/398) (With Thanks to ESurge) [Restored Infrared and RFID CLI #405 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/405)
 - Infrared: Universal AC, Audio, Fans & Projectors from [Unleashed/Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware)
+- NFC: Assets for RogueMaster GitHub and RogueMaster Patreon
 - NFC: [NFC - Machine Readable Travel Documents #1866 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1866)
 - NFC: [(WIP) added ISO15693 reading, saving and revealing from privacy mode (unlock) #1991 (By g3gg0)](https://github.com/flipperdevices/flipperzero-firmware/pull/1991)
 - Plugins: 2048, Arkanoid, Snake, and Tetris show score. Thanks to [whoamins](https://github.com/flipperdevices/flipperzero-firmware/commit/7feda832ede1ba8468eff2ca055fef3ddbdc16ac) and [DevMilanIan](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/188) With position changes by RogueMaster. Also all + Tic Tac Toe updated by [Unleashed/Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware) for stability.
@@ -292,7 +299,7 @@ $ ./fbt dolphin_ext
 - [Spectrum Analyzer (By jolcese)](https://github.com/jolcese/flipperzero-firmware/tree/spectrum/applications/spectrum_analyzer) [Updates (for testing) Thanks to theY4Kman](https://github.com/theY4Kman/flipperzero-firmware)
 - [Sub-GHz Bruteforcer v3.4 (By Ganapati/xMasterX/derskythe)](https://github.com/derskythe/flipperzero-subbrute/tree/master)
 - [Sub-GHz Playlist (By darmiel)](https://github.com/darmiel/flipper-playlist)
-- [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD`
+- [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD`
 - [Temperature Sensor (By Mywk)](https://github.com/Mywk/FlipperTemperatureSensor) `Req: HTU2XD, SHT2X, SI702X, SI700X, SI701X or AM2320`
 - [Toy Serial (By maybe-hello-world)](https://github.com/maybe-hello-world/flipper-bp)
 - [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork)
