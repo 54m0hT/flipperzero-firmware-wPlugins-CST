@@ -24,7 +24,7 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0103-1602-0.74.3-413f87f](https://www.patreon.com/posts/76747898) 
+## Latest Updates - [PATREON: Latest Release RM0104-1457-0.74.3-ac042c3](https://www.patreon.com/posts/76792658) 
 
 - Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-03 14:22 EST`
 - Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-03 14:22 EST`
@@ -51,6 +51,8 @@ This software is for experimental purposes only and is not meant for any illegal
 - Added: NFC: Assets for RogueMaster GitHub and RogueMaster Patreon
 - [New Patreon Build: 420](https://www.patreon.com/posts/76747898)
 - Updated: [Rubik's Cube Scrambler (By RaZeSloth)](https://github.com/RaZeSloth/flipperzero-rubiks-cube-scrambler)
+- Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- Added: [SubGhz: add protocol "Linear Delta-3" #2239 (By brandonweeks)](https://github.com/flipperdevices/flipperzero-firmware/pull/2239)
 
 <a name="release">
 
@@ -199,6 +201,7 @@ $ ./fbt dolphin_ext
 - Settings: Updated Left to go to Clock [(By RogueMaster)]
 - Settings: Updated HOLD LEFT to go to SubGhz Remote [(By RogueMaster)]
 - SubGHz: Auto Detect Raw in READ action (Needs To Be Enabled In Read Settings) [from perspecdev](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/152)
+- SubGhz: add protocol "Linear Delta-3" #2239 [(By brandonweeks)](https://github.com/flipperdevices/flipperzero-firmware/pull/2239)
 - SubGHz: [Add settings to subghz read functionality to allow setting RSSI threshold (raw only) (By PolymerPrints)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/184)
 - SubGHz: Extended ranges enabled through flag in /ext/subghz/assets/extend_range.txt [from tkerrby](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/116)
 - SubGHz: Moved setting_user file to setting_user.txt! This makes it changable from IOS app. (By RogueMaster)
