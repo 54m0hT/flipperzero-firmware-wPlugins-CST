@@ -30,6 +30,12 @@ void subghz_preset_init(
     subghz->txrx->preset->frequency = frequency;
     subghz->txrx->preset->data = preset_data;
     subghz->txrx->preset->data_size = preset_data_size;
+
+    subghz->txrx->raw_bandwidth =
+        subghz_preset_custom_get_bandwidth(preset_data, preset_data_size);
+    subghz->txrx->raw_manchester_enabled =
+        subghz_preset_custom_get_machester_enable(preset_data, preset_data_size);
+    subghz->txrx->raw_datarate = subghz_preset_custom_get_datarate(preset_data, preset_data_size);
 }
 
 bool subghz_set_preset(SubGhz* subghz, const char* preset) {
@@ -164,7 +170,7 @@ bool subghz_tx_start(SubGhz* subghz, FlipperFormat* flipper_format) {
 
         if(subghz->txrx->transmitter) {
             if(subghz_transmitter_deserialize(subghz->txrx->transmitter, flipper_format)) {
-                if(strcmp(furi_string_get_cstr(subghz->txrx->preset->name), "")) {
+                if(strcmp(furi_string_get_cstr(subghz->txrx->preset->name), "") != 0) {
                     subghz_begin(
                         subghz,
                         subghz_setting_get_preset_data_by_name(
@@ -551,11 +557,8 @@ void subghz_hopper_update(SubGhz* subghz) {
 
     switch(subghz->txrx->hopper_state) {
     case SubGhzHopperStateOFF:
-        return;
-        break;
     case SubGhzHopperStatePause:
         return;
-        break;
     case SubGhzHopperStateRSSITimeOut:
         if(subghz->txrx->hopper_timeout != 0) {
             subghz->txrx->hopper_timeout--;

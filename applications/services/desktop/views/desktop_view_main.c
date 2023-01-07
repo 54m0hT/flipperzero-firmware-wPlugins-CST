@@ -80,9 +80,11 @@ bool desktop_main_input_callback(InputEvent* event, void* context) {
             if(event->key == InputKeyOk) {
                 main_view->callback(DesktopAnimationEventNewIdleAnimation, main_view->context);
             } else if(event->key == InputKeyUp) {
-                main_view->callback(DesktopMainEventOpenFavoritePrimary, main_view->context);
+                main_view->callback(
+                    DesktopMainEventOpenFavoriteSecondary, main_view->context); // UP FOR PRIMARY
             } else if(event->key == InputKeyDown) {
-                main_view->callback(DesktopMainEventOpenFavoriteSecondary, main_view->context);
+                main_view->callback(
+                    DesktopMainEventOpenFavoritePrimary, main_view->context); // DOWN FOR SECONDARY
             } else if(event->key == InputKeyLeft) {
                 main_view->callback(
                     DesktopMainEventOpenSubRemote, main_view->context); // OPENS SUBGHZ REMOTE
@@ -164,7 +166,6 @@ DesktopMainView* desktop_main_alloc() {
     free(desktop_settings);
 
     main_view->view = view_alloc();
-    view_allocate_model(main_view->view, ViewModelTypeLockFree, 1);
     view_set_context(main_view->view, main_view);
     view_set_input_callback(main_view->view, desktop_main_input_callback);
 

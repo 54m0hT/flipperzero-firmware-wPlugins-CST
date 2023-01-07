@@ -63,13 +63,9 @@ bool _onewire_id_exist(uint8_t* id) {
 
 static void _onewire_scan(void) {
     OneWireSensor* ow_sensor = editable_sensor->instance;
-#ifdef UNITEMP_DEBUG
-    FURI_LOG_D(
-        APP_NAME,
-        "devices on wire %d: %d",
-        ow_sensor->bus->gpio->num,
-        ow_sensor->bus->device_count);
-#endif
+
+    UNITEMP_DEBUG(
+        "devices on wire %d: %d", ow_sensor->bus->gpio->num, ow_sensor->bus->device_count);
 
     //Сканирование шины one wire
     unitemp_onewire_bus_init(ow_sensor->bus);
@@ -101,9 +97,8 @@ static void _onewire_scan(void) {
 
     memcpy(ow_sensor->deviceID, id, 8);
     ow_sensor->familyCode = id[0];
-#ifdef UNITEMP_DEBUG
-    FURI_LOG_D(
-        APP_NAME,
+
+    UNITEMP_DEBUG(
         "Found sensor's ID: %02X%02X%02X%02X%02X%02X%02X%02X",
         id[0],
         id[1],
@@ -113,7 +108,6 @@ static void _onewire_scan(void) {
         id[5],
         id[6],
         id[7]);
-#endif
 
     if(ow_sensor->familyCode != 0) {
         char id_buff[10];
@@ -214,9 +208,9 @@ static void _gpio_change_callback(VariableItem* item) {
 static void _i2caddr_change_callback(VariableItem* item) {
     uint8_t index = variable_item_get_current_value_index(item);
     ((I2CSensor*)editable_sensor->instance)->currentI2CAdr =
-        ((I2CSensor*)editable_sensor->instance)->minI2CAdr + index;
+        ((I2CSensor*)editable_sensor->instance)->minI2CAdr + index * 2;
     char buff[5];
-    snprintf(buff, 5, "0x%2X", ((I2CSensor*)editable_sensor->instance)->currentI2CAdr);
+    snprintf(buff, 5, "0x%2X", ((I2CSensor*)editable_sensor->instance)->currentI2CAdr >> 1);
     variable_item_set_current_value_text(item, buff);
 }
 /**
@@ -335,11 +329,15 @@ void unitemp_SensorEdit_switch(Sensor* sensor) {
         VariableItem* item = variable_item_list_add(
             variable_item_list,
             "I2C address",
-            ((I2CSensor*)sensor->instance)->maxI2CAdr - ((I2CSensor*)sensor->instance)->minI2CAdr +
-                1,
+            (((I2CSensor*)sensor->instance)->maxI2CAdr >> 1) -
+                (((I2CSensor*)sensor->instance)->minI2CAdr >> 1) + 1,
             _i2caddr_change_callback,
             app);
-        snprintf(app->buff, 5, "0x%2X", ((I2CSensor*)sensor->instance)->currentI2CAdr);
+        snprintf(app->buff, 5, "0x%2X", ((I2CSensor*)sensor->instance)->currentI2CAdr >> 1);
+        variable_item_set_current_value_index(
+            item,
+            (((I2CSensor*)sensor->instance)->currentI2CAdr >> 1) -
+                (((I2CSensor*)sensor->instance)->minI2CAdr >> 1));
         variable_item_set_current_value_text(item, app->buff);
     }
 

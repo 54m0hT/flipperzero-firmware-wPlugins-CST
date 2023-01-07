@@ -1,23 +1,50 @@
 ### New changes
-* **Fixed sound issues with WAV Player, Metronome, Morse code, DTMF Dolphin**
-* API: Version was changed due to breaking changes - from 10.x to 11.x - Extra pack was updated, download it by using link below ([- Download latest extra apps pack](https://download-directory.github.io/?url=https://github.com/xMasterX/unleashed-extra-pack/tree/main/apps))
-* Plugins: Add (UniTemp) Temp sensor reader (PR #216 | by @quen0n) [(plugin repo)](https://github.com/quen0n/unitemp-flipperzero) and Remove DHT Monitor and AM2320 plugins (unitemp has support for that sensors)
-* Plugins -> SubGHz Bruteforcer: Add support for PT2260, SMC5326, UNILARM, Honeywell(file only) protocols
-* Plugins: Add mouse jiggler to USB Keyboard&Mouse App
-* Clock: Use system locale settings
-* Infrared: Update universal remote assets (by @Amec0e) + (PR #215 | by @airs0urce)
-* SubGHz: Removing duplicate code in subghz FAAC scenes. (PR #208 | by @gid9798)
-* Plugins -> Weather Station: Fix display of temps lower than -9
-* Misc fixes
-* OFW: Notification: fix recursive speaker acquire
-* OFW: Locale settings
-* OFW: Audio support for SubGhz **(Breaking API change)**
-* OFW: Dolphin: add new animation (Happy holidays)
-* OFW: SubGhz: add SMC5326, UNILARM protocol
-* OFW: Added support for IDTECK cards
-* OFW: WS: fix protocol and add new (Oregon_v1, TX8300)
-* OFW: VSCode: add task 'Serial console' and group task with sequence calling
-* OFW: Dictionary stuff: iClass keys
+* CI/CD: Builds with extra apps pack included, see new option below
+* SubGHz: Allow manual creation of Nice Flor S, Nice Smilo
+* LF RFID: Allow removing password from T5577 to make it operational (PR #225 | by @TQMatvey & Tobirg (grvpvl))
+* Plugins -> Barcode Generator: Save last used barcode, and load on app start
+* Plugins -> Barcode Generator: Add EAN-13 support (PR #234 | by @gid9798)
+* Plugins -> Arkanoid: Fix bug with unability to continue game after first level
+* Plugins -> Morse Code: Fixed crashes, fixed known issues (PR #249 | by @gid9798)
+* Plugins -> USB Keyboard & Mouse: Added ESCAPE key (PR #243 | by @huuck)
+* Plugins -> USB Keyboard & Mouse: Added Delete key
+* Plugins -> SubGHz Bruteforcer: Add holtek HT12X protocol support
+* Plugins -> POCSAG Pager: Fix UI bug
+* Plugins -> Wifi Marauder: Enable +5volt on plugin start, to allow usage with custom boards
+* Plugins: Add 2048 Game (PR #233 | by @eugene-kirzhanov)
+* Plugins: Update TOTP, UniTemp, Wifi marauder to latest commits from their repo's
+* Infrared: Universal remote assets updates (by @amec0e | PRs #246 #242)
+* Readme fixes (PR #247 | by @Kavitate)
+* New Year update slideshow (by @Svaarich)
+* Show OTP flipper region on debug and about screens
+* OFW: Add float_tools to SDK api
+* OFW: Gui: change data ownership model in submenu, own text by default 
+* OFW: Gui: Direct Draw API
+* OFW: Mifare dictionary attack performance improvements.
+* OFW: SubGhz: CAME 12 bit encoder fix guard time
+* OFW: Fix MFC bruteforce progress bar 
+* OFW: Docs and readme's updates
+* OFW: Picopass read bug fixes
+* OFW: OpenOCD scripts
+* OFW: New MFC Bruteforce animation
+* OFW: File browser: Empty folder label
+* OFW: SubGhz: add Holtek_ht12x protocol
+* OFW: USB/BLE HID Remote icon fix
+* OFW: Fix quoted error for macOS bad-usb
+* OFW: Modules: locking view model
+* OFW: Fix PVS-Studio warnings 
+* OFW: Fix unit tests
+* OFW: WeatherStation: fix incorrect history index increment
+* OFW: File format docs: RFID, iButton, BadUSB
+* OFW: SubGhz: fix start navigation
+* OFW: iButton: fixed notification on successful read 
+* OFW: Archive browser delete fix
+* OFW: Fixes: correct scrolling text
+* OFW: SubGhz: fix Hormann HSM
+* OFW: Rework BLE key storage
+* OFW: Gui: scrollable long file names in FileBrowser and Archive Browser
+* OFW: Untangle NFC_APP_FOLDER from nfc_device
+* OFW: WS: add choice fahrenheit/celsius (can be set from flipper settings -> system)
 
 #### [🎲 Download latest extra apps pack](https://download-directory.github.io/?url=https://github.com/xMasterX/unleashed-extra-pack/tree/main/apps)
 
@@ -25,10 +52,9 @@
 
 [-> Download qFlipper (official link)](https://flipperzero.one/update)
 
-## Please support development of the project
+## Please support development of my project on Patreon, but also the Unleashed project with one of the listed methods below. Most the changes listed above have been added into RM.
 * Boosty: https://boosty.to/mmxdev
 * Ko-Fi: https://ko-fi.com/masterx
-* destream (100 EUR min): https://destream.net/live/MMX/donate
 * cloudtips (only RU payments accepted): https://pay.cloudtips.ru/p/7b3e9d65
 * YooMoney (only RU payments accepted): https://yoomoney.ru/fundraise/XA49mgQLPA0.221209
 * USDT(TRC20): `TSXcitMSnWXUFqiUfEXrTVpVewXy2cYhrs`
@@ -40,7 +66,7 @@
 * XMR (Monero): `41xUz92suUu1u5Mu4qkrcs52gtfpu9rnZRdBpCJ244KRHf6xXSvVFevdf2cnjS7RAeYr5hn9MsEfxKoFDRSctFjG5fv1Mhn`
 * TON: `EQCOqcnYkvzOZUV_9bPE_8oTbOrOF03MnF-VcJyjisTZmpGf`
 
-### Thanks to our sponsors:
+### Thanks to Unleashed sponsors:
 callmezimbra, Quen0n, MERRON, grvpvl (lvpvrg), art_col, ThurstonWaffles, Moneron, UterGrooll, LUCFER, Northpirate, zloepuzo, T.Rat, Alexey B., ionelife, ...
 and all other great people who supported our project and me (xMasterX), thanks to you all!
 
@@ -48,7 +74,8 @@ and all other great people who supported our project and me (xMasterX), thanks t
 
 **Recommended option - Web Updater**
 
-What means `n` in - `flipper-z-f7-update-(version)n.tgz` ? - that means this build comes without our custom animations, only official flipper animations
+What means `n` or `e` in - `flipper-z-f7-update-(version)(n / e).tgz` ? - `n` means this build comes without our custom animations, only official flipper animations, 
+`e` means build has extra apps pack preinstalled
 
 Self-update package (update from microSD) - `flipper-z-f7-update-(version).zip` or download `.tgz` for mobile app / qFlipper
 

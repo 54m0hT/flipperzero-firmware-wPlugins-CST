@@ -30,6 +30,10 @@ Brewfile.lock.json
 # Visual Studio Code
 .vscode/
 
+# Kate
+.kateproject
+.kateconfig
+
 # legendary cmake's
 build
 CMakeLists.txt
@@ -57,4 +61,9 @@ openocd.log
 PVS-Studio.log
 
 .gdbinit
-PATREONbuildRelease.sh
+
+RM*-*.tgz
+RM*-*.zip
+RM*-*.txt
+RM*-*-*/
+RM-*.sh

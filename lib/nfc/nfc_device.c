@@ -583,7 +583,7 @@ static bool nfc_device_save_mifare_df_data(FlipperFormat* file, NfcDevice* dev) 
             tmp = malloc(n_apps * 3);
             int i = 0;
             for(MifareDesfireApplication* app = data->app_head; app; app = app->next) {
-                memcpy(tmp + i, app->id, 3);
+                memcpy(tmp + i, app->id, 3); //-V769
                 i += 3;
             }
             if(!flipper_format_write_hex(file, "Application IDs", tmp, n_apps * 3)) break;
@@ -1166,7 +1166,7 @@ static bool nfc_device_load_mifare_classic_data(FlipperFormat* file, NfcDevice* 
         bool old_format = false;
         // Read Mifare Classic format version
         if(!flipper_format_read_uint32(file, "Data format version", &data_format_version, 1)) {
-            // Load unread sectors with zero keys access for backward compatability
+            // Load unread sectors with zero keys access for backward compatibility
             if(!flipper_format_rewind(file)) break;
             old_format = true;
         } else {
@@ -1378,6 +1378,8 @@ bool nfc_device_save(NfcDevice* dev, const char* dev_name) {
         if(!flipper_format_write_hex(file, "UID", data->uid, data->uid_len)) break;
 
         if(dev->format != NfcDeviceSaveFormatNfcV) {
+            // Write ATQA, SAK
+            if(!flipper_format_write_comment_cstr(file, "ISO14443 specific fields")) break;
             // Save ATQA in MSB order for correct companion apps display
             uint8_t atqa[2] = {data->atqa[1], data->atqa[0]};
             if(!flipper_format_write_hex(file, "ATQA", atqa, 2)) break;
@@ -1402,7 +1404,7 @@ bool nfc_device_save(NfcDevice* dev, const char* dev_name) {
         saved = true;
     } while(0);
 
-    if(!saved) {
+    if(!saved) { //-V547
         dialog_message_show_storage_error(dev->dialogs, "Can not save\nkey file");
     }
     furi_string_free(temp_str);
@@ -1442,7 +1444,7 @@ static bool nfc_device_load_data(NfcDevice* dev, FuriString* path, bool show_dia
     }
 
     do {
-        // Check existance of shadow file
+        // Check existence of shadow file
         nfc_device_get_shadow_path(path, temp_str);
         dev->shadow_file_exist =
             storage_common_stat(dev->storage, furi_string_get_cstr(temp_str), NULL) == FSE_OK;

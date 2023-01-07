@@ -41,14 +41,22 @@ class GitVersion:
             os.environ.get("CUSTOM_FLIPPER_NAME", None)
             or ""
         )
-        
+
+        force_no_dirty = (
+            os.environ.get("FORCE_NO_DIRTY", None)
+            or ""
+        )
+
+        if (force_no_dirty != ""):
+            dirty = False
+
         if (custom_fz_name != "") and (len(custom_fz_name) <= 8) and (custom_fz_name.isalnum()) and (custom_fz_name.isascii()):
             return {
                 "GIT_COMMIT": commit,
                 "GIT_BRANCH": "dev",
                 "GIT_BRANCH_NUM": branch_num,
                 "FURI_CUSTOM_FLIPPER_NAME": custom_fz_name,
-                "VERSION": "0.73.2",
+                "VERSION": "0.74.3",
                 "BUILD_DIRTY": 0,
             }
         else:
@@ -56,7 +64,7 @@ class GitVersion:
                 "GIT_COMMIT": commit,
                 "GIT_BRANCH": "dev",
                 "GIT_BRANCH_NUM": branch_num,
-                "VERSION": "0.73.2",
+                "VERSION": "0.74.3",
                 "BUILD_DIRTY": 0,
             }
 
