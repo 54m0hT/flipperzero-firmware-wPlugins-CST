@@ -24,16 +24,27 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0107-1709-0.74.3-89a5bde](https://www.patreon.com/posts/76931461)
+## Latest Updates - [PATREON: Latest Release RM0108-0014-0.74.3-9b1f868](https://www.patreon.com/posts/76942152)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-07 17:04 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-07 17:04 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-07 20:15 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-07 20:15 EST`
 - [Fixed boot loop during updating (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/489)
 - Updated: [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD/HTU21x/HDC1080`
 - Updated: [Etch-A-Sketch (By SimplyMinimal)](https://github.com/SimplyMinimal/FlipperZero-Etch-A-Sketch)
 - Unleashed Updated: [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD/HTU21x/HDC1080`
 - Unleashed Removed: [Temperature Sensor (By Mywk)](https://github.com/Mywk/FlipperTemperatureSensor) `Req: HTU2XD, SHT2X, SI702X, SI700X, SI701X or AM2320` Unitemp will do them all!
 - Added: [Extend Range (By maede97)](https://github.com/maede97/flipperzero-extend-range) (Allows SubGHz Unlock!)
+- Updated IR Assets from Unleashed
+- Updated notes for Asteroids, Pong and USB Autofire
+- Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
+- Updated: [Asteroids (By antirez)](https://github.com/antirez/flipper-asteroids)
+- Fixed wording in Extend Range app (found under Misc)
+- Added readme for BT Serial app [(Thanks to maybe-hello-world)](https://github.com/maybe-hello-world/fbs)
+- Added readme for Toy Code Serial app [(Thanks to maybe-hello-world)](https://github.com/maybe-hello-world/flipper-bp)
+- [Patreon Builds Update: ALL: Added Grateful Dead animation (By RogueMaster)](https://github.com/RogueMaster/awesome-flipperzero-withModules/commit/3c40db78dd5488b9544e674004c4168c45ae7305) [Thanks to one of our RM Animation Coordinators (RM Extreme) on Patreon!](https://www.patreon.com/RogueMaster/membership)
+- [Patreon Builds Update: ALL and Anime Builds: Added two Jojo animations (By Gabry154)](https://github.com/Gabry154/FZ_Customization/tree/main/Animations/JoJo)
+- Thank you to all our supporters! And thank you for all that joined [our Discord](https://discord.gg/gF2bBUzAFe)! We have OVER 9000 users!
+- [Patreon Builds Update: ALL, DBZ, RM Select Builds and Anime Builds: Added Over 9000 DBZ animation (By RogueMaster)](https://github.com/RogueMaster/awesome-flipperzero-withModules/commit/f7c7e543fd45e9861909006e1374e88a9a5661cf)
 
 <a name="release">
 
