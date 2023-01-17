@@ -25,20 +25,24 @@ void button_clear_click_callback(CalculatorApp* clc_app) {
 void button_add_function_click_callback(CalculatorApp* clc_app) {
     // furi_mutex_acquire(clc_app->mutex, FuriWaitForever);
 
-    /*double typed_value;
-    sscanf(furi_string_get_cstr(clc_app->calculator->framed_number), "%f", &typed_value);*/
+    double typed_value = calculator_get_framed_number_as_double(clc_app->calculator);
+    /*sscanf(furi_string_get_cstr(clc_app->calculator->framed_number), "%f", &typed_value);*/
 
     // Theres got to be a better way to do this
-    double typed_value;
-
+    /*double typed_value;
+    // TODO: FIGURE OUT THIS FLOATING POINT ISSUE
     const char* c_str = furi_string_get_cstr(clc_app->calculator->framed_number);
-    if(furi_string_search_char(clc_app->calculator->framed_number, '.') == FURI_STRING_FAILURE) {
+    if(furi_string_search_char(clc_app->calculator->framed_number, '.') ==
+       FURI_STRING_FAILURE) { // This works
         int bruh;
         sscanf(c_str, "%d", &bruh);
-        typed_value = bruh;
+        typed_value = (double)bruh;
     } else {
         sscanf(c_str, "%lf", &typed_value);
-    }
+    }*/
+
+    // sscanf(furi_string_get_cstr(clc_app->calculator->framed_number), "%d.%d", &left, &right);
+    // typed_value = (double)left + (double)((double)right / pow10(((int)log10(right) + 1)));
 
     CalculatorCalculation* calculation =
         calculator_calculation_alloc(&CalculatorFunctionAdd, typed_value);
@@ -52,9 +56,33 @@ void button_add_function_click_callback(CalculatorApp* clc_app) {
 }
 
 void button_calculate_click_callback(CalculatorApp* clc_app) {
-    double full_calculate = calculator_full_solve(clc_app->calculator);
-    // furi_string_reset(clc_app->calculator->framed_number); // Redundent; calculator_full_solve resets the Calculator struct
-    furi_string_printf(clc_app->calculator->framed_number, "%lf", full_calculate);
+    // double full_calculate = calculator_full_solve(clc_app->calculator);
+    calculator_full_solve(clc_app->calculator);
+    CalculatorCalculation calculate;
+    furi_message_queue_get(clc_app->calculator->operation_queue, &calculate, FuriWaitForever);
+    // furi_string_printf(clc_app->calculator->framed_number, "%0.4f", calculate.value);
+    furi_string_printf(clc_app->calculator->framed_number, "%lf", calculate.value);
+}
+
+void button_function_click_callback(CalculatorApp* clc_app) {
+    double typed_value;
+    // TODO: FIGURE OUT THIS FLOATING POINT ISSUE
+    const char* c_str = furi_string_get_cstr(clc_app->calculator->framed_number);
+    if(furi_string_search_char(clc_app->calculator->framed_number, '.') ==
+       FURI_STRING_FAILURE) { // This works
+        int bruh;
+        sscanf(c_str, "%d", &bruh);
+        typed_value = (double)bruh;
+    } else {
+        sscanf(c_str, "%lf", &typed_value);
+    }
+
+    CalculatorCalculation* calculation =
+        calculator_calculation_alloc(&CalculatorFunctionSquare, typed_value);
+
+    calculator_add_calculator_calculation(clc_app->calculator, calculation);
+    furi_message_queue_get(clc_app->calculator->operation_queue, calculation, FuriWaitForever);
+    furi_string_printf(clc_app->calculator->framed_number, "%lf", calculation->value);
 }
 
 void empty_callback(CalculatorApp* clc_app) {
@@ -293,7 +321,7 @@ CalculatorDisplayButton const* const CalculatorDisplayButtonFunctionMinus =
         "-",
         2,
         3,
-        empty_callback,
+        button_add_function_click_callback,
     };
 
 CalculatorDisplayButton const* const CalculatorDisplayButtonCalculate = &(CalculatorDisplayButton){
@@ -321,7 +349,7 @@ CalculatorDisplayButton const* const CalculatorDisplayButtonDecimal = &(Calculat
     ".",
     4,
     2,
-    empty_callback,
+    default_number_click_callback,
 };
 
 CalculatorDisplayButton const* const CalculatorDisplayButtonFunctionAdd =
@@ -339,23 +367,41 @@ CalculatorDisplayButton const* const CalculatorDisplayButtonFunctionAdd =
         button_add_function_click_callback,
     };
 
-CalculatorDisplayButton const* calculator_display_button_grid[][4] = {
+CalculatorDisplayButton const* const CalculatorDisplayButtonFunctionSquare =
+    &(CalculatorDisplayButton){
+        43,
+        13,
+        8,
+        10,
+        46,
+        21,
+        FontSecondary,
+        "s",
+        1,
+        4,
+        button_function_click_callback,
+    };
+
+CalculatorDisplayButton const* calculator_display_button_grid[][5] = {
     {
         CalculatorDisplayButtonClear,
         CalculatorDisplayButtonNegative,
         CalculatorDisplayButtonFunctionRemainder,
         CalculatorDisplayButtonFunctionDivide,
+        CalculatorDisplayButtonFunctionDivide, // Add extra of last instead of NULL
     },
     {
         CalculatorDisplayButtonNumberSeven,
         CalculatorDisplayButtonNumberEight,
         CalculatorDisplayButtonNumberNine,
         CalculatorDisplayButtonFunctionMultiply,
+        CalculatorDisplayButtonFunctionSquare,
     },
     {
         CalculatorDisplayButtonNumberFour,
         CalculatorDisplayButtonNumberFive,
         CalculatorDisplayButtonNumberSix,
+        CalculatorDisplayButtonFunctionMinus,
         CalculatorDisplayButtonFunctionMinus,
     },
     {
@@ -363,11 +409,13 @@ CalculatorDisplayButton const* calculator_display_button_grid[][4] = {
         CalculatorDisplayButtonNumberTwo,
         CalculatorDisplayButtonNumberThree,
         CalculatorDisplayButtonFunctionAdd,
+        CalculatorDisplayButtonFunctionAdd,
     },
     {
         CalculatorDisplayButtonNumberZero,
         CalculatorDisplayButtonNumberZero,
         CalculatorDisplayButtonDecimal,
+        CalculatorDisplayButtonCalculate,
         CalculatorDisplayButtonCalculate,
     },
 };

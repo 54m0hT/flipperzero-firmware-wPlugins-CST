@@ -24,26 +24,19 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0115-0415-0.75.1-dd11c37](https://www.patreon.com/posts/77259895) 
+## Latest Updates - [PATREON: Latest Release RM0117-1617-0.75.1-3ee1cd7](https://www.patreon.com/posts/77379457) 
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-13 18:30 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-13 18:30 EST`
-- Updated: [Rubik's Cube Scrambler (By RaZeSloth)] https://github.com/RaZeSloth/flipperzero-rubiks-cube-scrambler
-- OFW: Add the ability to turn pages in infrared (flipperdevices#2271) 
-- OFW: [FL-3078] Per protocol signal repeat count (flipperdevices#2293) 
-- Updated: [UART Terminal (By cool4uma)](https://github.com/cool4uma/UART_Terminal)
-- Nicer SubGHz Chat via CLI Bridge with "chat" command (Thanks @E_Surge and @qqMajikpp)
-- Updated Assets: Includes SubGHz assets for CVS/Walgreens (Thanks to [DRA6N](https://github.com/DRA6N/SubGhz_Cust_Serv) and [jimilinuxguy](https://github.com/jimilinuxguy/customer-assistance-buttons-sdr/tree/main/cvs/English))
-- Updated Assets: Includes SubGHz Playlist config and SubGHz Remote config for CVS.
-- Updated Universal IR Assets thanks to [amec0e](https://github.com/DarkFlippers/unleashed-firmware/pull/282)
-- Updated D1g1talRain animation weighting for more customization
-- Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
-- Added: [Calculator "2" (By theCow61)](https://github.com/theCow61/calculator)
-- Updated: [TAMA P1 (By GMMan)](https://github.com/GMMan/flipperzero-firmware/tree/tama-p1) requires [this rom](https://tinyurl.com/tamap1) IN `tama_p1` on SD as `rom.bin` to make it work. Unpack tama.zip, rename tama.b to rom.bin. [Save State (By DroomOne)](https://github.com/DroomOne/flipperzero-tamagotch-p1)
-- Removed BadUSB Install qFlipper Script to avoid Anti Virus False Positive Flags
-- Fixed SubGHz Chat Spacing for Flipper Screen (Thanks to @qqMajikpp)
-- Updated: [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD/HTU21x/HDC1080`
-- [New battery display (Bar %) (Thanks to Fasjeit)](https://github.com/DarkFlippers/unleashed-firmware/pull/278)
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-17 11:09 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-17 11:09 EST`
+- If you installed the previous release with AirTag code, I recommend a most immediate update from GitHub or Patreon to revert the AirTag code. My apoligies for the mix up, it was not my airtag being emulated, it was from the original project [here](https://github.com/culturally/flipper-zero-airtag). RM and the development team working on airtag features are not trying to track anyone. We are trying to improve the flipper functionality.
+- Assets: Includes Tama P1 Rom Game file. [this rom](https://tinyurl.com/tamap1)
+- Updated: [Calculator "2" (By theCow61)](https://github.com/theCow61/calculator)
+- Updated: [TAMA P1: Save State & Layout Update (By DroomOne)](https://github.com/DroomOne/flipperzero-tamagotch-p1)
+- Updated: [CLI Bridge (By ranchordo)](https://github.com/ranchordo/flipperzero-cli-bridge) (Now allows easier long press for space)
+- Updated: [NFC: add MIFARE MINI support #2307 (By giacomoferretti)](https://github.com/flipperdevices/flipperzero-firmware/pull/2307)
+- Updated: [Asteroids (By antirez)](https://github.com/antirez/flipper-asteroids) [(Modified By SimplyMinimal)](https://github.com/SimplyMinimal/FlipperZero-Asteroids)
+- OFW: Changes to FBT for PVS support (flipperdevices#2286) and removed DEBUG_TOOLS & FAP_EXAMPLES flags (flipperdevices#2291)
+- Updated: [Pomodoro 2 (By Th3Un1q3)](https://github.com/Th3Un1q3/flipp_pomodoro)
 
 <a name="release">
 
@@ -125,6 +118,7 @@ $ ./fbt dolphin_ext
 - Assets: Includes SubGHz Remote config for Gas_Sign_Edit [from UberGuidoZ](https://github.com/UberGuidoZ/Flipper)
 - Assets: Includes SubGHz Remote config for Riding_Dirty [from UberGuidoZ](https://github.com/UberGuidoZ/Flipper)
 - Assets: Includes SubGHz SexToy files [from UberGuidoZ](https://github.com/UberGuidoZ/Flipper)
+- Assets: Includes Tama P1 Rom Game file. [this rom](https://tinyurl.com/tamap1)
 - Assets: Includes WAV files for Unlock/Lock Gatekeeper Systems wheels found on some Shopping Carts/Trolleys (Thanks to lukejtaylor) (May not work off lipper)
 - [BadUSB: BadUSB as FAP #396 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/396)
 - BadUSB: Added ignore DUCKY_LANG cmd to retain compatibility with existing scripts [(Thanks to v1nc)](https://github.com/v1nc/flipperzero-firmware)
@@ -134,6 +128,8 @@ $ ./fbt dolphin_ext
 - BadUSB: nb-NO Added norwegian keyboard layout [(By jd-raymaker)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/357)
 - BadUSB: show script errors on screen [(By CromFr)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/200)
 - BadUSB: sk-SK maping keybord for BadUsb [(By jaroslavmraz)](https://github.com/flipperdevices/flipperzero-firmware/pull/1619)
+- [BadUSB: STRINGDELAY feature, delay fix #2269 (By n30f0x)](https://github.com/flipperdevices/flipperzero-firmware/pull/2269)
+- Bluetooth: Works as an AirTag [(Thanks to culturally)](https://github.com/culturally/flipper-zero-airtag)
 - Clock: Clock.fap loader apps and available as Favorites [Thanks to ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/336)
 - Desktop: Hidden top bar [Thanks to ESurge](https://github.com/ESurge/)
 - Desktop: Exclude icons on the left and show minimal battery [Thanks to skizzophrenic/Talking-Sasquach](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/360)
@@ -165,9 +161,11 @@ $ ./fbt dolphin_ext
 - [Infrared: allow disabling automatic signal decoding #273 (By Darmiel)](https://github.com/DarkFlippers/unleashed-firmware/pull/273)
 - [Infrared: Infrared AS FAP #398 (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/398) (With Thanks to ESurge) [Restored Infrared and RFID CLI #405 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/405)
 - Infrared: Universal AC, Audio, Fans & Projectors from [Unleashed/Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware)
+- [NFC: add MIFARE MINI support #2307 (By giacomoferretti)](https://github.com/flipperdevices/flipperzero-firmware/pull/2307)
 - NFC: Assets for RogueMaster GitHub and RogueMaster Patreon
 - NFC: [NFC - Machine Readable Travel Documents #1866 (By qistoph)](https://github.com/flipperdevices/flipperzero-firmware/pull/1866)
 - NFC: [(WIP) added ISO15693 reading, saving and revealing from privacy mode (unlock) #1991 (By g3gg0)](https://github.com/flipperdevices/flipperzero-firmware/pull/1991)
+- [NFC Magic: Add support for Gen4 "ultimate card" in Magic app #2238 (By nullableVoidPtr)](https://github.com/flipperdevices/flipperzero-firmware/pull/2238)
 - Plugins: 2048, Arkanoid, Snake, and Tetris show score. Thanks to [whoamins](https://github.com/flipperdevices/flipperzero-firmware/commit/7feda832ede1ba8468eff2ca055fef3ddbdc16ac) and [DevMilanIan](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/188) With position changes by RogueMaster. Also all + Tic Tac Toe updated by [Unleashed/Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware) for stability.
 - Plugins: Icon for Clock [Thanks to Redlink](https://github.com/redlink2/flipperzero-firmware/tree/menuChanges)
 - Plugins: OFW PR [Snake Plugin: Store game state on close and restore it on restart, show highscore #1922 (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922)
@@ -204,6 +202,7 @@ $ ./fbt dolphin_ext
 - SubGHz: Protocols An-Motors, BFT Mitto, Came Atomo, FAAC SLH (Spa), HCS101, Keeloq, Keeloq Common, Nice Flor S, SecPlus v1+v2 and Star Line updates from [Eng1n33r](https://github.com/DarkFlippers/unleashed-firmware)
 - SubGHz: Unlock from SD flag from [(cloudbreakdaniel)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/97db0dc91ee3dff812b4dec0618e3f198de14405).  Update `subghz/assets/extend_range.txt` with [this file](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/assets/resources/subghz/assets/extend_range.txt) on SD.  **UPDATE IGNORE FLAG TO TRUE TO UNLEASH YOUR FLIPPER!!**
 - U2F: U2F.fap loader apps and available as Favorites [Thanks to ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/336)
+- [WeatherStation: add protocol LaCrosse-TX (TFA Dostmann) #2292 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2292)
 
 ## Games
 
@@ -228,7 +227,7 @@ $ ./fbt dolphin_ext
 - [Snake (By OlegSchwann)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/829)(With updates from DrZlo13, xMasterX, QtRoS and RogueMaster) [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922) [Turns anywhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/125) [Food Spawns Anywwhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/130)
 - [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
 - [T-Rex (By gelin)](https://github.com/gelin/t-rex-runner) WIP
-- [TAMA P1 (By GMMan)](https://github.com/GMMan/flipperzero-firmware/tree/tama-p1) requires [this rom](https://tinyurl.com/tamap1) IN `tama_p1` on SD as `rom.bin` to make it work. Unpack tama.zip, rename tama.b to rom.bin. [Save State (By DroomOne)](https://github.com/DroomOne/flipperzero-tamagotch-p1)
+- [TAMA P1: Save State & Layout Update (By DroomOne)](https://github.com/DroomOne/flipperzero-tamagotch-p1) [Original TAMA P1 (By GMMan)](https://github.com/GMMan/flipperzero-firmware/tree/tama-p1)
 - [Tanks (By Alexgr13)](https://github.com/alexgr13/flipperzero-firmware/tree/fork/dev/applications/tanks-game)
 - [Tetris (By jeffplang)](https://github.com/jeffplang/flipperzero-firmware/tree/tetris_game/applications/tetris_game)
 - [Tic Tac Toe (By gotnull)](https://github.com/gotnull/flipperzero-firmware-wPlugins)
