@@ -25,10 +25,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0119-1243-0.75.1-299a3b5](https://www.patreon.com/posts/77464234)
+## Latest Updates - [PATREON: Latest Release RM0121-1438-0.75.1-d54e21e](https://www.patreon.com/posts/77556707)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-19 12:30 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-19 12:30 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-21 13:15 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-21 13:15 EST`
 - If you installed the previous release with AirTag code, I recommend a most immediate update from GitHub or Patreon to revert the AirTag code. My apoligies for the mix up, it was not my airtag being emulated, it was from the original project [here](https://github.com/culturally/flipper-zero-airtag). RM and the development team working on airtag features are not trying to track anyone. We are trying to improve the flipper functionality.
 - Assets: Includes Tama P1 Rom Game file. [this rom](https://tinyurl.com/tamap1)
 - Updated: [Calculator "2" (By theCow61)](https://github.com/theCow61/calculator)
@@ -42,7 +42,6 @@ This software is for experimental purposes only and is not meant for any illegal
 - Added: [Barcode App (By Kingal1337)](https://github.com/Kingal1337/flipper-barcode-generator)
 - Added: [Brainfuck (By nymda)](https://github.com/nymda/FlipperZeroBrainfuck)
 - Updated: [IR Remote (By Hong5489)](https://github.com/Hong5489/ir_remote)
-- Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 - UL Updated: [Temp Sensors Reader (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD/HTU21x/HDC1080/MAX31855`
 - UL Updated: [WAV Player (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/tree/zlo/wav-player) Updated by Atmanos & RogueMaster To Work
 - [PREVIEW "RM Minimal" ANIMATIONS THAT COME WITH THIS BUILD](https://www.patreon.com/posts/animation-rm-77441581) or [PREVIEW OTHER ANIMATION SETS](https://www.patreon.com/RogueMaster?filters[tag]=Animations)
@@ -52,6 +51,9 @@ This software is for experimental purposes only and is not meant for any illegal
 - UL Updated: SubGHz Optimizations
 - UL Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 - UL Updated: IR Assets by @amec0e
+- Added: [iOS Bluetooth Trigger (By Nem0oo)](https://github.com/Nem0oo/flipper-zero_ios-bluetooth-trigger)
+- UL Updated: Fix SubGHz GUI receiver bug
+- Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 
 <a name="release">
 
@@ -289,6 +291,7 @@ $ ./fbt dolphin_ext
 - [i2c Tools (By NaejEL)](https://github.com/NaejEL/flipperzero-i2ctools)
 - [iButton Fuzzer (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware)
 - [Intravelometer (By theageoflove)](https://github.com/theageoflove/flipperzero-zeitraffer)
+- [iOS Bluetooth Trigger (By Nem0oo)](https://github.com/Nem0oo/flipper-zero_ios-bluetooth-trigger)
 - [IR Remote (By Hong5489)](https://github.com/Hong5489/ir_remote)
 - [Lightmeter (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750`
 - [IFTTT Virtual Button (By Ferrazzi)](https://github.com/Ferrazzi/FlipperZero_IFTTT_Virtual_Button) `Req: ESP8266 w/ IFTTT FW Flashed`
