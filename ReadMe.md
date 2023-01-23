@@ -25,7 +25,7 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0121-1438-0.75.1-d54e21e](https://www.patreon.com/posts/77556707)
+## Latest Updates - [PATREON: Latest Release RM0123-1148-0.75.1-1bbbe6a](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
 - Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-01-21 13:15 EST`
 - Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-01-21 13:15 EST`
@@ -53,7 +53,19 @@ This software is for experimental purposes only and is not meant for any illegal
 - UL Updated: IR Assets by @amec0e
 - Added: [iOS Bluetooth Trigger (By Nem0oo)](https://github.com/Nem0oo/flipper-zero_ios-bluetooth-trigger)
 - UL Updated: Fix SubGHz GUI receiver bug
+- [Patreon Animation Build Update: ALL, RM Select and RM Select 18+ builds now have a new animation "8 Wonders" By @qqMajikpp](https://www.patreon.com/RogueMaster)
+- Updated: [Brainfuck (By nymda)](https://github.com/nymda/FlipperZeroBrainfuck)
+- [Patreon Animation Build Update](https://www.patreon.com/RogueMaster): Hackz build now has 8 new animations [from TH3WR3NCH](https://github.com/wrenchathome/flip0anims) and 1 new animation [from synthetikspace](https://github.com/synthetikspace/SynthetikSpace-FZ-Animations)
+- [Patreon Animation Build Update: ALL build now has all SCIENCE AND HACKS animations enabled](https://www.patreon.com/RogueMaster)
+- Updated: [Air Mouse (By ginkage)](https://github.com/ginkage/FlippAirMouse/)
+- Added: [MagSpoof WIP (By zacharyweiss)](https://github.com/zacharyweiss/magspoof_flipper)
+- Updated: [iOS Bluetooth Trigger (By Nem0oo)](https://github.com/Nem0oo/flipper-zero_ios-bluetooth-trigger)
+- Animation Build Update: Removed Mustache, New Year, Sleigh Ride and Fireplace animations from RM Minimal and RM Select builds.
+- Animation Build Update: Changed Mods, Painting and Wake Up Animations to be RogueMaster versions on ALL, RM Minimal, RM Select and Stock builds.
+- Passport: Fix EXP Progress Bar.
 - Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
+- Added: [Slot Machine (By Daniel-dev-s)](https://github.com/Daniel-dev-s/flipperzero-slots)
+- Added: [Scope (By anfractuosity)](https://github.com/anfractuosity/flipperscope)
 
 <a name="release">
 
@@ -243,6 +255,7 @@ $ ./fbt dolphin_ext
 - [Monty Hall (By DevMilanIan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/203)
 - [Pong (By nmrr)](https://github.com/nmrr/flipperzero-pong)
 - [Scorched Tanks (By jasniec)](https://github.com/jasniec/flipper-scorched-tanks-game)
+- [Slot Machine (By Daniel-dev-s)](https://github.com/Daniel-dev-s/flipperzero-slots)
 - [Snake (By OlegSchwann)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/829)(With updates from DrZlo13, xMasterX, QtRoS and RogueMaster) [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922) [Turns anywhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/125) [Food Spawns Anywwhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/130)
 - [Solitaire (By teeebor)](https://github.com/teeebor/flipper_games)
 - [T-Rex (By gelin)](https://github.com/gelin/t-rex-runner) WIP
@@ -295,6 +308,7 @@ $ ./fbt dolphin_ext
 - [IR Remote (By Hong5489)](https://github.com/Hong5489/ir_remote)
 - [Lightmeter (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750`
 - [IFTTT Virtual Button (By Ferrazzi)](https://github.com/Ferrazzi/FlipperZero_IFTTT_Virtual_Button) `Req: ESP8266 w/ IFTTT FW Flashed`
+- [MagSpoof WIP (By zacharyweiss)](https://github.com/zacharyweiss/magspoof_flipper)
 - [Metronome (By panki27)](https://github.com/panki27/Metronome)
 - [Morse Code (By wh00hw)](https://github.com/DarkFlippers/unleashed-firmware/pull/144)
 - [Mouse Jacker (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/mousejacker) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/mousejacker) from nocomp/Frog/UberGuidoZ) `Req: NRF24`
@@ -322,6 +336,7 @@ $ ./fbt dolphin_ext
 - [RGB LED (By flyandi)](https://github.com/flyandi/flipper_zero_rgb_led)
 - [Rubik's Cube Scrambler (By RaZeSloth)](https://github.com/RaZeSloth/flipperzero-rubiks-cube-scrambler)
 - [SAM (By Unknown)][Original?](https://github.com/ctoth/SAM)
+- [Scope (By anfractuosity)](https://github.com/anfractuosity/flipperscope)
 - [Sentry Safe (By H4ckd4ddy)](https://github.com/H4ckd4ddy/flipperzero-sentry-safe-plugin) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/sentry_safe) from [UberGuidoZ](https://github.com/UberGuidoZ/))
 - [Signal Generator (By nminaylov)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/1793)
 - [Spectrum Analyzer (By jolcese)](https://github.com/jolcese/flipperzero-firmware/tree/spectrum/applications/spectrum_analyzer) [Updates (for testing) Thanks to theY4Kman](https://github.com/theY4Kman/flipperzero-firmware)
