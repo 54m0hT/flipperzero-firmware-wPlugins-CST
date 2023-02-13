@@ -1,7 +1,7 @@
 
 <a href='https://www.patreon.com/RogueMaster/membership'><img src="patreon.png" width="40%"></a>
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0211-1305-0.76.1-6d6e96f.tgz&channel=RM0211-1305-0.76.1-6d6e96f&version=0.76.1)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0213-0101-0.76.1-dfbc77a.tgz&channel=RM0213-0101-0.76.1-dfbc77a&version=0.76.1)
 
 ## What Is Not In The Firmware? [SD CARD EXTRA FILES AND OTHER RESEARCH SOURCES](https://github.com/RogueMaster/awesome-flipperzero-withModules)
 
@@ -29,15 +29,18 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0212-0048-0.76.1-09485ba](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0213-0044-0.76.1-dfbc77a](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-02-12 00:45 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-02-12 00:45 EST`
-- UL: [iButton Fixes (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/)
-- UL: [Update filebrowser #327 (By CrazyClara)](https://github.com/DarkFlippers/unleashed-firmware/pull/327) - File sorting SAME algorithm used, back action fixed...
-- UL: [added support for subghz pagers #328 (By jbohack)](https://github.com/DarkFlippers/unleashed-firmware/pull/328)
-- Added: [Text To SAM (By RoundPi)](https://github.com/Round-Pi/flipperzero-text2sam)
-- UL: [Fix file browser update issues #333 (By WillyJL)](https://github.com/DarkFlippers/unleashed-firmware/pull/333) - Also removed dumb assumptions from code comments
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-02-13 13:13 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-02-13 13:13 EST`
+- OFW: [BadUSB: disable CDC mode, USB mode switch fix #2394 (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/2394)
+- OFW: [Updater visual fixes #2391 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/2391)
+- OFW: [Fix Cyfral & Metakom emulation #2392 (By gsurkov)](https://github.com/flipperdevices/flipperzero-firmware/pull/2392)
+- UL: [Fixes for File Browser (By Willy-JL)](https://github.com/DarkFlippers/unleashed-firmware/pull/334)
+- UL: [Revert some iButton fixes (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/commit/f4af57d15a4b334c79c6933856bcdd54f8769049)
+- Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- UL: [Nice one encoder #335 (By assasinfil)](https://github.com/DarkFlippers/unleashed-firmware/pull/335) NFC 14a SN emulation bug [#335](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/issues/335) fixed.
+- UL: [SubGHz: Remove 467.75 From freq analyzer since it has too much noise (Frequency is still can be used, just excluded from FA to avoid false detections) (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/commit/f93462667c2571d5994ba1341c5d93df2577e2bc)
 
 <a name="release">
 
@@ -349,4 +352,4 @@ $ ./fbt dolphin_ext
 - [Wii EC Analyser (By csBlueChip)](https://github.com/csBlueChip/FlipperZero_WiiEC)
 - [Zero Tracker (By DrZZlo13)](https://github.com/DrZlo13/flipper-zero-music-tracker)
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0211-1305-0.76.1-6d6e96f.tgz&channel=RM0211-1305-0.76.1-6d6e96f&version=0.76.1)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0213-0101-0.76.1-dfbc77a.tgz&channel=RM0213-0101-0.76.1-dfbc77a&version=0.76.1)
