@@ -1,7 +1,0 @@
-Core improvements
-=================
-
-- More protocols, especially TPMS.
-- CC1101 synchronous mode with protocol hopping?
-- Protocols decoded can register actions, for instance to generate
-  sub files with modified signal and so forth.

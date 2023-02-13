@@ -32,6 +32,7 @@ struct BadUsbScript {
     FuriString* file_path;
     uint32_t defdelay;
     uint16_t layout[128];
+    uint32_t stringdelay;
     FuriThread* thread;
     uint8_t file_buf[FILE_BUFFER_LEN + 1];
     uint8_t buf_start;
@@ -54,6 +55,7 @@ static const DuckyKey ducky_keys[] = {
     {"ALT-SHIFT", KEY_MOD_LEFT_ALT | KEY_MOD_LEFT_SHIFT},
     {"ALT-GUI", KEY_MOD_LEFT_ALT | KEY_MOD_LEFT_GUI},
     {"GUI-SHIFT", KEY_MOD_LEFT_GUI | KEY_MOD_LEFT_SHIFT},
+    {"GUI-CTRL", KEY_MOD_LEFT_GUI | KEY_MOD_LEFT_CTRL},
 
     {"CTRL", KEY_MOD_LEFT_CTRL},
     {"CONTROL", KEY_MOD_LEFT_CTRL},
@@ -112,14 +114,14 @@ static const char ducky_cmd_delay[] = {"DELAY "};
 static const char ducky_cmd_string[] = {"STRING "};
 static const char ducky_cmd_defdelay_1[] = {"DEFAULT_DELAY "};
 static const char ducky_cmd_defdelay_2[] = {"DEFAULTDELAY "};
+static const char ducky_cmd_stringdelay_1[] = {"STRINGDELAY "};
+static const char ducky_cmd_stringdelay_2[] = {"STRING_DELAY "};
 static const char ducky_cmd_repeat[] = {"REPEAT "};
 static const char ducky_cmd_sysrq[] = {"SYSRQ "};
 
 static const char ducky_cmd_altchar[] = {"ALTCHAR "};
 static const char ducky_cmd_altstr_1[] = {"ALTSTRING "};
 static const char ducky_cmd_altstr_2[] = {"ALTCODE "};
-
-static const char ducky_cmd_lang[] = {"DUCKY_LANG"};
 
 static const uint8_t numpad_keys[10] = {
     HID_KEYPAD_0,
@@ -212,14 +214,27 @@ static bool ducky_altstring(const char* param) {
 
 static bool ducky_string(BadUsbScript* bad_usb, const char* param) {
     uint32_t i = 0;
+    uint32_t timing = 0;
+
+    if(bad_usb->stringdelay == 0) {
+        timing = 0;
+    } else if(bad_usb->stringdelay > 1000) {
+        timing = bad_usb->stringdelay / 2 / 10;
+    } else {
+        timing = bad_usb->stringdelay / 2;
+    }
+
     while(param[i] != '\0') {
         uint16_t keycode = BADUSB_ASCII_TO_KEY(bad_usb, param[i]);
         if(keycode != HID_KEYBOARD_NONE) {
+            furi_delay_ms(timing);
             furi_hal_hid_kb_press(keycode);
+            furi_delay_ms(timing);
             furi_hal_hid_kb_release(keycode);
         }
         i++;
     }
+    bad_usb->stringdelay = 0;
     return true;
 }
 
@@ -256,9 +271,6 @@ static int32_t
     } else if(strncmp(line_tmp, ducky_cmd_id, strlen(ducky_cmd_id)) == 0) {
         // ID - executed in ducky_script_preload
         return (0);
-    } else if(strncmp(line_tmp, ducky_cmd_lang, strlen(ducky_cmd_lang)) == 0) {
-        // DUCKY_LANG - ignore command to retain compatibility with existing scripts
-        return (0);
     } else if(strncmp(line_tmp, ducky_cmd_delay, strlen(ducky_cmd_delay)) == 0) {
         // DELAY
         line_tmp = &line_tmp[ducky_get_command_len(line_tmp) + 1];
@@ -281,6 +293,20 @@ static int32_t
             snprintf(error, error_len, "Invalid number %s", line_tmp);
         }
         return (state) ? (0) : SCRIPT_STATE_ERROR;
+    } else if(
+        (strncmp(line_tmp, ducky_cmd_stringdelay_1, strlen(ducky_cmd_stringdelay_1)) == 0) ||
+        (strncmp(line_tmp, ducky_cmd_stringdelay_2, strlen(ducky_cmd_stringdelay_2)) == 0)) {
+        //STRINGDELAY, finally it's here
+        line_tmp = &line_tmp[ducky_get_command_len(line_tmp) + 1];
+        state = ducky_get_number(line_tmp, &bad_usb->stringdelay);
+        if((state) && (bad_usb->stringdelay > 0)) {
+            return state;
+        }
+        if(error != NULL) {
+            snprintf(error, error_len, "Invalid number %s", line_tmp);
+        }
+        return SCRIPT_STATE_ERROR;
+
     } else if(strncmp(line_tmp, ducky_cmd_string, strlen(ducky_cmd_string)) == 0) {
         // STRING
         line_tmp = &line_tmp[ducky_get_command_len(line_tmp) + 1];
@@ -501,8 +527,6 @@ static int32_t bad_usb_worker(void* context) {
     BadUsbWorkerState worker_state = BadUsbStateInit;
     int32_t delay_val = 0;
 
-    FuriHalUsbInterface* usb_mode_prev = furi_hal_usb_get_config();
-
     FURI_LOG_I(WORKER_TAG, "Init");
     File* script_file = storage_file_alloc(furi_record_open(RECORD_STORAGE));
     bad_usb->line = furi_string_alloc();
@@ -561,6 +585,7 @@ static int32_t bad_usb_worker(void* context) {
                 bad_usb->buf_len = 0;
                 bad_usb->st.line_cur = 0;
                 bad_usb->defdelay = 0;
+                bad_usb->stringdelay = 0;
                 bad_usb->repeat_cnt = 0;
                 bad_usb->file_end = false;
                 storage_file_seek(script_file, 0, true);
@@ -584,11 +609,12 @@ static int32_t bad_usb_worker(void* context) {
                 bad_usb->buf_len = 0;
                 bad_usb->st.line_cur = 0;
                 bad_usb->defdelay = 0;
+                bad_usb->stringdelay = 0;
                 bad_usb->repeat_cnt = 0;
                 bad_usb->file_end = false;
                 storage_file_seek(script_file, 0, true);
                 // extra time for PC to recognize Flipper as keyboard
-                furi_thread_flags_wait(0, FuriFlagWaitAny, 1500);
+                furi_delay_ms(1500);
                 worker_state = BadUsbStateRunning;
             } else if(flags & WorkerEvtToggle) { // Cancel scheduled execution
                 worker_state = BadUsbStateNotConnected;
@@ -653,8 +679,6 @@ static int32_t bad_usb_worker(void* context) {
 
     furi_hal_hid_set_state_callback(NULL, NULL);
 
-    furi_hal_usb_set_config(usb_mode_prev, NULL);
-
     storage_file_close(script_file);
     storage_file_free(script_file);
     furi_string_free(bad_usb->line);
@@ -705,7 +729,7 @@ void bad_usb_script_set_keyboard_layout(BadUsbScript* bad_usb, FuriString* layou
     }
 
     File* layout_file = storage_file_alloc(furi_record_open(RECORD_STORAGE));
-    if(!furi_string_empty(layout_path)) {
+    if(!furi_string_empty(layout_path)) { //-V1051
         if(storage_file_open(
                layout_file, furi_string_get_cstr(layout_path), FSAM_READ, FSOM_OPEN_EXISTING)) {
             uint16_t layout[128];
