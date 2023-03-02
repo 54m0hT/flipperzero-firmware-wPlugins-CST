@@ -1,6 +1,9 @@
 // TODO: Update progress bar
+// To compile this FAP, add -O3 to CCFLAGS in site_scons/extapps.scons
 
 #include <furi.h>
+#include <furi_hal.h>
+#include "time.h"
 #include <gui/gui.h>
 #include <gui/elements.h>
 #include <input/input.h>
@@ -19,13 +22,16 @@
 #define MF_CLASSIC_DICT_FLIPPER_PATH EXT_PATH("nfc/assets/mf_classic_dict.nfc")
 #define MF_CLASSIC_DICT_USER_PATH EXT_PATH("nfc/assets/mf_classic_dict_user.nfc")
 #define MF_CLASSIC_NONCE_PATH EXT_PATH("nfc/.mfkey32.log")
-// TODO: Create nfc/.cache/ if missing?
-#define MF_CLASSIC_MEM_FILE_PATH EXT_PATH("nfc/.cache/mem_file.bin")
 #define TAG "Mfkey32"
 #define NFC_MF_CLASSIC_KEY_LEN (13)
 
+#define MSB_LIMIT 16
 #define LF_POLY_ODD (0x29CE5C)
 #define LF_POLY_EVEN (0x870804)
+#define CONST_M1_1 (LF_POLY_EVEN << 1 | 1)
+#define CONST_M2_1 (LF_POLY_ODD << 1)
+#define CONST_M1_2 (LF_POLY_ODD)
+#define CONST_M2_2 (LF_POLY_EVEN << 1 | 1)
 #define BIT(x, n) ((x) >> (n)&1)
 #define BEBIT(x, n) BIT(x, (n) ^ 24)
 #define SWAPENDIAN(x) (x = (x >> 8 & 0xff00ff) | (x & 0xff00ff) << 8, x = x >> 16 | x << 16)
@@ -33,6 +39,10 @@
 
 struct Crypto1State {
     uint32_t odd, even;
+};
+struct Crypto1Params {
+    uint64_t key;
+    uint32_t nr0_enc, uid_xor_nt0, uid_xor_nt1, nr1_enc, p64b, ar1_enc;
 };
 
 typedef enum {
@@ -47,7 +57,6 @@ typedef struct {
 
 typedef enum {
     MissingNonces,
-    StorageUnwritable,
     ZeroNonces,
     OutOfMemory,
 } MfkeyError;
@@ -60,6 +69,7 @@ typedef struct {
     int dict_count;
 } ProgramState;
 
+// TODO: Merge this with Crypto1Params?
 typedef struct {
     uint32_t uid; // serial number
     uint32_t nt0; // tag challenge first
@@ -82,43 +92,6 @@ struct MfClassicDict {
     uint32_t total_keys;
 };
 
-void* file_calloc(size_t nmemb, size_t size, Stream* file) {
-    // Seek to the end of the file
-    stream_seek(file, 0, StreamOffsetFromEnd);
-    // Get the current position, which is the end of the file
-    long int offset = stream_tell(file);
-    // Write nmemb * size bytes of 0s to the file
-    for(uint32_t i = 0; i < nmemb * size; i++) {
-        stream_write_char(file, 0);
-    }
-    // Return the starting offset of the allocated memory
-    return (void*)offset;
-}
-
-void file_write_at_offset(void* ptr, int element, void* src, size_t n, Stream* file) {
-    // Seek to the specified offset in the file
-    stream_seek(file, (long int)(ptr + (element * n)), StreamOffsetFromStart);
-    // Write n bytes from src to the file
-    stream_write(file, src, n);
-}
-
-void* file_read_at_offset(void* ptr, int element, size_t n, Stream* file) {
-    // Seek to the specified offset in the file
-    stream_seek(file, (long int)(ptr + (element * n)), StreamOffsetFromStart);
-    // Read n bytes from the file
-    void* buf = malloc(n);
-    stream_read(file, buf, n);
-    return buf;
-}
-int file_read_int_at_offset(void* ptr, int element, size_t n, Stream* file) {
-    int res;
-    // Seek to the specified offset in the file
-    stream_seek(file, (long int)(ptr + (element * n)), StreamOffsetFromStart);
-    // Read n bytes from the file
-    stream_read(file, (uint8_t*)&res, n);
-    return res;
-}
-
 uint32_t prng_successor(uint32_t x, uint32_t n) {
     SWAPENDIAN(x);
     while(n--) x = x >> 1 | (x >> 16 ^ x >> 18 ^ x >> 19 ^ x >> 21) << 31;
@@ -139,247 +112,11 @@ static inline uint8_t evenparity32(uint32_t x) {
     return (__builtin_parity(x) & 0xFF);
 }
 
-int binsearch(void* data_offset, Stream* mem_file, int start, int stop) {
-    int mid, val = file_read_int_at_offset(data_offset, stop, sizeof(int), mem_file) & 0xff000000;
-    while(start != stop) {
-        mid = (stop - start) >> 1;
-        int data_start_mid =
-            file_read_int_at_offset(data_offset, start + mid, sizeof(int), mem_file);
-        if((data_start_mid ^ 0x80000000) > (val ^ 0x80000000))
-            stop = start + mid;
-        else
-            start += mid + 1;
-    }
-    return start;
-}
-
-void quicksort(void* data_offset, Stream* mem_file, int low, int high) {
-    //if (SIZEOF(array) == 0)
-    //    return;
-    if(low >= high) return;
-    int middle = low + (high - low) / 2;
-    int pivot = file_read_int_at_offset(data_offset, middle, sizeof(int), mem_file);
-    int i = low, j = high;
-    while(i <= j) {
-        while(file_read_int_at_offset(data_offset, i, sizeof(int), mem_file) < pivot) {
-            i++;
-        }
-        while(file_read_int_at_offset(data_offset, j, sizeof(int), mem_file) > pivot) {
-            j--;
-        }
-        if(i <= j) { // swap
-            int temp = file_read_int_at_offset(data_offset, i, sizeof(int), mem_file);
-            int temp_2 = file_read_int_at_offset(data_offset, j, sizeof(int), mem_file);
-            file_write_at_offset(data_offset, i, &temp_2, sizeof(int), mem_file);
-            file_write_at_offset(data_offset, j, &temp, sizeof(int), mem_file);
-            i++;
-            j--;
-        }
-    }
-    if(low < j) {
-        quicksort(data_offset, mem_file, low, j);
-    }
-    if(high > i) {
-        quicksort(data_offset, mem_file, i, high);
-    }
-}
-
-void update_contribution(void* data_offset, Stream* mem_file, int item, int mask1, int mask2) {
-    int data_item = file_read_int_at_offset(data_offset, item, sizeof(int), mem_file);
-    int p = data_item >> 25;
-    p = p << 1 | evenparity32(data_item & mask1);
-    p = p << 1 | evenparity32(data_item & mask2);
-    data_item = p << 24 | (data_item & 0xffffff);
-    file_write_at_offset(data_offset, item, &data_item, sizeof(int), mem_file);
-}
-
-int extend_table(void* data_offset, Stream* mem_file, int tbl, int end, int bit, int m1, int m2) {
-    int data_tbl_init = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-    data_tbl_init <<= 1;
-    file_write_at_offset(data_offset, tbl, &data_tbl_init, sizeof(int), mem_file);
-    while(tbl <= end) {
-        int data_tbl = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-        if((filter(data_tbl) ^ filter(data_tbl | 1)) != 0) {
-            data_tbl |= filter(data_tbl) ^ bit;
-            file_write_at_offset(data_offset, tbl, &data_tbl, sizeof(int), mem_file);
-            update_contribution(data_offset, mem_file, tbl, m1, m2);
-        } else if(filter(data_tbl) == bit) {
-            end++;
-            int data_tbl_2 = file_read_int_at_offset(data_offset, tbl + 1, sizeof(int), mem_file);
-            file_write_at_offset(data_offset, end, &data_tbl_2, sizeof(int), mem_file);
-            int data_tbl_3 = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-            data_tbl = data_tbl_3 | 1;
-            file_write_at_offset(data_offset, tbl + 1, &data_tbl, sizeof(int), mem_file);
-            update_contribution(data_offset, mem_file, tbl, m1, m2);
-            tbl++;
-            update_contribution(data_offset, mem_file, tbl, m1, m2);
-        } else {
-            int data_end = file_read_int_at_offset(data_offset, end, sizeof(int), mem_file);
-            file_write_at_offset(data_offset, tbl, &data_end, sizeof(int), mem_file);
-            end--;
-            tbl--;
-        }
-        tbl++;
-        int data_tbl_update = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-        data_tbl_update <<= 1;
-        file_write_at_offset(data_offset, tbl, &data_tbl_update, sizeof(int), mem_file);
-    }
-    return end;
-}
-
-int extend_table_simple(void* data_offset, Stream* mem_file, int tbl, int end, int bit) {
-    int data_tbl_init = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-    data_tbl_init <<= 1;
-    file_write_at_offset(data_offset, tbl, &data_tbl_init, sizeof(int), mem_file);
-    while(tbl <= end) {
-        int data_tbl = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-        if((filter(data_tbl) ^ filter(data_tbl | 1)) != 0) {
-            data_tbl |= filter(data_tbl) ^ bit;
-            file_write_at_offset(data_offset, tbl, &data_tbl, sizeof(int), mem_file);
-        } else if(filter(data_tbl) == bit) {
-            end++;
-            tbl++;
-            int data_tbl_2 = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-            file_write_at_offset(data_offset, end, &data_tbl_2, sizeof(int), mem_file);
-            int data_tbl_3 = file_read_int_at_offset(data_offset, tbl - 1, sizeof(int), mem_file);
-            data_tbl = data_tbl_3 | 1;
-            file_write_at_offset(data_offset, tbl, &data_tbl, sizeof(int), mem_file);
-        } else {
-            int data_end = file_read_int_at_offset(data_offset, end, sizeof(int), mem_file);
-            file_write_at_offset(data_offset, tbl, &data_end, sizeof(int), mem_file);
-            end--;
-            tbl--;
-        }
-        tbl++;
-        int data_tbl_update = file_read_int_at_offset(data_offset, tbl, sizeof(int), mem_file);
-        data_tbl_update <<= 1;
-        file_write_at_offset(data_offset, tbl, &data_tbl_update, sizeof(int), mem_file);
-    }
-    return end;
-}
-
-int recover(
-    void* odd_start_offset,
-    Stream* mem_file,
-    int o_head,
-    int o_tail,
-    int oks,
-    void* even_start_offset,
-    int e_head,
-    int e_tail,
-    int eks,
-    int rem,
-    void* statelist_start_offset,
-    int s) {
-    int o = 0, e = 0, i = 0;
-    if(rem == -1) {
-        for(e = e_head; e <= e_tail; ++e) {
-            int even_e = file_read_int_at_offset(even_start_offset, e, sizeof(int), mem_file);
-            even_e = (even_e << 1) ^ evenparity32(even_e & LF_POLY_EVEN);
-            file_write_at_offset(even_start_offset, e, &even_e, sizeof(int), mem_file);
-            for(o = o_head; o <= o_tail; ++o, ++s) {
-                int odd_o = file_read_int_at_offset(odd_start_offset, o, sizeof(int), mem_file);
-                int even_e_xor = even_e ^ evenparity32(odd_o & LF_POLY_ODD);
-                struct Crypto1State sl_s = {even_e_xor, odd_o};
-                file_write_at_offset(
-                    statelist_start_offset, s, &sl_s, sizeof(struct Crypto1State), mem_file);
-                struct Crypto1State sl_s_1 = {0, 0};
-                file_write_at_offset(
-                    statelist_start_offset, s + 1, &sl_s_1, sizeof(struct Crypto1State), mem_file);
-            }
-        }
-        return s;
-    }
-    for(i = 0; (i < 4) && (rem-- != 0); i++) {
-        oks >>= 1;
-        eks >>= 1;
-        o_tail = extend_table(
-            odd_start_offset,
-            mem_file,
-            o_head,
-            o_tail,
-            oks & 1,
-            LF_POLY_EVEN << 1 | 1,
-            LF_POLY_ODD << 1);
-        if(o_head > o_tail) return s;
-        e_tail = extend_table(
-            even_start_offset,
-            mem_file,
-            e_head,
-            e_tail,
-            eks & 1,
-            LF_POLY_ODD,
-            LF_POLY_EVEN << 1 | 1);
-        if(e_head > e_tail) return s;
-    }
-    quicksort(odd_start_offset, mem_file, o_head, o_tail);
-    quicksort(even_start_offset, mem_file, e_head, e_tail);
-    while(o_tail >= o_head && e_tail >= e_head) {
-        int odd_o_tail = file_read_int_at_offset(odd_start_offset, o_tail, sizeof(int), mem_file);
-        int even_e_tail =
-            file_read_int_at_offset(even_start_offset, e_tail, sizeof(int), mem_file);
-        if(((odd_o_tail ^ even_e_tail) >> 24) == 0) {
-            o_tail = binsearch(odd_start_offset, mem_file, o_head, o = o_tail);
-            e_tail = binsearch(even_start_offset, mem_file, e_head, e = e_tail);
-            s = recover(
-                odd_start_offset,
-                mem_file,
-                o_tail--,
-                o,
-                oks,
-                even_start_offset,
-                e_tail--,
-                e,
-                eks,
-                rem,
-                statelist_start_offset,
-                s);
-        } else if((odd_o_tail ^ 0x80000000) > (even_e_tail ^ 0x80000000)) {
-            o_tail = binsearch(odd_start_offset, mem_file, o_head, o_tail) - 1;
-        } else {
-            e_tail = binsearch(even_start_offset, mem_file, e_head, e_tail) - 1;
-        }
-    }
-    return s;
-}
-
-struct Crypto1State* lfsr_recovery32(int ks2, Stream* mem_file) {
-    int odd_head = 0, odd_tail = -1, oks = 0;
-    int even_head = 0, even_tail = -1, eks = 0;
-    void* odd_start_offset = file_calloc(1, 5 << 19, mem_file);
-    void* even_start_offset = file_calloc(1, 5 << 19, mem_file);
-    void* statelist_start_offset = file_calloc(1, sizeof(struct Crypto1State) << 18, mem_file);
-    int i;
-    for(i = 31; i >= 0; i -= 2) oks = oks << 1 | BEBIT(ks2, i);
-    for(i = 30; i >= 0; i -= 2) eks = eks << 1 | BEBIT(ks2, i);
-    for(i = 1 << 20; i >= 0; --i) {
-        if(filter(i) == (oks & 1))
-            //odd[++odd_tail] = i;
-            file_write_at_offset(odd_start_offset, ++odd_tail, &i, sizeof(int), mem_file);
-        if(filter(i) == (eks & 1))
-            //even[++even_tail] = i;
-            file_write_at_offset(even_start_offset, ++even_tail, &i, sizeof(int), mem_file);
-    }
-    for(i = 0; i < 4; i++) {
-        odd_tail =
-            extend_table_simple(odd_start_offset, mem_file, odd_head, odd_tail, ((oks >>= 1) & 1));
-        even_tail = extend_table_simple(
-            even_start_offset, mem_file, even_head, even_tail, ((eks >>= 1) & 1));
-    }
-    recover(
-        odd_start_offset,
-        mem_file,
-        odd_head,
-        odd_tail,
-        oks,
-        even_start_offset,
-        even_head,
-        even_tail,
-        eks,
-        11,
-        statelist_start_offset,
-        0);
-    return statelist_start_offset;
+static inline void update_contribution(int data[], int item, int mask1, int mask2) {
+    int p = data[item] >> 25;
+    p = p << 1 | evenparity32(data[item] & mask1);
+    p = p << 1 | evenparity32(data[item] & mask2);
+    data[item] = p << 24 | (data[item] & 0xffffff);
 }
 
 void crypto1_get_lfsr(struct Crypto1State* state, uint64_t* lfsr) {
@@ -431,30 +168,203 @@ uint32_t crypt_or_rollback_word(struct Crypto1State* s, uint32_t in, int x, int 
     return ret;
 }
 
-bool key_already_found_for_nonce(
+int key_already_found_for_nonce(
     uint64_t* keyarray,
-    size_t keyarray_size,
+    int keyarray_size,
     uint32_t uid_xor_nt1,
     uint32_t nr1_enc,
     uint32_t p64b,
     uint32_t ar1_enc) {
-    size_t k = 0;
-    bool found = false;
-    for(k = 0; k < keyarray_size; k++) {
+    for(int k = 0; k < keyarray_size; k++) {
         struct Crypto1State temp = {0, 0};
-        int i;
-        for(i = 0; i < 24; i++) {
+
+        for(int i = 0; i < 24; i++) {
             (&temp)->odd |= (BIT(keyarray[k], 2 * i + 1) << (i ^ 3));
             (&temp)->even |= (BIT(keyarray[k], 2 * i) << (i ^ 3));
         }
+
         crypt_or_rollback_word(&temp, uid_xor_nt1, 0, 1);
         crypt_or_rollback_word(&temp, nr1_enc, 1, 1);
+
         if(ar1_enc == (crypt_or_rollback_word(&temp, 0, 0, 1) ^ p64b)) {
-            found = true;
-            break;
+            return 1;
         }
     }
-    return found;
+    return 0;
+}
+
+int check_state(struct Crypto1State* t, struct Crypto1Params* p) {
+    uint64_t key = 0;
+    struct Crypto1State temp = {0, 0};
+
+    if(t->odd | t->even) {
+        crypt_or_rollback_word(t, 0, 0, 0);
+        crypt_or_rollback_word(t, p->nr0_enc, 1, 0);
+        crypt_or_rollback_word(t, p->uid_xor_nt0, 0, 0);
+        temp.odd = t->odd;
+        temp.even = t->even;
+        crypt_or_rollback_word(t, p->uid_xor_nt1, 0, 1);
+        crypt_or_rollback_word(t, p->nr1_enc, 1, 1);
+        if(p->ar1_enc == (crypt_or_rollback_word(t, 0, 0, 1) ^ p->p64b)) {
+            crypto1_get_lfsr(&temp, &key);
+            p->key = key;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static inline int state_loop(int* states_buffer, int xks, int m1, int m2) {
+    int states_tail = 0;
+    int round = 0, s = 0, xks_bit = 0;
+
+    for(round = 1; round <= 15; round++) {
+        xks_bit = BIT(xks, round);
+
+        for(s = 0; s <= states_tail; s++) {
+            states_buffer[s] <<= 1;
+
+            if((filter(states_buffer[s]) ^ filter(states_buffer[s] | 1)) != 0) {
+                states_buffer[s] |= filter(states_buffer[s]) ^ xks_bit;
+                if(round > 4) {
+                    update_contribution(states_buffer, s, m1, m2);
+                }
+            } else if(filter(states_buffer[s]) == xks_bit) {
+                // TODO: Refactor
+                if(round > 4) {
+                    states_buffer[++states_tail] = states_buffer[s + 1];
+                    states_buffer[s + 1] = states_buffer[s] | 1;
+                    update_contribution(states_buffer, s, m1, m2);
+                    s++;
+                    update_contribution(states_buffer, s, m1, m2);
+                } else {
+                    states_buffer[++states_tail] = states_buffer[++s];
+                    states_buffer[s] = states_buffer[s - 1] | 1;
+                }
+            } else {
+                states_buffer[s--] = states_buffer[states_tail--];
+            }
+        }
+    }
+
+    return states_tail;
+}
+
+struct Msb {
+    int tail;
+    int states[512];
+};
+
+int calculate_msb_tables(int oks, int eks, int msb_round, struct Crypto1Params* p) {
+    // TODO: Combine Odd and Even loops
+    int msb_head = (MSB_LIMIT * msb_round); // msb_iter ranges from 0 to (256/MSB_LIMIT)-1
+    int msb_tail = (MSB_LIMIT * (msb_round + 1));
+    int* states_buffer = malloc(sizeof(int) * (2 << 9));
+    int states_tail = 0;
+    int i = 0, j = 0, y = 0, semi_state = 0, tail = 0, msb = 0, found = 0;
+    struct Crypto1State temp = {0, 0};
+
+    //FURI_LOG_I(TAG, "MSB GO %i", msb_iter); // DEBUG
+
+    struct Msb* odd_msbs = malloc(MSB_LIMIT * sizeof(*odd_msbs));
+    struct Msb* even_msbs = malloc(MSB_LIMIT * sizeof(*even_msbs));
+
+    // Odd
+    for(semi_state = 1 << 20; semi_state >= 0; semi_state--) {
+        //if (main_iter % 2048 == 0) {
+        //    FURI_LOG_I(TAG, "On main_iter %i", main_iter); // DEBUG
+        //}
+        if(filter(semi_state) == (oks & 1)) {
+            states_buffer[0] = semi_state;
+            states_tail = state_loop(states_buffer, oks, CONST_M1_1, CONST_M2_1);
+
+            for(i = 0; i <= states_tail; i++) {
+                msb = states_buffer[i] >> 24;
+                if((msb >= msb_head) && (msb < msb_tail)) {
+                    found = 0;
+                    for(j = 0; j < odd_msbs[msb - msb_head].tail; j++) {
+                        if(odd_msbs[msb - msb_head].states[j] == states_buffer[i]) {
+                            found = 1;
+                            break;
+                        }
+                    }
+
+                    if(!found) {
+                        tail = odd_msbs[msb - msb_head].tail++;
+                        odd_msbs[msb - msb_head].states[tail] = states_buffer[i];
+                    }
+                }
+            }
+        }
+    }
+
+    //FURI_LOG_I(TAG, "MSB GE %i", msb_iter); // DEBUG
+
+    // Even
+    for(semi_state = 1 << 20; semi_state >= 0; semi_state--) {
+        if(filter(semi_state) == (eks & 1)) {
+            states_buffer[0] = semi_state;
+            states_tail = state_loop(states_buffer, eks, CONST_M1_2, CONST_M2_2);
+
+            for(i = 0; i <= states_tail; i++) {
+                msb = states_buffer[i] >> 24;
+                if((msb >= msb_head) && (msb < msb_tail)) {
+                    found = 0;
+
+                    for(j = 0; j < even_msbs[msb - msb_head].tail; j++) {
+                        if(even_msbs[msb - msb_head].states[j] == states_buffer[i]) {
+                            found = 1;
+                            break;
+                        }
+                    }
+
+                    if(found) continue;
+
+                    tail = even_msbs[msb - msb_head].tail++;
+                    even_msbs[msb - msb_head].states[tail] = states_buffer[i];
+                    states_buffer[i] = (states_buffer[i] << 1) ^
+                                       evenparity32(states_buffer[i] & LF_POLY_EVEN);
+                    // Check against all odd states for MSB
+                    for(y = 0; y <= odd_msbs[msb - msb_head].tail; y++) {
+                        temp.even = odd_msbs[msb - msb_head].states[y];
+                        temp.odd = states_buffer[i] ^
+                                   evenparity32(odd_msbs[msb - msb_head].states[y] & LF_POLY_ODD);
+                        if(check_state(&temp, p)) {
+                            free(states_buffer);
+                            free(odd_msbs);
+                            free(even_msbs);
+                            return 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    free(states_buffer);
+    free(odd_msbs);
+    free(even_msbs);
+    return 0;
+}
+
+int recover(struct Crypto1Params* p, int ks2) {
+    int oks = 0, eks = 0;
+    int i = 0, msb = 0;
+    for(i = 31; i >= 0; i -= 2) {
+        oks = oks << 1 | BEBIT(ks2, i);
+    }
+    for(i = 30; i >= 0; i -= 2) {
+        eks = eks << 1 | BEBIT(ks2, i);
+    }
+    int bench_start = furi_hal_rtc_get_timestamp();
+    for(msb = 0; msb <= ((256 / MSB_LIMIT) - 1); msb++) {
+        if(calculate_msb_tables(oks, eks, msb, p)) {
+            int bench_stop = furi_hal_rtc_get_timestamp();
+            FURI_LOG_I(TAG, "Cracked in %i seconds", bench_stop - bench_start);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 bool napi_mf_classic_dict_check_presence(MfClassicDictType dict_type) {
@@ -811,12 +721,10 @@ void napi_mf_classic_nonce_array_free(MfClassicNonceArray* nonce_array) {
 
 // TODO: Blocks main thread. Do we manually need to render here?
 void mfkey32(ProgramState* const program_state) {
-    uint64_t key; // recovered key
+    uint64_t found_key; // recovered key
     size_t keyarray_size = 0;
     uint64_t* keyarray = malloc(sizeof(uint64_t) * 1);
     uint32_t i = 0;
-    struct Crypto1State* temp;
-    Stream* mem_file;
     // Check for nonces
     if(!napi_mf_classic_nonces_check_presence()) {
         program_state->err = MissingNonces;
@@ -851,13 +759,10 @@ void mfkey32(ProgramState* const program_state) {
         if(user_dict_exists) {
             napi_mf_classic_dict_free(user_dict);
         }
+        free(keyarray);
         return;
     }
     program_state->total = nonce_arr->total_nonces;
-    Storage* storage = furi_record_open(RECORD_STORAGE);
-    mem_file = buffered_file_stream_alloc(storage);
-    // Removing the file is not needed if FSOM_CREATE_ALWAYS truncates it to 0 bytes
-    //storage_simply_remove(storage, MF_CLASSIC_MEM_FILE_PATH);
     for(i = 0; i < nonce_arr->total_nonces; i++) {
         MfClassicNonce next_nonce = nonce_arr->remaining_nonce_array[i];
         uint32_t p64 = prng_successor(next_nonce.nt0, 64);
@@ -873,61 +778,37 @@ void mfkey32(ProgramState* const program_state) {
             continue;
         }
         FURI_LOG_I(TAG, "Cracking %lx %lx", next_nonce.uid, next_nonce.ar1_enc);
-        if(!buffered_file_stream_open(
-               mem_file, MF_CLASSIC_MEM_FILE_PATH, FSAM_READ_WRITE, FSOM_CREATE_ALWAYS)) {
-            FURI_LOG_E(TAG, "Failed to open %s", MF_CLASSIC_MEM_FILE_PATH);
-            buffered_file_stream_close(mem_file);
-            program_state->err = StorageUnwritable;
-            napi_mf_classic_nonce_array_free(nonce_arr);
-            if(system_dict_exists) {
-                napi_mf_classic_dict_free(system_dict);
-            }
-            if(user_dict_exists) {
-                napi_mf_classic_dict_free(user_dict);
-            }
-            furi_record_close(RECORD_STORAGE);
-            return;
+        struct Crypto1Params p = {
+            0,
+            next_nonce.nr0_enc,
+            next_nonce.uid ^ next_nonce.nt0,
+            next_nonce.uid ^ next_nonce.nt1,
+            next_nonce.nr1_enc,
+            p64b,
+            next_nonce.ar1_enc};
+        if(recover(&p, next_nonce.ar0_enc ^ p64) == 0) {
+            // No key found in recover()
+            continue;
         }
-        void* s_offset = lfsr_recovery32(next_nonce.ar0_enc ^ p64, mem_file);
-        int ti = 0;
-        while(1) {
-            temp = (struct Crypto1State*)file_read_at_offset(
-                s_offset, ti, sizeof(struct Crypto1State), mem_file);
-            if(!temp->odd && !temp->even) break;
-            crypt_or_rollback_word(temp, 0, 0, 0);
-            crypt_or_rollback_word(temp, next_nonce.nr0_enc, 1, 0);
-            crypt_or_rollback_word(temp, next_nonce.uid ^ next_nonce.nt0, 0, 0);
-            crypto1_get_lfsr(temp, &key);
-            crypt_or_rollback_word(temp, next_nonce.uid ^ next_nonce.nt1, 0, 1);
-            crypt_or_rollback_word(temp, next_nonce.nr1_enc, 1, 1);
-            if(next_nonce.ar1_enc == (crypt_or_rollback_word(temp, 0, 0, 1) ^ p64b)) {
-                bool already_found = false;
-                for(i = 0; i < keyarray_size; i++) {
-                    if(keyarray[i] == key) {
-                        already_found = true;
-                        break;
-                    }
-                }
-                if(already_found == false) {
-                    // New key
-                    keyarray = realloc(keyarray, sizeof(uint64_t) * (keyarray_size + 1));
-                    keyarray_size += 1;
-                    keyarray[keyarray_size - 1] = key;
-                }
+        found_key = p.key;
+        bool already_found = false;
+        for(i = 0; i < keyarray_size; i++) {
+            if(keyarray[i] == found_key) {
+                already_found = true;
                 break;
             }
-            //file_write_at_offset(s_offset, t, &temp, sizeof(struct Crypto1State), mem_file);
-            free(temp);
-            ti++;
         }
-        buffered_file_stream_close(mem_file);
+        if(already_found == false) {
+            // New key
+            keyarray = realloc(keyarray, sizeof(uint64_t) * (keyarray_size + 1));
+            keyarray_size += 1;
+            keyarray[keyarray_size - 1] = found_key;
+        }
     }
     // TODO: Update display to show all keys were found
     FURI_LOG_I(TAG, "Unique keys found:");
     for(i = 0; i < keyarray_size; i++) {
-        //printf("%012" PRIx64 , keyarray[i]);
-        //printf("\n");
-        FURI_LOG_I(TAG, "%lu", keyarray[i]);
+        FURI_LOG_I(TAG, "%012" PRIx64, keyarray[i]);
     }
     // TODO: Prepend found key(s) to user dictionary file
     napi_mf_classic_nonce_array_free(nonce_arr);
@@ -937,7 +818,7 @@ void mfkey32(ProgramState* const program_state) {
     if(user_dict_exists) {
         napi_mf_classic_dict_free(user_dict);
     }
-    furi_record_close(RECORD_STORAGE);
+    free(keyarray);
     FURI_LOG_I(TAG, "mfkey32 function completed normally"); // DEBUG
     return;
 }
