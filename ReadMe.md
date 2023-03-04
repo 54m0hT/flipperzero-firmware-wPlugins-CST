@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0302-1100-0.78.2-d782beb](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release) 
+## Latest Updates - [PATREON: Latest Release RM0304-0229-0.78.2-0f91a9c](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release) 
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-03-02 10:20 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-03-02 10:20 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-03-04 01:48 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-03-04 01:48 EST`
 - Updated: [NRF24 Batch (By vad7)](https://github.com/vad7/nRF24-Batch)
 - UL: Updated: SubGHz: Fixed timings for static CAME 12 bit and other types (fixed issue #280)
 - UL: Updated: Fix #370 and fix other protocol counter issues
@@ -44,7 +44,20 @@ This software is for experimental purposes only and is not meant for any illegal
 - OFW: [iButton system and app refactoring #2388 (By gsurkov)](https://github.com/flipperdevices/flipperzero-firmware/pull/2388)
 - Temporarily Removed: [iButton Fuzzer (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware)
 - Updated: [Mfkey32 WIP (By noproto)](https://github.com/noproto/FlipperMfkey)
+- UL: Updated: [iButton Fuzzer (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware)
+- UL: Updated: Fix iButton app - add manually - duplicate names
+- Fix Music Beeper Location
 - Updated: [NRF24 Batch (By vad7)](https://github.com/vad7/nRF24-Batch)
+- OFW: [Archive browser: update path on dir leave #2455 (By nminaylov)](https://github.com/flipperdevices/flipperzero-firmware/pull/2455)
+- OFW: [SubGhz: better and more verbose error handling in protocols, stricter CAME validation #2443 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2443)
+- POCSAG protocol fixed to use new error status
+- Updated: [POCSAG Pager (By XMasterx & Shmuma)](https://github.com/xMasterX/flipper-pager) (Updated by RogueMaster to meet new FW Error Format)
+- Added: [(ESP32CAM) Camera (By Z4urce & eried)](https://github.com/eried/flipperzero-mayhem)
+- Added: [(ESP32CAM) Marauder (By 0xchocolate & eried)](https://github.com/eried/flipperzero-mayhem)
+- Added: [(ESP32CAM) Motion Detection (By eried)](https://github.com/eried/flipperzero-mayhem)
+- Added: [(ESP32CAM) QR Code (By eried)](https://github.com/eried/flipperzero-mayhem)
+- UL: Updates to SubGHz Protocols with Error Handling
+- UL: Keeloq Default Layout For Non Standard Remotes
 
 <a name="release">
 
@@ -289,6 +302,10 @@ $ ./fbt dolphin_ext
 - [DSTIKE Deauther (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-Wifi-ESP8266-Deauther-Module/tree/FlipperZero-Module-v2/FlipperZeroModule/FlipperZero-ESP8266-Deauth-App) `Req: ESP8266`
 - [DTMF Dolphin (By litui)](https://github.com/litui/dtmf_dolphin)
 - [EM4100 Key Generator (By Milk-Cool)](https://github.com/Milk-Cool/fz-em4100-generator)
+- [(ESP32CAM) Camera (By Z4urce & eried)](https://github.com/eried/flipperzero-mayhem)
+- [(ESP32CAM) Marauder (By 0xchocolate & eried)](https://github.com/eried/flipperzero-mayhem)
+- [(ESP32CAM) Motion Detection (By eried)](https://github.com/eried/flipperzero-mayhem)
+- [(ESP32CAM) QR Code (By eried)](https://github.com/eried/flipperzero-mayhem)
 - [Extend Range (By maede97)](https://github.com/maede97/flipperzero-extend-range) (Allows SubGHz Unlock!)
 - [EXTRA Demo (By Milk-Cool)](https://github.com/Milk-Cool/EXTRA-demo) (This app has VERY useful functions!)
 - [FAP Boilerplate (By leedave)](https://github.com/leedave/flipper-zero-fap-boilerplate)
@@ -301,6 +318,7 @@ $ ./fbt dolphin_ext
 - [GPS (By ezod)](https://github.com/ezod/flipperzero-gps) `Req: NMEA 0183`
 - [HEX Viewer (By QtRoS)](https://github.com/QtRoS/flipperzero-firmware)
 - [i2c Tools (By NaejEL)](https://github.com/NaejEL/flipperzero-i2ctools)
+- [iButton Fuzzer (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware)
 - [IFTTT Virtual Button (By Ferrazzi)](https://github.com/Ferrazzi/FlipperZero_IFTTT_Virtual_Button) `Req: ESP8266 w/ IFTTT FW Flashed`
 - [Intravelometer (By theageoflove)](https://github.com/theageoflove/flipperzero-zeitraffer)
 - [IR Remote (By Hong5489)](https://github.com/Hong5489/ir_remote)
