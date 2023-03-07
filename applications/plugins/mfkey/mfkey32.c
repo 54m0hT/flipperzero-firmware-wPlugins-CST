@@ -1,5 +1,8 @@
-// TODO: Update progress bar
-// To compile this FAP, add -O3 to CCFLAGS in site_scons/extapps.scons
+// TODO: Handle back button correctly
+// TODO: Add keys to top of the user dictionary, not the bottom
+// To compile this FAP, use the following compiler flags:
+// - Add -O3 and -funroll-all-loops to CCFLAGS in site_scons/extapps.scons
+// - Remove -g from site_scons/cc.scons
 
 #include <furi.h>
 #include <furi_hal.h>
@@ -61,12 +64,27 @@ typedef enum {
     OutOfMemory,
 } MfkeyError;
 
+typedef enum {
+    Ready,
+    Initializing,
+    DictionaryAttack,
+    MfkeyAttack,
+    Complete,
+    Error,
+    Help,
+} MfkeyState;
+
 typedef struct {
-    bool running;
     MfkeyError err;
+    MfkeyState mfkey_state;
     int cracked;
+    int unique_cracked;
     int total;
     int dict_count;
+    int search;
+    bool is_thread_running;
+    bool close_thread_please;
+    FuriThread* mfkeythread;
 } ProgramState;
 
 // TODO: Merge this with Crypto1Params?
@@ -109,10 +127,24 @@ static inline int filter(uint32_t const x) {
 }
 
 static inline uint8_t evenparity32(uint32_t x) {
-    return (__builtin_parity(x) & 0xFF);
+    static const char table[256] = {
+        0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3,
+        4, 4, 5, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4,
+        4, 5, 4, 5, 5, 6, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2, 3, 3, 4, 3, 4, 4,
+        5, 3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 3, 4, 4, 5,
+        4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5, 2,
+        3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5, 5, 6, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4, 5, 4, 5,
+        5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 2, 3, 3, 4, 3, 4, 4, 5, 3, 4, 4,
+        5, 4, 5, 5, 6, 3, 4, 4, 5, 4, 5, 5, 6, 4, 5, 5, 6, 5, 6, 6, 7, 3, 4, 4, 5, 4, 5, 5, 6,
+        4, 5, 5, 6, 5, 6, 6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7, 6, 7, 7, 8};
+
+    int count =
+        table[x & 0xff] + table[(x >> 8) & 0xff] + table[(x >> 16) & 0xff] + table[x >> 24];
+
+    return (count % 2) & 0xFF;
 }
 
-static inline void update_contribution(int data[], int item, int mask1, int mask2) {
+static inline void update_contribution(unsigned int data[], int item, int mask1, int mask2) {
     int p = data[item] >> 25;
     p = p << 1 | evenparity32(data[item] & mask1);
     p = p << 1 | evenparity32(data[item] & mask2);
@@ -127,45 +159,52 @@ void crypto1_get_lfsr(struct Crypto1State* state, uint64_t* lfsr) {
     }
 }
 
-uint8_t crypt_or_rollback_bit(struct Crypto1State* s, uint32_t in, int x, int is_crypt) {
-    uint8_t ret;
+static inline uint32_t crypt_word(struct Crypto1State* s) {
+    // "in" and "x" are always 0 (last iteration)
+    uint32_t res_ret = 0;
     uint32_t feedin, t;
-    if(is_crypt == 0) {
-        s->odd &= 0xffffff;
-        t = s->odd, s->odd = s->even, s->even = t;
-    }
-    ret = filter(s->odd);
-    feedin = ret & (!!x);
-    if(is_crypt == 0) {
-        feedin ^= s->even & 1;
-        feedin ^= LF_POLY_EVEN & (s->even >>= 1);
-    } else {
-        feedin ^= LF_POLY_EVEN & s->even;
-    }
-    feedin ^= LF_POLY_ODD & s->odd;
-    feedin ^= !!in;
-    if(is_crypt == 0) {
-        s->even |= (evenparity32(feedin)) << 23;
-    } else {
+    for(int i = 0; i <= 31; i++) {
+        res_ret |= (filter(s->odd) << (24 ^ i));
+        feedin = LF_POLY_EVEN & s->even;
+        feedin ^= LF_POLY_ODD & s->odd;
         s->even = s->even << 1 | (evenparity32(feedin));
         t = s->odd, s->odd = s->even, s->even = t;
     }
-    return ret;
+    return res_ret;
 }
 
-uint32_t crypt_or_rollback_word(struct Crypto1State* s, uint32_t in, int x, int is_crypt) {
-    uint32_t ret = 0;
-    int i;
-    if(is_crypt == 0) {
-        for(i = 31; i >= 0; i--) {
-            ret |= crypt_or_rollback_bit(s, BEBIT(in, i), x, 0) << (24 ^ i);
-        }
-    } else {
-        for(i = 0; i <= 31; i++) {
-            ret |= crypt_or_rollback_bit(s, BEBIT(in, i), x, 1) << (24 ^ i);
-        }
+static inline void crypt_word_noret(struct Crypto1State* s, uint32_t in, int x) {
+    uint8_t ret;
+    uint32_t feedin, t, next_in;
+    for(int i = 0; i <= 31; i++) {
+        next_in = BEBIT(in, i);
+        ret = filter(s->odd);
+        feedin = ret & (!!x);
+        feedin ^= LF_POLY_EVEN & s->even;
+        feedin ^= LF_POLY_ODD & s->odd;
+        feedin ^= !!next_in;
+        s->even = s->even << 1 | (evenparity32(feedin));
+        t = s->odd, s->odd = s->even, s->even = t;
     }
-    return ret;
+    return;
+}
+
+static inline void rollback_word_noret(struct Crypto1State* s, uint32_t in, int x) {
+    uint8_t ret;
+    uint32_t feedin, t, next_in;
+    for(int i = 31; i >= 0; i--) {
+        next_in = BEBIT(in, i);
+        s->odd &= 0xffffff;
+        t = s->odd, s->odd = s->even, s->even = t;
+        ret = filter(s->odd);
+        feedin = ret & (!!x);
+        feedin ^= s->even & 1;
+        feedin ^= LF_POLY_EVEN & (s->even >>= 1);
+        feedin ^= LF_POLY_ODD & s->odd;
+        feedin ^= !!next_in;
+        s->even |= (evenparity32(feedin)) << 23;
+    }
+    return;
 }
 
 int key_already_found_for_nonce(
@@ -183,10 +222,10 @@ int key_already_found_for_nonce(
             (&temp)->even |= (BIT(keyarray[k], 2 * i) << (i ^ 3));
         }
 
-        crypt_or_rollback_word(&temp, uid_xor_nt1, 0, 1);
-        crypt_or_rollback_word(&temp, nr1_enc, 1, 1);
+        crypt_word_noret(&temp, uid_xor_nt1, 0);
+        crypt_word_noret(&temp, nr1_enc, 1);
 
-        if(ar1_enc == (crypt_or_rollback_word(&temp, 0, 0, 1) ^ p64b)) {
+        if(ar1_enc == (crypt_word(&temp) ^ p64b)) {
             return 1;
         }
     }
@@ -194,27 +233,21 @@ int key_already_found_for_nonce(
 }
 
 int check_state(struct Crypto1State* t, struct Crypto1Params* p) {
-    uint64_t key = 0;
-    struct Crypto1State temp = {0, 0};
-
-    if(t->odd | t->even) {
-        crypt_or_rollback_word(t, 0, 0, 0);
-        crypt_or_rollback_word(t, p->nr0_enc, 1, 0);
-        crypt_or_rollback_word(t, p->uid_xor_nt0, 0, 0);
-        temp.odd = t->odd;
-        temp.even = t->even;
-        crypt_or_rollback_word(t, p->uid_xor_nt1, 0, 1);
-        crypt_or_rollback_word(t, p->nr1_enc, 1, 1);
-        if(p->ar1_enc == (crypt_or_rollback_word(t, 0, 0, 1) ^ p->p64b)) {
-            crypto1_get_lfsr(&temp, &key);
-            p->key = key;
-            return 1;
-        }
+    if(!(t->odd | t->even)) return 0;
+    rollback_word_noret(t, 0, 0);
+    rollback_word_noret(t, p->nr0_enc, 1);
+    rollback_word_noret(t, p->uid_xor_nt0, 0);
+    struct Crypto1State temp = {t->odd, t->even};
+    crypt_word_noret(t, p->uid_xor_nt1, 0);
+    crypt_word_noret(t, p->nr1_enc, 1);
+    if(p->ar1_enc == (crypt_word(t) ^ p->p64b)) {
+        crypto1_get_lfsr(&temp, &(p->key));
+        return 1;
     }
     return 0;
 }
 
-static inline int state_loop(int* states_buffer, int xks, int m1, int m2) {
+static inline int state_loop(unsigned int* states_buffer, int xks, int m1, int m2) {
     int states_tail = 0;
     int round = 0, s = 0, xks_bit = 0;
 
@@ -252,22 +285,24 @@ static inline int state_loop(int* states_buffer, int xks, int m1, int m2) {
 
 struct Msb {
     int tail;
-    int states[512];
+    unsigned int states[512];
 };
 
 int calculate_msb_tables(int oks, int eks, int msb_round, struct Crypto1Params* p) {
-    // TODO: Combine Odd and Even loops
-    int msb_head = (MSB_LIMIT * msb_round); // msb_iter ranges from 0 to (256/MSB_LIMIT)-1
-    int msb_tail = (MSB_LIMIT * (msb_round + 1));
-    int* states_buffer = malloc(sizeof(int) * (2 << 9));
+    unsigned int msb_head =
+        (MSB_LIMIT * msb_round); // msb_round ranges from 0 to (256/MSB_LIMIT)-1
+    unsigned int msb_tail = (MSB_LIMIT * (msb_round + 1));
+    unsigned int* states_buffer = malloc(sizeof(unsigned int) * (2 << 9));
     int states_tail = 0;
-    int i = 0, j = 0, y = 0, semi_state = 0, tail = 0, msb = 0, found = 0;
+    int i = 0, j = 0, y = 0, semi_state = 0, tail = 0, found = 0;
+    unsigned int msb = 0;
     struct Crypto1State temp = {0, 0};
 
     //FURI_LOG_I(TAG, "MSB GO %i", msb_iter); // DEBUG
 
-    struct Msb* odd_msbs = malloc(MSB_LIMIT * sizeof(*odd_msbs));
-    struct Msb* even_msbs = malloc(MSB_LIMIT * sizeof(*even_msbs));
+    struct Msb* odd_msbs = (struct Msb*)malloc(MSB_LIMIT * sizeof(struct Msb));
+    struct Msb* even_msbs = (struct Msb*)malloc(MSB_LIMIT * sizeof(struct Msb));
+    // TODO: memset 0 odd_msbs and even_msbs?
 
     // Odd
     for(semi_state = 1 << 20; semi_state >= 0; semi_state--) {
@@ -347,7 +382,7 @@ int calculate_msb_tables(int oks, int eks, int msb_round, struct Crypto1Params* 
     return 0;
 }
 
-int recover(struct Crypto1Params* p, int ks2) {
+int recover(struct Crypto1Params* p, int ks2, ProgramState* const program_state) {
     int oks = 0, eks = 0;
     int i = 0, msb = 0;
     for(i = 31; i >= 0; i -= 2) {
@@ -358,6 +393,7 @@ int recover(struct Crypto1Params* p, int ks2) {
     }
     int bench_start = furi_hal_rtc_get_timestamp();
     for(msb = 0; msb <= ((256 / MSB_LIMIT) - 1); msb++) {
+        program_state->search = msb;
         if(calculate_msb_tables(oks, eks, msb, p)) {
             int bench_stop = furi_hal_rtc_get_timestamp();
             FURI_LOG_I(TAG, "Cracked in %i seconds", bench_stop - bench_start);
@@ -450,6 +486,25 @@ MfClassicDict* napi_mf_classic_dict_alloc(MfClassicDictType dict_type) {
     }
 
     return dict;
+}
+
+bool napi_mf_classic_dict_add_key_str(MfClassicDict* dict, FuriString* key) {
+    furi_assert(dict);
+    furi_assert(dict->stream);
+    FURI_LOG_I(TAG, "Saving key: %s", furi_string_get_cstr(key));
+
+    furi_string_cat_printf(key, "\n");
+
+    bool key_added = false;
+    do {
+        if(!stream_seek(dict->stream, 0, StreamOffsetFromEnd)) break;
+        if(!stream_insert_string(dict->stream, key)) break;
+        dict->total_keys++;
+        key_added = true;
+    } while(false);
+
+    furi_string_left(key, 12);
+    return key_added;
 }
 
 void napi_mf_classic_dict_free(MfClassicDict* dict) {
@@ -571,9 +626,9 @@ bool napi_key_already_found_for_nonce(
             (&temp)->odd |= (BIT(k, 2 * i + 1) << (i ^ 3));
             (&temp)->even |= (BIT(k, 2 * i) << (i ^ 3));
         }
-        crypt_or_rollback_word(&temp, uid_xor_nt1, 0, 1);
-        crypt_or_rollback_word(&temp, nr1_enc, 1, 1);
-        if(ar1_enc == (crypt_or_rollback_word(&temp, 0, 0, 1) ^ p64b)) {
+        crypt_word_noret(&temp, uid_xor_nt1, 0);
+        crypt_word_noret(&temp, nr1_enc, 1);
+        if(ar1_enc == (crypt_word(&temp) ^ p64b)) {
             found = true;
             break;
         }
@@ -595,7 +650,8 @@ MfClassicNonceArray* napi_mf_classic_nonce_array_alloc(
     MfClassicDict* system_dict,
     bool system_dict_exists,
     MfClassicDict* user_dict,
-    bool user_dict_exists) {
+    bool user_dict_exists,
+    ProgramState* const program_state) {
     MfClassicNonceArray* nonce_array = malloc(sizeof(MfClassicNonceArray));
     MfClassicNonce* remaining_nonce_array_init = malloc(sizeof(MfClassicNonce) * 1);
     nonce_array->remaining_nonce_array = remaining_nonce_array_init;
@@ -676,6 +732,7 @@ MfClassicNonceArray* napi_mf_classic_nonce_array_alloc(
                 }
                 ptr++;
             }
+            (program_state->total)++;
             uint32_t p64b = prng_successor(res.nt1, 64);
             if((system_dict_exists &&
                 napi_key_already_found_for_nonce(
@@ -683,6 +740,7 @@ MfClassicNonceArray* napi_mf_classic_nonce_array_alloc(
                (user_dict_exists &&
                 napi_key_already_found_for_nonce(
                     user_dict, res.uid ^ res.nt1, res.nr1_enc, p64b, res.ar1_enc))) {
+                (program_state->cracked)++;
                 continue;
             }
             FURI_LOG_I(TAG, "No key found for %lx %lx", res.uid, res.ar1_enc);
@@ -719,7 +777,6 @@ void napi_mf_classic_nonce_array_free(MfClassicNonceArray* nonce_array) {
     free(nonce_array);
 }
 
-// TODO: Blocks main thread. Do we manually need to render here?
 void mfkey32(ProgramState* const program_state) {
     uint64_t found_key; // recovered key
     size_t keyarray_size = 0;
@@ -728,6 +785,7 @@ void mfkey32(ProgramState* const program_state) {
     // Check for nonces
     if(!napi_mf_classic_nonces_check_presence()) {
         program_state->err = MissingNonces;
+        program_state->mfkey_state = Error;
         return;
     }
     // Read dictionaries (optional)
@@ -740,29 +798,30 @@ void mfkey32(ProgramState* const program_state) {
         system_dict = napi_mf_classic_dict_alloc(MfClassicDictTypeSystem);
         total_dict_keys += napi_mf_classic_dict_get_total_keys(system_dict);
     }
+    user_dict = napi_mf_classic_dict_alloc(MfClassicDictTypeUser);
     if(user_dict_exists) {
-        user_dict = napi_mf_classic_dict_alloc(MfClassicDictTypeUser);
         total_dict_keys += napi_mf_classic_dict_get_total_keys(user_dict);
     }
+    user_dict_exists = true;
     program_state->dict_count = total_dict_keys;
+    program_state->mfkey_state = DictionaryAttack;
     // Read nonces
     MfClassicNonceArray* nonce_arr;
     nonce_arr = napi_mf_classic_nonce_array_alloc(
-        system_dict, system_dict_exists, user_dict, user_dict_exists);
+        system_dict, system_dict_exists, user_dict, user_dict_exists, program_state);
     if(nonce_arr->total_nonces == 0) {
         // Nothing to crack
         program_state->err = ZeroNonces;
+        program_state->mfkey_state = Error;
         napi_mf_classic_nonce_array_free(nonce_arr);
         if(system_dict_exists) {
             napi_mf_classic_dict_free(system_dict);
         }
-        if(user_dict_exists) {
-            napi_mf_classic_dict_free(user_dict);
-        }
+        napi_mf_classic_dict_free(user_dict);
         free(keyarray);
         return;
     }
-    program_state->total = nonce_arr->total_nonces;
+    program_state->mfkey_state = MfkeyAttack;
     for(i = 0; i < nonce_arr->total_nonces; i++) {
         MfClassicNonce next_nonce = nonce_arr->remaining_nonce_array[i];
         uint32_t p64 = prng_successor(next_nonce.nt0, 64);
@@ -775,6 +834,7 @@ void mfkey32(ProgramState* const program_state) {
                p64b,
                next_nonce.ar1_enc)) {
             nonce_arr->remaining_nonces--;
+            (program_state->cracked)++;
             continue;
         }
         FURI_LOG_I(TAG, "Cracking %lx %lx", next_nonce.uid, next_nonce.ar1_enc);
@@ -786,7 +846,7 @@ void mfkey32(ProgramState* const program_state) {
             next_nonce.nr1_enc,
             p64b,
             next_nonce.ar1_enc};
-        if(recover(&p, next_nonce.ar0_enc ^ p64) == 0) {
+        if(recover(&p, next_nonce.ar0_enc ^ p64, program_state) == 0) {
             // No key found in recover()
             continue;
         }
@@ -803,14 +863,20 @@ void mfkey32(ProgramState* const program_state) {
             keyarray = realloc(keyarray, sizeof(uint64_t) * (keyarray_size + 1));
             keyarray_size += 1;
             keyarray[keyarray_size - 1] = found_key;
+            (program_state->cracked)++;
+            (program_state->unique_cracked)++;
         }
     }
     // TODO: Update display to show all keys were found
-    FURI_LOG_I(TAG, "Unique keys found:");
-    for(i = 0; i < keyarray_size; i++) {
-        FURI_LOG_I(TAG, "%012" PRIx64, keyarray[i]);
-    }
     // TODO: Prepend found key(s) to user dictionary file
+    //FURI_LOG_I(TAG, "Unique keys found:");
+    for(i = 0; i < keyarray_size; i++) {
+        //FURI_LOG_I(TAG, "%012" PRIx64, keyarray[i]);
+        FuriString* temp_key = furi_string_alloc();
+        furi_string_cat_printf(temp_key, "%012" PRIX64, keyarray[i]);
+        napi_mf_classic_dict_add_key_str(user_dict, temp_key);
+        furi_string_free(temp_key);
+    }
     napi_mf_classic_nonce_array_free(nonce_arr);
     if(system_dict_exists) {
         napi_mf_classic_dict_free(system_dict);
@@ -819,7 +885,8 @@ void mfkey32(ProgramState* const program_state) {
         napi_mf_classic_dict_free(user_dict);
     }
     free(keyarray);
-    FURI_LOG_I(TAG, "mfkey32 function completed normally"); // DEBUG
+    //FURI_LOG_I(TAG, "mfkey32 function completed normally"); // DEBUG
+    program_state->mfkey_state = Complete;
     return;
 }
 
@@ -831,30 +898,71 @@ static void render_callback(Canvas* const canvas, void* ctx) {
         return;
     }
     char draw_str[32] = {};
-    float dict_progress = (float)program_state->cracked / (float)program_state->total;
     canvas_clear(canvas);
     canvas_draw_frame(canvas, 0, 0, 128, 64);
     canvas_draw_frame(canvas, 0, 15, 128, 64);
     canvas_set_font(canvas, FontPrimary);
     canvas_draw_str_aligned(canvas, 5, 4, AlignLeft, AlignTop, "Mfkey32");
     canvas_draw_icon(canvas, 114, 4, &I_mfkey);
-    if(program_state->running) {
-        elements_progress_bar_with_text(canvas, 5, 18, 118, dict_progress, draw_str);
+    if(program_state->is_thread_running && program_state->mfkey_state == MfkeyAttack) {
+        float progress = (float)program_state->cracked / (float)program_state->total;
+        elements_progress_bar_with_text(canvas, 5, 18, 118, progress, draw_str);
         canvas_set_font(canvas, FontSecondary);
         snprintf(
             draw_str,
             sizeof(draw_str),
-            "Keys found: %d/%d",
+            "Keys found: %d/%d (in prog.)",
             program_state->cracked,
             program_state->total);
-        canvas_draw_str_aligned(canvas, 26, 31, AlignLeft, AlignTop, draw_str);
+        canvas_draw_str_aligned(canvas, 5, 31, AlignLeft, AlignTop, draw_str);
+        snprintf(draw_str, sizeof(draw_str), "Search: %d/256", program_state->search);
+        canvas_draw_str_aligned(canvas, 26, 41, AlignLeft, AlignTop, draw_str);
+    } else if(program_state->is_thread_running && program_state->mfkey_state == DictionaryAttack) {
+        elements_progress_bar_with_text(canvas, 5, 18, 118, 0, draw_str);
+        canvas_set_font(canvas, FontSecondary);
+        snprintf(
+            draw_str, sizeof(draw_str), "Dict solves: %d (in progress)", program_state->cracked);
+        canvas_draw_str_aligned(canvas, 10, 31, AlignLeft, AlignTop, draw_str);
         snprintf(draw_str, sizeof(draw_str), "Keys in dict: %d", program_state->dict_count);
         canvas_draw_str_aligned(canvas, 26, 41, AlignLeft, AlignTop, draw_str);
-        elements_button_center(canvas, "Stop");
-    } else {
+    } else if(program_state->mfkey_state == Complete) {
+        // TODO: Scrollable list view to see cracked keys if user presses down
+        elements_progress_bar_with_text(canvas, 5, 18, 118, 1, draw_str);
+        canvas_set_font(canvas, FontSecondary);
+        snprintf(draw_str, sizeof(draw_str), "Complete");
+        canvas_draw_str_aligned(canvas, 40, 31, AlignLeft, AlignTop, draw_str);
+        snprintf(
+            draw_str,
+            sizeof(draw_str),
+            "Keys added to user dict: %d",
+            program_state->unique_cracked);
+        canvas_draw_str_aligned(canvas, 10, 41, AlignLeft, AlignTop, draw_str);
+    } else if(program_state->mfkey_state == Ready) {
         canvas_set_font(canvas, FontSecondary);
         canvas_draw_str_aligned(canvas, 50, 30, AlignLeft, AlignTop, "Ready");
         elements_button_center(canvas, "Start");
+        elements_button_right(canvas, "Help");
+    } else if(program_state->mfkey_state == Help) {
+        canvas_set_font(canvas, FontSecondary);
+        canvas_draw_str_aligned(canvas, 7, 20, AlignLeft, AlignTop, "Collect nonces using");
+        canvas_draw_str_aligned(canvas, 7, 30, AlignLeft, AlignTop, "Detect Reader.");
+        canvas_draw_str_aligned(canvas, 7, 40, AlignLeft, AlignTop, "Developers: noproto, AG");
+        canvas_draw_str_aligned(canvas, 7, 50, AlignLeft, AlignTop, "Thanks: bettse");
+    } else if(program_state->mfkey_state == Error) {
+        canvas_draw_str_aligned(canvas, 50, 25, AlignLeft, AlignTop, "Error");
+        canvas_set_font(canvas, FontSecondary);
+        if(program_state->err == MissingNonces) {
+            canvas_draw_str_aligned(canvas, 25, 36, AlignLeft, AlignTop, "No nonces found");
+        } else if(program_state->err == ZeroNonces) {
+            canvas_draw_str_aligned(canvas, 25, 36, AlignLeft, AlignTop, "No nonces to crack");
+        } else if(program_state->err == OutOfMemory) {
+            // TODO: Currently not handled
+            canvas_draw_str_aligned(canvas, 25, 36, AlignLeft, AlignTop, "Out of memory");
+        } else {
+            // Unhandled error
+        }
+    } else {
+        // Unhandled program state
     }
     release_mutex((ValueMutex*)ctx, program_state);
 }
@@ -867,10 +975,29 @@ static void input_callback(InputEvent* input_event, FuriMessageQueue* event_queu
 }
 
 static void mfkey32_state_init(ProgramState* const program_state) {
-    program_state->running = false;
+    program_state->is_thread_running = false;
+    program_state->mfkey_state = Ready;
     program_state->cracked = 0;
+    program_state->unique_cracked = 0;
     program_state->total = 0;
     program_state->dict_count = 0;
+}
+
+// Entrypoint for worker thread
+static int32_t mfkey32_worker_thread(void* ctx) {
+    ProgramState* program_state = ctx;
+    program_state->is_thread_running = true;
+    program_state->mfkey_state = Initializing;
+    //FURI_LOG_I(TAG, "Hello from the mfkey32 worker thread"); // DEBUG
+    mfkey32(program_state);
+    program_state->is_thread_running = false;
+    return 0;
+}
+
+void start_mfkey32_thread(ProgramState* program_state) {
+    if(!program_state->is_thread_running) {
+        furi_thread_start(program_state->mfkeythread);
+    }
 }
 
 int32_t mfkey32_main() {
@@ -896,6 +1023,12 @@ int32_t mfkey32_main() {
     Gui* gui = furi_record_open(RECORD_GUI);
     gui_add_view_port(gui, view_port, GuiLayerFullscreen);
 
+    program_state->mfkeythread = furi_thread_alloc();
+    furi_thread_set_name(program_state->mfkeythread, "Mfkey32 Worker");
+    furi_thread_set_stack_size(program_state->mfkeythread, 4096);
+    furi_thread_set_context(program_state->mfkeythread, program_state);
+    furi_thread_set_callback(program_state->mfkeythread, mfkey32_worker_thread);
+
     PluginEvent event;
     for(bool main_loop = true; main_loop;) {
         FuriStatus event_status = furi_message_queue_get(event_queue, &event, 100);
@@ -912,17 +1045,37 @@ int32_t mfkey32_main() {
                     case InputKeyDown:
                         break;
                     case InputKeyRight:
+                        if(!program_state->is_thread_running &&
+                           program_state->mfkey_state == Ready) {
+                            program_state->mfkey_state = Help;
+                            view_port_update(view_port);
+                        }
                         break;
                     case InputKeyLeft:
                         break;
                     case InputKeyOk:
-                        program_state->running = !program_state->running;
-                        if(program_state->running) {
-                            mfkey32(program_state);
+                        if(!program_state->is_thread_running &&
+                           program_state->mfkey_state == Ready) {
+                            start_mfkey32_thread(program_state);
+                            view_port_update(view_port);
+                        }
+                        break;
+                    case InputKeyBack:
+                        if(!program_state->is_thread_running &&
+                           program_state->mfkey_state == Help) {
+                            program_state->mfkey_state = Ready;
+                            view_port_update(view_port);
+                        } else {
+                            program_state->close_thread_please = true;
+                            if(program_state->is_thread_running && program_state->mfkeythread) {
+                                // Wait until thread is finished
+                                furi_thread_join(program_state->mfkeythread);
+                            }
+                            program_state->close_thread_please = false;
+                            main_loop = false;
                         }
                         break;
                     default:
-                        main_loop = false;
                         break;
                     }
                 }
@@ -936,12 +1089,14 @@ int32_t mfkey32_main() {
         release_mutex(&state_mutex, program_state);
     }
 
+    furi_thread_free(program_state->mfkeythread);
     view_port_enabled_set(view_port, false);
     gui_remove_view_port(gui, view_port);
     furi_record_close("gui");
     view_port_free(view_port);
     furi_message_queue_free(event_queue);
     delete_mutex(&state_mutex);
+    free(program_state);
 
     return 0;
 }
