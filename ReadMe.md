@@ -35,6 +35,9 @@ This software is for experimental purposes only and is not meant for any illegal
 - Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-03-08 09:54 EST`
 - Added: [RCWL-516 Motion Sensor (By ahmedafe1)](https://github.com/ahmedafe1/rcwl_0516-Flipperzero)
 - OFW: [PicoPass: auth cleanup #2470 (By bettse)](https://github.com/flipperdevices/flipperzero-firmware/pull/2470)
+- Fix for Sub-GHz Error Handling to match Unleashed and fix issue with keeloq
+- Updated: [NRF24 Batch (By vad7)](https://github.com/vad7/nRF24-Batch)
+- Updated: [iButton Fuzzer (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware)
 
 <a name="release">
 
