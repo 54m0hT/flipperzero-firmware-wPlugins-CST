@@ -11,7 +11,6 @@ typedef enum {
     SubmenuIndexUniversalAudio,
     SubmenuIndexUniversalLED,
     SubmenuIndexUniversalAirConditioner,
-    SubmenuIndexUniversalFan,
 } SubmenuIndex;
 
 static void infrared_scene_universal_submenu_callback(void* context, uint32_t index) {
