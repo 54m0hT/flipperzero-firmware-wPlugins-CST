@@ -62,6 +62,10 @@ This software is for experimental purposes only and is not meant for any illegal
 - UL: OFW PR 2756: fix: make dialog_file_browser_set_basic_options initialize all fields (by JarvisCraft)
 - Settings->LCD and Notifications will be resetted to default due to new Contrast setting from OFW
 - Updated: [Geiger Counter (By nmrr)](https://github.com/nmrr/flipperzero-geigercounter)
+- [Added Code128-C support to barcode app #661 (By Kingal1337)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/661)
+- UL: Infrared: `RCA` protocol support
+- UL: SubGHz: Added 430, 431 MHz to default list
+- UL: OFW PR 2760: NFC: Improvements to NFC Magic app (by AloneLiberty)
 
 <a name="release">
 
