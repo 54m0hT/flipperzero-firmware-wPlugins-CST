@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0610-0233-0.84.3-0e297d8](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0614-0519-0.84.3-06293aa](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-06-10 15:30 JST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-06-10 15:30 JST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-06-14 04:30 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-06-14 04:30 EST`
 - [Fixed DCF77 App from crashing #660 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/660)
 - OFW: [Fix reading Mifare Classic cards with unusual access conditions and fix emulation of unknown keys #2620 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/2620)
 - OFW: [fbt: stable build dates #2751 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/2751)
@@ -66,6 +66,17 @@ This software is for experimental purposes only and is not meant for any illegal
 - UL: Infrared: `RCA` protocol support
 - UL: SubGHz: Added 430, 431 MHz to default list
 - UL: OFW PR 2760: NFC: Improvements to NFC Magic app (by AloneLiberty)
+- [Fixed occasional RGB backlight problems #664 (By jbohack)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/664)
+- UL: Protoview fix for custom modulations
+- OFW: [FuriHal: remove clock startup time tracking from clean builds #2764 (By skotopes)](https://github.com/flipperdevices/flipperzero-firmware/pull/2764)
+- Desktop Setting Fixes for Passport App & Dice (By RogueMaster)
+- UL: Revert BLE gatt characteristics refactoring temporarily (By xMasterX)
+- UL: Remove un-needed SubGHz global var (By xMasterX)
+- Updated: [Flizzer Tracker (By LTVA1)](https://github.com/LTVA1/flizzer_tracker)
+- Updated: [Geiger Counter (By nmrr)](https://github.com/nmrr/flipperzero-geigercounter) (from xMasterX)
+- Updated: [Pokemon Trading (By EstebanFuentealba)](https://github.com/EstebanFuentealba/Flipper-Zero-Game-Boy-Trading-Pokemons)
+- Updated: [NRF24 Scanner v2.2 (By vad7)](https://github.com/vad7/nrf24scan)
+- Updated: [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork) (By Willy-JL)
 
 <a name="release">
 
