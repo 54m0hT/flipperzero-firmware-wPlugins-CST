@@ -4,7 +4,7 @@
 &nbsp;<a href='https://shop.rogue-master.net/' target='_blank'><img src='https://rogue-master.net/img/Merch.png' alt='RM Merch'' title='RM Merch'></a>
 &nbsp;<a href='https://github.com/RogueMaster/awesome-flipperzero-withModules' target='_blank'><img src='https://rogue-master.net/img/Resources.png' alt='More Research / Assets' title='More Research / Assets'></a></h1>
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0615-0045-0.84.3-d9845cc.tgz&channel=RM0615-0045-0.84.3-d9845cc&version=0.84.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0615-0045-0.84.3-d9845cc-NoAnim.tgz&channel=RM0615-0045-0.84.3-d9845cc-NoAnim&version=0.84.3)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0616-0632-0.85.3-a933147.tgz&channel=RM0616-0632-0.85.3-a933147&version=0.85.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0616-0632-0.85.3-a933147-NoAnim.tgz&channel=RM0616-0632-0.85.3-a933147-NoAnim&version=0.85.3)
 
 ## Thank you so much to our RM Pro/SUPER Patreon supporters! Because of people like you, we are able to offer the best and most up-to-date Flipper Zero Firmware!
 
@@ -29,10 +29,11 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0614-2255-0.84.3-603bbf8](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0616-0621-0.85.3-a933147](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-06-15 00:45 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-06-15 00:45 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-06-16 12:01 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-06-16 12:01 EST`
+- UL PR: [Updated infrared assets #519 (By amec0e)](https://github.com/DarkFlippers/unleashed-firmware/pull/519) (AC Assets)
 
 <a name="release">
 
@@ -261,6 +262,7 @@ $ ./fbt dolphin_ext
 ## Plugins
 
 - [Air Mouse (By ginkage)](https://github.com/ginkage/FlippAirMouse/)
+- [Airmon (By 3cky)](https://github.com/3cky/flipperzero-airmon) `Req: Plantower PMS5003/PMS7003/PMS9003`
 - [Analog Clock (By scrolltex)](https://github.com/scrolltex/flipper_analog_clock)
 - [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
 - [AVR Flasher WIP (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2475)
@@ -275,7 +277,6 @@ $ ./fbt dolphin_ext
 - [BT Serial (By maybe-hello-world)](https://github.com/maybe-hello-world/fbs)
 - [BT Trigger (By Nem0oo)](https://github.com/Nem0oo/flipper-zero_ios-bluetooth-trigger)
 - [Calculator (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
-- [Calculator "2" (By theCow61)](https://github.com/theCow61/calculator)
 - [Camera (By Z4urce)](https://github.com/Z4urce/flipper-camera) `Req: ESP32-CAM`
 - [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
 - [CFW Settings - Imported/Modified By RogueMaster WIP (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/ecf91524a956f773881d564c4ada833f844264ca)
@@ -321,6 +322,7 @@ $ ./fbt dolphin_ext
 - [iButton Fuzzer (By gid9798)](https://github.com/DarkFlippers/unleashed-firmware/pull/507) [(Original By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware)
 - [IFTTT Virtual Button (By Ferrazzi)](https://github.com/Ferrazzi/FlipperZero_IFTTT_Virtual_Button) `Req: ESP8266 w/ IFTTT FW Flashed`
 - [Intravelometer (By theageoflove)](https://github.com/theageoflove/flipperzero-zeitraffer)
+- [Intravelometer 2 (By Nitepone)](https://github.com/Nitepone/flipper-intervalometer) `works for Sony cameras`
 - [IR Remote (By Hong5489)](https://github.com/Hong5489/ir_remote) [Hold Option (By d4ve10)](https://github.com/d4ve10/ir_remote/tree/infrared_hold_option)
 - [IR Scope (By kallanreed)](https://github.com/kallanreed/unleashed-firmware/tree/dev/applications/external/ir_scope)
 - [IR Xbox Controller (By gebeto)](https://github.com/gebeto/flipper-xbox-controller)
@@ -389,6 +391,7 @@ $ ./fbt dolphin_ext
 - [UART Echo (By DrZlo13)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/831)
 - [UART Terminal (By cool4uma)](https://github.com/cool4uma/UART_Terminal)
 - [USB HID Autofire (By pbek)](https://github.com/pbek/usb_hid_autofire)
+- [USB Mass Storage WIP (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bda38c401219e27dff6ad8aa8f8f3e3109b1ca1b)
 - [USB Midi (By DrZlo13)](https://github.com/DrZlo13/flipper-zero-usb-midi) [Instructions by ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/plugins/usb_midi/ReadMe.md)
 - [VB Migration Assistant (By GMMan)](https://github.com/GMMan/flipperzero-vb-migrate) with fixes for NFC (By RogueMaster)
 - [Video Player (By LTVA1)](https://github.com/LTVA1/flipper-zero-video-player)
@@ -411,4 +414,4 @@ $ ./fbt dolphin_ext
 - [Dolphin SOS (By arha)](https://github.com/arha/dolphin-sos)
 - Have a new app? Submit GitHub link to me on Discord for a special reward (if I add it to RM Firmware).
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0615-0045-0.84.3-d9845cc.tgz&channel=RM0615-0045-0.84.3-d9845cc&version=0.84.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0615-0045-0.84.3-d9845cc-NoAnim.tgz&channel=RM0615-0045-0.84.3-d9845cc-NoAnim&version=0.84.3)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0616-0632-0.85.3-a933147.tgz&channel=RM0616-0632-0.85.3-a933147&version=0.85.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0616-0632-0.85.3-a933147-NoAnim.tgz&channel=RM0616-0632-0.85.3-a933147-NoAnim&version=0.85.3)
