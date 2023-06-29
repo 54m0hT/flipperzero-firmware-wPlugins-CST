@@ -121,8 +121,8 @@ static uint32_t loader_menu_exit(void* context) {
 
 static void loader_menu_build_menu(LoaderMenuApp* app, LoaderMenu* menu) {
     Loader* loader = furi_record_open(RECORD_LOADER);
-
     size_t i;
+
     for(i = 0; i < FLIPPER_APPS_COUNT; i++) {
         menu_add_item(
             app->primary_menu,
@@ -154,6 +154,7 @@ static void loader_menu_build_menu(LoaderMenuApp* app, LoaderMenu* menu) {
             loader_menu_external_apps_callback,
             (void*)menu);
     }
+
     furi_record_close(RECORD_LOADER);
 };
 
@@ -173,7 +174,7 @@ static LoaderMenuApp* loader_menu_app_alloc(LoaderMenu* loader_menu) {
     LoaderMenuApp* app = malloc(sizeof(LoaderMenuApp));
     app->gui = furi_record_open(RECORD_GUI);
     app->view_dispatcher = view_dispatcher_alloc();
-    app->primary_menu = menu_alloc();
+    app->primary_menu = menu_pos_alloc(0);
     app->settings_menu = submenu_alloc();
 
     loader_menu_build_menu(app, loader_menu);
