@@ -4,7 +4,7 @@
 &nbsp;<a href='https://shop.rogue-master.net/' target='_blank'><img src='https://rogue-master.net/img/Merch.png' alt='RM Merch'' title='RM Merch'></a>
 &nbsp;<a href='https://github.com/RogueMaster/awesome-flipperzero-withModules' target='_blank'><img src='https://rogue-master.net/img/Resources.png' alt='More Research / Assets' title='More Research / Assets'></a></h1>
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0704-1145-0.86.1-0721ed2.tgz&channel=RM0704-1145-0.86.1-0721ed2&version=0.85.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0704-1145-0.86.1-0721ed2-NoAnim.tgz&channel=RM0704-1145-0.86.1-0721ed2-NoAnim&version=0.85.3)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0705-2205-0.86.2-63bea2d.tgz&channel=RM0705-2205-0.86.2-63bea2d&version=0.86.2) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0705-2205-0.86.2-63bea2d-NoAnim.tgz&channel=RM0705-2205-0.86.2-63bea2d-NoAnim&version=0.86.2)
 
 ## Thank you so much to our RM Pro/SUPER Patreon supporters! Because of people like you, we are able to offer the best and most up-to-date Flipper Zero Firmware!
 
@@ -29,17 +29,18 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0705-1349-0.86.1-38cc4fe](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0706-1426-0.86.2-6f6b616](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-05 13:49 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-05 12:45 EST`
-- Updated: [ESP32 Evil Portal (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal)
-- OFW: [FuriHal, Infrared, Protobuf: various fixes and improvements #2845 (By skotopes)](https://github.com/flipperdevices/flipperzero-firmware/pull/2845)
-- UL: Bluetooth Fixes (By Willy-JL)
-- Desktop Settings Favorite Modifications to match OFW (By RogueMaster)
-- Updated: [Authenticator/TOTP (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
-- [App Fixes (By hedger)](https://github.com/xMasterX/all-the-plugins/pull/4)
-- Misc apps moved to Tools and other apps had category fixes (By xMasterX)
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-06 14:45 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-06 14:45 EST`
+- Revert BadBT updates to better version that was there yesterday
+- OFW: [SubGhz: add "SubGhz test" external application and the ability to work "SubGhz" as an external application #2851 (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2851)
+- OFW: [API: explicitly add math.h #2852 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2852)
+- UL: Added: [JetPack Joyride (by timstrasser)](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/external/jetpack_joyride)
+- UL: Added: [NFC Maker (by Willy-JL)](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/external/nfc_maker) 
+- Adopt External Menu app naming used by OFW in [PR 2849 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2849)
+- UL: Fix loader hangup on exit if api mismatch happened (By xMasterX)
+- UL: [BT Toy Serial Fixes (By xMasterX)](https://github.com/xMasterX/all-the-plugins/commit/3a59636e28af723a350509894526589ba60a6ba7)
 
 <a name="release">
 
@@ -234,6 +235,7 @@ $ ./fbt dolphin_ext
 - [Game of Life (Updated to work by tgxn) (By itsyourbedtime)](https://github.com/tgxn/flipperzero-firmware/blob/dev/applications/game_of_life/game_of_life.c)
 - [Game of Tag WIP (By instantiator)](https://github.com/instantiator/flipper-zero-experimental-apps)
 - [Heap Defence (By xMasterX)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fc776446de9fdd553b221c02668b925b689378d8) [(original by wquinoa & Vedmein)](https://github.com/Vedmein/flipperzero-firmware/tree/hd/svisto-perdelki)
+- [JetPack Joyride (by timstrasser)](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/external/jetpack_joyride)
 - [Mandelbrot Set (By Possibly-Matt)](https://github.com/Possibly-Matt/flipperzero-firmware-wPlugins)
 - [Minesweeper (By panki27)](https://github.com/panki27/minesweeper) [Fix minesweeper freeze bug, do some refactoring (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/commit/56c11c70b3617764b6d2ea7b008c67dce517fa25)
 - [Monty Hall (By DevMilanIan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/203)
@@ -271,12 +273,12 @@ $ ./fbt dolphin_ext
 - [AZERTY Mouse Jacker (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/mousejacker) `Req: NRF24` (Uses AZERTY keyboard - Source Unknown)
 - [Bad BT (By Willy-JL)(Imported By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/620)
 - [Barcode App (By Kingal1337)](https://github.com/Kingal1337/flipper-barcode-generator)
-- [Barcode Generator (By McAzzaMan)](https://github.com/McAzzaMan/flipperzero-firmware/tree/UPC-A_Barcode_Generator/applications/barcode_generator)
 - [BarCode Scanner Emulator (By polarikus)](https://github.com/polarikus/flipper-zero_bc_scanner_emulator) `Uses: COM-port`
 - [Bluetooth Remote (By Cutch)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/1330)
 - [BPM Tapper (By panki27)](https://github.com/panki27/bpm-tapper)
 - [Brainfuck (By nymda)](https://github.com/nymda/FlipperZeroBrainfuck)
 - [BT Serial (By maybe-hello-world)](https://github.com/maybe-hello-world/fbs)
+- [BT Toy Serial (By maybe-hello-world)](https://github.com/maybe-hello-world/flipper-bp)
 - [BT Trigger (By Nem0oo)](https://github.com/Nem0oo/flipper-zero_ios-bluetooth-trigger)
 - [Calculator (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
 - [Camera (By Z4urce)](https://github.com/Z4urce/flipper-camera) `Req: ESP32-CAM`
@@ -333,10 +335,10 @@ $ ./fbt dolphin_ext
 - [IR Xbox Controller (By gebeto)](https://github.com/gebeto/flipper-xbox-controller)
 - [J305 Geiger Counter (By nmrr)](https://github.com/nmrr/flipperzero-geigercounter)
 - [LED Pulsator (By leedave)](https://github.com/leedave/Leeds-Flipper-Zero-Applications)
-- [Lightmeter (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750`
+- [Lightmeter (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750/MAX44009`
 - [Logic Analyzer (By g3gg0)](https://github.com/g3gg0/flipper-logic_analyzer)
 - [LORA Terminal (By aafksab)](https://github.com/aafksab/LORA-Term)
-- [MagSpoof WIP (By zacharyweiss)](https://github.com/zacharyweiss/magspoof_flipper) [(Updates By hummusec)](https://github.com/hummusec/magspoof_flipper)
+- [MagSpoof (By zacharyweiss)](https://github.com/zacharyweiss/magspoof_flipper) [(Updates By hummusec)](https://github.com/hummusec/magspoof_flipper)
 - [Metronome (By panki27)](https://github.com/panki27/Metronome)
 - [Mfkey32 (By noproto)](https://github.com/noproto/FlipperMfkey)
 - [MH-Z19 CO2 Sensor (By meshchaninov)](https://github.com/meshchaninov/flipper-zero-mh-z19)
@@ -354,6 +356,7 @@ $ ./fbt dolphin_ext
 - [NFC Magic (By gornekich)](https://github.com/flipperdevices/flipperzero-firmware/pull/1966) with [NFC Magic Gen4 Support #2238 (By nullableVoidPtr)](https://github.com/flipperdevices/flipperzero-firmware/pull/2238)
 - [NFC Magic Gen1 (By gornekich)](https://github.com/flipperdevices/flipperzero-firmware/pull/1966)
 - [NFC Magic Gen4 app #2238 (By nullableVoidPtr)](https://github.com/flipperdevices/flipperzero-firmware/pull/2238) [(Updates By xMasterX)](https://github.com/xMasterX/unleashed-extra-pack)
+- [NFC Maker (by Willy-JL)](https://github.com/DarkFlippers/unleashed-firmware/tree/dev/applications/external/nfc_maker) 
 - [NFC Relay WIP (By leommxj)](https://github.com/leommxj/nfc_relay)
 - [NFC Seader (By bettse)](https://github.com/bettse/seader)
 - [Nightstand Clock (By nymda)](https://github.com/nymda/FlipperNightStand)
@@ -394,7 +397,6 @@ $ ./fbt dolphin_ext
 - [Temp Sensors Reader 1.4 (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD/HTU21x/HDC1080/MAX31855/MAX6675/SCD30`
 - [Text To SAM (By RoundPi)](https://github.com/Round-Pi/flipperzero-text2sam)
 - [Text Viewer (By kowalski7cc)](https://github.com/kowalski7cc/flipper-zero-text-viewer)
-- [Toy Serial (By maybe-hello-world)](https://github.com/maybe-hello-world/flipper-bp) WIP
 - [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork)
 - [UART Echo (By DrZlo13)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/831)
 - [UART Terminal (By cool4uma)](https://github.com/cool4uma/UART_Terminal)
@@ -423,10 +425,9 @@ $ ./fbt dolphin_ext
 
 - All non-OFW desktop settings moved to CFW Settings ($25 USD in ETH or BTC)
 - `Notepad` APP to allow taking quick notes and saving to SD. Also can possibly open/edit .md,.txt,.fmf and other text friendly formats ($50 USD in ETH or BTC)
-- `Write URL to NFC` APP to allow creating URL NFC tags from only the flipper ($25 USD in ETH or BTC)
 - `Bluetooth OpenHayStack` bluetooth mode, only activates with special cloned key file present. Allows to operate like AirTag. ($50 USD in ETH or BTC)
 - [Chess (By okalachev)](https://github.com/okalachev/flipperzero-firmware/tree/chess) ($50 USD in ETH or BTC)
 - [USB Mass Storage WIP (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bda38c401219e27dff6ad8aa8f8f3e3109b1ca1b) ($25 USD in ETH or BTC)
 - `Bluetooth Audio` APP to allow flipper to pair to external speaker or headphones for wav/mp3 playback ($200 USD in ETH or BTC) (Don't think this is possible)
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0704-1145-0.86.1-0721ed2.tgz&channel=RM0704-1145-0.86.1-0721ed2&version=0.85.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0704-1145-0.86.1-0721ed2-NoAnim.tgz&channel=RM0704-1145-0.86.1-0721ed2-NoAnim&version=0.85.3)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0705-2205-0.86.2-63bea2d.tgz&channel=RM0705-2205-0.86.2-63bea2d&version=0.86.2) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0705-2205-0.86.2-63bea2d-NoAnim.tgz&channel=RM0705-2205-0.86.2-63bea2d-NoAnim&version=0.86.2)
