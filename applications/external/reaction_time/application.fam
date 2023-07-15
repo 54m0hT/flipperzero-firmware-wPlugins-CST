@@ -1,5 +1,5 @@
 App(
-    appid="Reaction_Time",
+    appid="reaction_time",
     name="Reaction Time",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="reaction_time_app",
@@ -13,6 +13,6 @@ App(
     fap_icon="box.png",
     fap_author="ihatecsv",
     fap_weburl="https://github.com/ihatecsv/flipper_reaction_time",
-    # fap_version="1.0",
+    fap_version=(1, 0),
     fap_description="A simple reaction time game",
 )

@@ -12,6 +12,7 @@ static const char* tab_default_paths[] = {
     [ArchiveTabIButton] = ANY_PATH("ibutton"),
     [ArchiveTabNFC] = ANY_PATH("nfc"),
     [ArchiveTabSubGhz] = ANY_PATH("subghz"),
+    [ArchiveTabSubGhzRemote] = EXT_PATH("subghz/subghz_remote"),
     [ArchiveTabLFRFID] = ANY_PATH("lfrfid"),
     [ArchiveTabInfrared] = ANY_PATH("infrared"),
     [ArchiveTabBadUsb] = ANY_PATH("badusb"),
@@ -25,6 +26,7 @@ static const char* known_ext[] = {
     [ArchiveFileTypeIButton] = ".ibtn",
     [ArchiveFileTypeNFC] = ".nfc",
     [ArchiveFileTypeSubGhz] = ".sub",
+    [ArchiveFileTypeSubGhzRemote] = ".txt",
     [ArchiveFileTypeLFRFID] = ".rfid",
     [ArchiveFileTypeInfrared] = ".ir",
     [ArchiveFileTypeBadUsb] = ".txt",
@@ -40,6 +42,7 @@ static const ArchiveFileTypeEnum known_type[] = {
     [ArchiveTabIButton] = ArchiveFileTypeIButton,
     [ArchiveTabNFC] = ArchiveFileTypeNFC,
     [ArchiveTabSubGhz] = ArchiveFileTypeSubGhz,
+    [ArchiveTabSubGhzRemote] = ArchiveFileTypeSubGhzRemote,
     [ArchiveTabLFRFID] = ArchiveFileTypeLFRFID,
     [ArchiveTabInfrared] = ArchiveFileTypeInfrared,
     [ArchiveTabBadUsb] = ArchiveFileTypeBadUsb,
@@ -66,7 +69,6 @@ inline bool archive_is_known_app(ArchiveFileTypeEnum type) {
 }
 
 bool archive_is_item_in_array(ArchiveBrowserViewModel* model, uint32_t idx);
-bool archive_is_file_list_load_required(ArchiveBrowserViewModel* model);
 void archive_update_offset(ArchiveBrowserView* browser);
 void archive_update_focus(ArchiveBrowserView* browser, const char* target);
 

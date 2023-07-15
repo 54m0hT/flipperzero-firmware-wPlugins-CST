@@ -20,6 +20,8 @@ static const char* archive_get_flipper_app_name(ArchiveFileTypeEnum file_type) {
         return "NFC";
     case ArchiveFileTypeSubGhz:
         return "Sub-GHz";
+    case ArchiveFileTypeSubGhzRemote:
+        return "Sub-GHz Remote";
     case ArchiveFileTypeLFRFID:
         return "125 kHz RFID";
     case ArchiveFileTypeInfrared:
@@ -59,35 +61,9 @@ static void archive_run_in_app(ArchiveBrowserView* browser, ArchiveFile_t* selec
             if(param != NULL) {
                 param++;
             }
-
-            if(strcmp(app_name, "U2F") == 0) {
-                loader_start_with_gui_error(
-                    loader, "/ext/apps/Main/U2F.fap", furi_string_get_cstr(selected->path));
-            } else {
-                loader_start_with_gui_error(loader, app_name, param);
-            }
+            loader_start_with_gui_error(loader, app_name, param);
         } else {
-            if(strcmp(app_name, "iButton") == 0) {
-                loader_start_with_gui_error(
-                    loader, "/ext/apps/iButton/iButton.fap", furi_string_get_cstr(selected->path));
-            } else if(strcmp(app_name, "Bad USB") == 0) {
-                loader_start_with_gui_error(
-                    loader, "/ext/apps/USB/bad_usb.fap", furi_string_get_cstr(selected->path));
-            } else if(strcmp(app_name, "Infrared") == 0) {
-                loader_start_with_gui_error(
-                    loader,
-                    "/ext/apps/Infrared/infrared.fap",
-                    furi_string_get_cstr(selected->path));
-            } else if(strcmp(app_name, "125 kHz RFID") == 0) {
-                loader_start_with_gui_error(
-                    loader, "/ext/apps/RFID/lfrfid.fap", furi_string_get_cstr(selected->path));
-            } else if(strcmp(app_name, "Sub-GHz") == 0) {
-                loader_start_with_gui_error(
-                    loader, "/ext/apps/Sub-GHz/subghz.fap", furi_string_get_cstr(selected->path));
-            } else {
-                loader_start_with_gui_error(
-                    loader, app_name, furi_string_get_cstr(selected->path));
-            }
+            loader_start_with_gui_error(loader, app_name, furi_string_get_cstr(selected->path));
         }
     } else {
         loader_start_with_gui_error(loader, furi_string_get_cstr(selected->path), NULL);
