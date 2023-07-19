@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0717-1841-0.86.3-2d716eb](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0718-1422-0.86.3-80bbb89](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-17 20:28 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-17 20:28 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-18 14:22 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-18 14:22 EST`
 - Updated: [POCSAG Pager (By XMasterx & Shmuma)](https://github.com/xMasterX/flipper-pager) to use `subghz/assets/setting_user.pocsag`
 - [Fixed many external app references to internal assets (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/d758c8d7ce4b4b7a16ecf167d02528aa1571965d)
 - Added: [Rock Paper Scissors (By CodeAllNight/jamisonderek)](https://github.com/jamisonderek/flipper-zero-tutorials/tree/main/subghz/plugins/rock_paper_scissors)
@@ -53,10 +53,17 @@ This software is for experimental purposes only and is not meant for any illegal
 - [Added more Captive Portal assets for Evil Portal (By roshanravan)](https://github.com/roshanravan)
 - Updated: SD Card Assets with Evil Portal/Marauder bin for ESP Flasher (From TalkingSasquach)
 - Updated: SD Card Assets with Black Magic bin for ESP Flasher (From TalkingSasquach)
-- Updated: [ESP32 Evil Portal v0.2 (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal)
 - UL: Updated: [Mouse Jacker (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/mousejacker) & [NRF Sniff (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/nrfsniff) (Changes By Sil333033)
 - [Reorganized GPIO Apps #710 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/710)
 - Updated: [NFC Seader (By bettse)](https://github.com/bettse/seader)
+- OFW: [Gauge initialization routine refactoring, new DataMemory layout, configuration update #2887 (By skotopes)](https://github.com/flipperdevices/flipperzero-firmware/pull/2887)
+- OFW: [fbt: build target for faps #2888 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/2888)
+- Updated: [Mouse Jacker (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/mousejacker)
+- Updated: [NRF Sniff (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/nrfsniff)
+- Updated: [ESP32-C6 Gravity (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
+- Updated: [ESP32 Evil Portal v0.2 (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal)
+- Updated: [NFC Maker NTAG203 (by Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/343cb39d08f60b75b537e1a31100707935cf6e9d) (Removed Broken Wifi Elements (By RogueMaster))
+- Sub-GHz: [Switched to internal to test RAM issues; it is temporarily moved on main menu to after CFW Settings (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/1cd6d2d61532ffe575a7e813640971ff5ff78d37)
 
 <a name="release">
 
@@ -225,7 +232,7 @@ $ ./fbt dolphin_ext
 - [Asteroids (By antirez)](https://github.com/antirez/flipper-asteroids) [(Modified By SimplyMinimal)](https://github.com/SimplyMinimal/FlipperZero-Asteroids)
 - [BlackJack (By teeebor)](https://github.com/teeebor/flipper_games)
 - [Bomberduck (By leo-need-more-coffee)](https://github.com/leo-need-more-coffee/flipperzero-bomberduck)
-- [Chess v1.4 (By xtruan)](https://github.com/xtruan/flipper-chess)
+- [Chess v1.5 (By xtruan)](https://github.com/xtruan/flipper-chess)
 - [Chess Clock (By ihatecsv)](https://github.com/ihatecsv/flipper_chess_clock)
 - [Color Guess (By leedave)](https://github.com/leedave/Leeds-Flipper-Zero-Applications)
 - [Dice (RM) Including SEX/WAR/8BALL/WEED/DRINK DICE (By RogueMaster)](https://github.com/RogueMaster/flipperzero-dice)
