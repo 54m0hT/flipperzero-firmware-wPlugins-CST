@@ -29,17 +29,28 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0721-0113-0.87.1-2c7d6d1](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0722-0320-0.87.1-138dcb5](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-21 01:13 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-21 01:13 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-22 03:20 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-22 03:20 EST`
 - Added POCSAG modulation to SubGHz modulations
 - Updated: [ESP Flasher (By 0xchocolate)](https://github.com/0xchocolate/flipperzero-esp-flasher)
 - Updated: [Evil Portal Assets for Amazon (By jules0835) and Apple (By black28p)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/assets/resources/apps_data/evil_portal/README.md)
 - UL PR: [Hid app kb assets #552 (By gid9798)](https://github.com/DarkFlippers/unleashed-firmware/pull/552)
 - UL: [Spectrum Analyzer: Add a Precise mode #550 (By ALEED02)](https://github.com/DarkFlippers/unleashed-firmware/pull/550)
 - Updated: [ESP32 Evil Portal (By bigbrodude6119, Changes By Nycz-lab and WillyJL)](https://github.com/bigbrodude6119/flipper-zero-evil-portal/pull/41)
+- [Switched Main Menu app order to have Internal SubGHz app listed first (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/716)
+- Added: [ESP32CAM Evil Portal (By bigbrodude6119 & eried)](https://github.com/eried/flipperzero-mayhem)
+- UL PR: [SubGhz Analyzer PRECISE hstep fix #553 (By AKEEF02)](https://github.com/DarkFlippers/unleashed-firmware/pull/553)
+- Updated: [ESP32CAM Morse Flasher (By eried)](https://github.com/eried/flipperzero-mayhem)
+- Updated: [ESP32CAM Evil Portal (By bigbrodude6119 & eried)](https://github.com/eried/flipperzero-mayhem)
 - Updated: [NFC Seader (By bettse)](https://github.com/bettse/seader)
+- Added: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
+- OFW PR: [BadUSB: Added French Canadian layout #2896 (By francis2054)](https://github.com/flipperdevices/flipperzero-firmware/pull/2896)
+- OFW PR: [Fix about screen #2907 (By andzhr)](https://github.com/flipperdevices/flipperzero-firmware/pull/2907)
+- Menu + GUI fixes (By Willy-JL)
+- Updated: Fixed By nminaylov: [USB Mass Storage (By Willy-JL)](https://github.com/Flipper-XFW/Xtreme-Firmware/commit/762744eca3ed92794dcd044397faf9af0131a950)
+- Updated: [Lightmeter v1.2 (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750/MAX44009`
 
 <a name="release">
 
@@ -291,6 +302,7 @@ $ ./fbt dolphin_ext
 - [DSTIKE Deauther (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-Wifi-ESP8266-Deauther-Module/tree/FlipperZero-Module-v2/FlipperZeroModule/FlipperZero-ESP8266-Deauth-App) `Req: ESP8266`
 - [DTMF Dolphin (By litui)](https://github.com/litui/dtmf_dolphin)
 - [EM4100 Key Generator (By Milk-Cool)](https://github.com/Milk-Cool/fz-em4100-generator)
+- [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
 - [ESP32 Camera Suite (By CodyTolene)](https://github.com/CodyTolene/Flipper-Zero-Camera-Suite)
 - [ESP32 Evil Portal v0.2 (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal)
 - [ESP32-C6 Gravity (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
@@ -298,6 +310,7 @@ $ ./fbt dolphin_ext
 - [ESP WiFi Scanner v.0.4 (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-WiFi-Scanner_Module-ESP8266) `Req: ESP8266 or ESP32`
 - [ESP32 WIFI Mapping (By carvilsi)](https://github.com/carvilsi/flipper0-wifi-map) `Req: ESP32` & [ESP32 FW](https://github.com/carvilsi/esp32-wifi-map)
 - [ESP32CAM Camera (By Z4urce & eried)](https://github.com/eried/flipperzero-mayhem)
+- [ESP32CAM Evil Portal (By bigbrodude6119 & eried)](https://github.com/eried/flipperzero-mayhem)
 - [ESP32CAM Marauder (By 0xchocolate & eried)](https://github.com/eried/flipperzero-mayhem)
 - [ESP32CAM Morse Flasher (By eried)](https://github.com/eried/flipperzero-mayhem)
 - [ESP32CAM Motion Detection (By eried)](https://github.com/eried/flipperzero-mayhem)
@@ -326,7 +339,7 @@ $ ./fbt dolphin_ext
 - [IR Xbox Controller (By gebeto)](https://github.com/gebeto/flipper-xbox-controller)
 - [J305 Geiger Counter (By nmrr)](https://github.com/nmrr/flipperzero-geigercounter)
 - [LED Pulsator (By leedave)](https://github.com/leedave/Leeds-Flipper-Zero-Applications)
-- [Lightmeter v1.1 (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750/MAX44009`
+- [Lightmeter v1.2 (By oleksiikutuzov)](https://github.com/oleksiikutuzov/flipperzero-lightmeter) `Req: BH1750/MAX44009`
 - [Logic Analyzer (By g3gg0)](https://github.com/g3gg0/flipper-logic_analyzer)
 - [LORA Terminal (By aafksab)](https://github.com/aafksab/LORA-Term)
 - [MagSpoof (By zacharyweiss)](https://github.com/zacharyweiss/magspoof_flipper) [(Updates By hummusec)](https://github.com/hummusec/magspoof_flipper)
@@ -395,6 +408,7 @@ $ ./fbt dolphin_ext
 - [UART Echo (By DrZlo13)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/831)
 - [UART Terminal (By cool4uma)](https://github.com/cool4uma/UART_Terminal)
 - [USB HID Autofire (By pbek)](https://github.com/pbek/usb_hid_autofire)
+- [USB Mass Storage (By Willy-JL)](https://github.com/Flipper-XFW/Xtreme-Firmware/commit/762744eca3ed92794dcd044397faf9af0131a950)
 - [USB Midi (By DrZlo13)](https://github.com/DrZlo13/flipper-zero-usb-midi) [Instructions by ESurge](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/plugins/usb_midi/ReadMe.md)
 - [VB Migration Assistant (By GMMan)](https://github.com/GMMan/flipperzero-vb-migrate) with fixes for NFC (By RogueMaster)
 - [Video Player (By LTVA1)](https://github.com/LTVA1/flipper-zero-video-player)
@@ -419,7 +433,6 @@ $ ./fbt dolphin_ext
 - [IR Remote (5V/External GPIO Settings in App Like Infrared) ($25 USD in ETH or BTC)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/issues/641)
 - [Notepad FAP ($25 ETH or BTC BOUNTY)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/issues/694)
 - [Air Tag for FZ ($50 USD in ETH or BTC)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/issues/696)
-- [USB Mass Storage ($25 USD in ETH or BTC)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/issues/697)
 - `Bluetooth Audio` APP to allow flipper to pair to external speaker or headphones for wav/mp3 playback ($200 USD in ETH or BTC) (Don't think this is possible)
 
 # Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0719-2040-0.87.1-801a674.tgz&channel=RM0719-2040-0.87.1-801a674&version=0.86.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0719-2040-0.87.1-801a674-NoAnim.tgz&channel=RM0719-2040-0.87.1-801a674-NoAnim&version=0.86.3)
