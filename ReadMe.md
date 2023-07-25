@@ -23,16 +23,16 @@ This software is for experimental purposes only and is not meant for any illegal
 - [Contact me on Discord/Patreon to RENAME your Flipper or for GIF conversion for Flipper Zero](https://www.patreon.com/RogueMaster/membership)
 - [:fire: PATREON ANIMATION BUILDS AVAILABLE](https://www.patreon.com/RogueMaster/membership): [ALL](https://www.patreon.com/posts/animation-all-v4-77935728), 420, 420+18, Anime Only, Anime+420, Anime+420+18, CHERUI 18+, DBZ, Dolphin, HACKZ, MARIO, No Anim, ONE PIECE, P0KEMON, RM 18PLUS, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default on GitHub), SAO, SCIENCE, SJUMP AND STOCK with all assets updated to look like stock. ALL, Anime and RM Select builds are very large and can slow down F0.
 - [VIDEO PREVIEW FOR ALL ANIMATIONS](https://www.patreon.com/posts/animation-all-v4-77935728)
-- [Supporters also get SD Card Assets zip file with extra NFC Assets such as Infrared remotes, NFC files, SubGHz files and 48 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster)](https://www.patreon.com/RogueMaster/membership)
+- [Supporters also get SD Card Assets zip file with extra NFC Assets such as Infrared remotes, NFC files, SubGHz files and 67 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster)](https://www.patreon.com/RogueMaster/membership)
 - Donations: BTC: `3MPQbKmGRCstg4FjnadfHa3woCT94JkR2a` - Let me know on Discord when you send
 - Donations: ETH: `roguemaster.eth` or `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f` - Let me know on Discord when you send
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0724-0305-0.87.1-8e10e88](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0724-2335-0.87.1-b626ed0](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-24 03:05 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-24 03:05 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-25 12:10 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-25 12:10 EST`
 - Added POCSAG modulation to SubGHz modulations
 - Updated: [Evil Portal Assets for Amazon (By jules0835) and Apple (By black28p)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/assets/resources/apps_data/evil_portal/README.md)
 - UL PR: [Hid app kb assets #552 (By gid9798)](https://github.com/DarkFlippers/unleashed-firmware/pull/552)
@@ -66,6 +66,22 @@ This software is for experimental purposes only and is not meant for any illegal
 - Bluetooth name fix to remove Flipper from the name. Only an idiont could have thought to give themselves away via BT. Hopefully, Android functionality is still working.
 - Updated: [Password Generator (By anakod)](https://github.com/anakod/flipper_passgen) [(Updates By henrygab)](https://github.com/anakod/flipper_passgen/pull/6)
 - Updated: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
+- Updated: [IR Remote (By Hong5489)](https://github.com/Hong5489/ir_remote) [Hold Option (By d4ve10)](https://github.com/d4ve10/ir_remote/tree/infrared_hold_option)
+- Updated: [SD Card Assets: Includes NFC Assets: 67 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster) (19 More Added)](https://www.patreon.com/RogueMaster/membership)
+- [Fix Evil Portal Assets folder](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/22e6c87e293121ba30a6243d69d018c4f8146aca)
+- [Wipe Device option from Lock Menu and Storage Settings (By ClaraCrazy Ported By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/2fd060287c1067a0098a7241289da95623e5ab56)
+- Added: [Multi Counter (By JadePossible)](https://github.com/JadePossible/Flipper-Multi-Counter)
+- UL: Plugins: 22+ plugins was fixed (UI update issues) in extra pack and in base firmware pack
+- UL: Plugins: Spectrum Analyzer - Modulation switching (hold OK) (by ALEEF02 | PR #557)
+- UL: Plugins: BadBT -> Temp fix for macOS
+- UL: Plugins: Update TOTP (Authenticator) [(by akopachov)](https://github.com/akopachov/flipper-zero_authenticator) -> + added fix for UI update too
+- UL: Infrared: Add Play / Pause in universal projector remote
+- UL: Infrared: Update Universal remote assets (By amec0e)
+- Updated:[Chess v1.8 (By xtruan)](https://github.com/xtruan/flipper-chess)
+- Updated:[WiFi (Marauder) v0.5.1 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion) [Add LED & Evil Portal Commands (By justcallmekoko)](https://github.com/0xchocolate/flipperzero-wifi-marauder/pull/25)
+- Updated: [ESP32 Camera Suite (By CodyTolene)](https://github.com/CodyTolene/Flipper-Zero-Camera-Suite)
+- Updated: [ESP32 Evil Portal (By bigbrodude6119, Changes By leedave)](https://github.com/leedave/flipper-zero-evil-portal/tree/93d4887e9c7ea1244913084712399db4e9455b08)
+- Fix Archive folder options to include PIN
 
 <a name="release">
 
@@ -140,7 +156,7 @@ $ ./fbt dolphin_ext
 - Assets: Includes a NFC link to TalkingSasquach on YouTube
 - Assets: Includes a NFC Rick Roll link
 - Assets: Includes New Dolphin Animations: [Listed Here](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/assets/resources/dolphin)
-- Assets: Includes NFC Assets: 48 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster) [It is recommended you randomize UID with this script.](https://github.com/Lanjelin/AmiiboConverter/tree/main)[Patreon Build Only](https://www.patreon.com/RogueMaster/membership)
+- Assets: Includes NFC Assets: 67 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster) [It is recommended you randomize UID with this script.](https://github.com/Lanjelin/AmiiboConverter/tree/main)[Patreon Build Only](https://www.patreon.com/RogueMaster/membership)
 - Assets: Includes sample Music Player tunes
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
 - Assets: Includes SubGHz assets for Crosswalk, CVS/Walgreens CS Buttons [Thanks jimilinuxguy](https://github.com/jimilinuxguy/customer-assistance-buttons-sdr/tree/main/cvs/English), Handicap Doors, Honda Lock/Unlock, Lowes, Sextoys, Tesla Charge Port & Unitree Go1 Robot Dog.
@@ -206,6 +222,7 @@ $ ./fbt dolphin_ext
 - Settings: Power: Charge Cap Setting (By oltenxyz)
 - Settings: Scan names will have timestamp instead of random name assigned for [NFC](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/lib/toolbox/random_name.c) and [SubGHz](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/subghz/scenes/subghz_scene_read_raw.c) (By RogueMaster)
 - Settings: Storage Info: [SD info: Add dynamic units and free % #1634 (By non-bin)](https://github.com/flipperdevices/flipperzero-firmware/pull/1634)
+- Settings: Storage [Wipe Device option from Lock Menu and Storage Settings (By ClaraCrazy Ported By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/2fd060287c1067a0098a7241289da95623e5ab56)
 - Settings: Updated Dummy Mode mode to have access to 2048, Dice, Snake, Tetris & Zombiez [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bf964fffdd2c1d730623673987a6de32a3f7c92f)
 - Settings: Updated GAMES ONLY mode to have access to 2048, Dice, Doom, Snake, Tetris & Zombiez [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/bf964fffdd2c1d730623673987a6de32a3f7c92f)
 - Settings: Updated LEFT to go to Primary Favorite [(By RogueMaster)]
@@ -234,7 +251,7 @@ $ ./fbt dolphin_ext
 - [Asteroids (By antirez)](https://github.com/antirez/flipper-asteroids) [(Modified By SimplyMinimal)](https://github.com/SimplyMinimal/FlipperZero-Asteroids)
 - [BlackJack (By teeebor)](https://github.com/teeebor/flipper_games)
 - [Bomberduck (By leo-need-more-coffee)](https://github.com/leo-need-more-coffee/flipperzero-bomberduck)
-- [Chess v1.7 (By xtruan)](https://github.com/xtruan/flipper-chess)
+- [Chess v1.8 (By xtruan)](https://github.com/xtruan/flipper-chess)
 - [Chess Clock (By ihatecsv)](https://github.com/ihatecsv/flipper_chess_clock)
 - [Color Guess (By leedave)](https://github.com/leedave/Leeds-Flipper-Zero-Applications)
 - [Dice (RM) Including SEX/WAR/8BALL/WEED/DRINK DICE (By RogueMaster)](https://github.com/RogueMaster/flipperzero-dice)
@@ -245,10 +262,11 @@ $ ./fbt dolphin_ext
 - [Flappy Bird (By DroomOne)](https://github.com/DroomOne/flipperzero-firmware/tree/dev/applications/flappy_bird) [Flappy: Border hitboxes, bigger Pilars (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/114) [Increase pilars line width to improve visibility (By ahumeniy)](https://github.com/DarkFlippers/unleashed-firmware/pull/140)
 - [Game of Life (Updated to work by tgxn) (By itsyourbedtime)](https://github.com/tgxn/flipperzero-firmware/blob/dev/applications/game_of_life/game_of_life.c)
 - [Heap Defence (By xMasterX)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fc776446de9fdd553b221c02668b925b689378d8) [(original by wquinoa & Vedmein)](https://github.com/Vedmein/flipperzero-firmware/tree/hd/svisto-perdelki)
-- [JetPack Joyride (by timstrasser)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/1164e4d214efa38847e08c6387bf53578bc0d366)
+- [JetPack (by timstrasser)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/1164e4d214efa38847e08c6387bf53578bc0d366)
 - [Mandelbrot Set (By Possibly-Matt)](https://github.com/Possibly-Matt/flipperzero-firmware-wPlugins)
 - [Minesweeper (By panki27)](https://github.com/panki27/minesweeper) [Fix minesweeper freeze bug, do some refactoring (By xMasterX)](https://github.com/DarkFlippers/unleashed-firmware/commit/56c11c70b3617764b6d2ea7b008c67dce517fa25)
 - [Monty Hall (By DevMilanIan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/203)
+- [Multi Counter (By JadePossible)](https://github.com/JadePossible/Flipper-Multi-Counter)
 - [NFC Crocodile (By Firemoon777)](https://github.com/Firemoon777/NfcCrocodile)
 - [Nu Pogodi! (Ну, погоди!) (By sionyx)](https://github.com/sionyx/flipper_nupogodi)
 - [Paint (By n-o-T-I-n-s-a-n-e)](https://github.com/n-o-T-I-n-s-a-n-e)
