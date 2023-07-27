@@ -14,7 +14,6 @@
 #define TAG "DesktopSrv"
 
 #define CLOCK_APP EXT_PATH("apps/Main/dab_timer.fap")
-#define DICE_APP EXT_PATH("apps/Games/dice.fap")
 #define DOOM_APP EXT_PATH("apps/Games/doom.fap")
 #define HEAP_DEFENCE_APP EXT_PATH("apps/Games/heap_defence.fap")
 #define IMPROVED_2048_APP EXT_PATH("apps/Games/2048_improved.fap")
@@ -126,6 +125,13 @@ bool desktop_scene_main_on_event(void* context, SceneManagerEvent event) {
             consumed = true;
         } break;
 
+        case DesktopMainEventOpenGamesMenu: {
+            Loader* loader = furi_record_open(RECORD_LOADER);
+            loader_show_gamesmenu(loader);
+            furi_record_close(RECORD_LOADER);
+            consumed = true;
+        } break;
+
         case DesktopMainEventOpenLockMenu:
             scene_manager_next_scene(desktop->scene_manager, DesktopSceneLockMenu);
             consumed = true;
@@ -210,10 +216,6 @@ bool desktop_scene_main_on_event(void* context, SceneManagerEvent event) {
         }
         case DesktopMainEventOpenDOOM: {
             desktop_scene_main_open_app_or_profile(desktop, DOOM_APP);
-            break;
-        }
-        case DesktopMainEventOpenDice: {
-            desktop_scene_main_open_app_or_profile(desktop, DICE_APP);
             break;
         }
         case DesktopMainEventOpenHeap: {
