@@ -3,8 +3,6 @@
 #include <gui/gui.h>
 #include <lib/subghz/devices/cc1101_int/cc1101_int_interconnect.h>
 
-#include "esubghz_chat_icons.h"
-
 #include "esubghz_chat_i.h"
 
 #define CHAT_LEAVE_DELAY 10
@@ -112,9 +110,6 @@ void tx_msg_input(ESubGhzChatState* state) {
 void enter_chat(ESubGhzChatState* state) {
     furi_string_cat_printf(
         state->chat_box_store, "\nEncrypted: %s", (state->encrypted ? "yes" : "no"));
-
-    /* clear the text input buffer to remove a password or key */
-    crypto_explicit_bzero(state->text_input_store, sizeof(state->text_input_store));
 
     subghz_tx_rx_worker_start(state->subghz_worker, state->subghz_device, state->frequency);
 
@@ -313,11 +308,60 @@ static void esubghz_hooked_input_callback(InputEvent* event, void* context) {
             return;
         }
 
-        /* handle ongoing inputs when chaning to chat view */
+        /* handle ongoing inputs when changing to chat view */
         if(event->type == InputTypePress) {
             state->kbd_ok_input_ongoing = true;
         } else if(event->type == InputTypeRelease) {
             state->kbd_ok_input_ongoing = false;
+        }
+    }
+
+    if(event->key == InputKeyLeft) {
+        /* if we are in the chat view and no input is ongoing, allow
+		 * switching to msg input */
+        if(state->view_dispatcher->current_view == text_box_get_view(state->chat_box) &&
+           !(state->kbd_left_input_ongoing)) {
+            /* go to msg input upon short press of Left button */
+            if(event->type == InputTypeShort) {
+                view_dispatcher_send_custom_event(
+                    state->view_dispatcher, ESubGhzChatEvent_GotoMsgInput);
+            }
+
+            /* do not handle any Left key events to prevent
+			 * blocking of other keys */
+            return;
+        }
+
+        /* handle ongoing inputs when changing to chat view */
+        if(event->type == InputTypePress) {
+            state->kbd_left_input_ongoing = true;
+        } else if(event->type == InputTypeRelease) {
+            state->kbd_left_input_ongoing = false;
+        }
+    }
+
+    if(event->key == InputKeyRight) {
+        /* if we are in the chat view and no input is ongoing, allow
+		 * switching to key display */
+        if(state->view_dispatcher->current_view == text_box_get_view(state->chat_box) &&
+           !(state->kbd_right_input_ongoing)) {
+            /* go to key display upon short press of Right button
+			 */
+            if(event->type == InputTypeShort) {
+                view_dispatcher_send_custom_event(
+                    state->view_dispatcher, ESubGhzChatEvent_GotoKeyDisplay);
+            }
+
+            /* do not handle any Right key events to prevent
+			 * blocking of other keys */
+            return;
+        }
+
+        /* handle ongoing inputs when changing to chat view */
+        if(event->type == InputTypePress) {
+            state->kbd_right_input_ongoing = true;
+        } else if(event->type == InputTypeRelease) {
+            state->kbd_right_input_ongoing = false;
         }
     }
 
@@ -418,14 +462,40 @@ int32_t esubghz_chat(void) {
         goto err_alloc_ti;
     }
 
+    state->hex_key_input = byte_input_alloc();
+    if(state->hex_key_input == NULL) {
+        goto err_alloc_hki;
+    }
+
     if(!chat_box_alloc(state)) {
         goto err_alloc_cb;
+    }
+
+    state->key_display = dialog_ex_alloc();
+    if(state->key_display == NULL) {
+        goto err_alloc_kd;
+    }
+
+    state->nfc_popup = popup_alloc();
+    if(state->nfc_popup == NULL) {
+        goto err_alloc_np;
     }
 
     state->subghz_worker = subghz_tx_rx_worker_alloc();
     if(state->subghz_worker == NULL) {
         goto err_alloc_worker;
     }
+
+    state->nfc_worker = nfc_worker_alloc();
+    if(state->nfc_worker == NULL) {
+        goto err_alloc_nworker;
+    }
+
+    state->nfc_dev_data = malloc(sizeof(NfcDeviceData));
+    if(state->nfc_dev_data == NULL) {
+        goto err_alloc_ndevdata;
+    }
+    memset(state->nfc_dev_data, 0, sizeof(NfcDeviceData));
 
     state->crypto_ctx = crypto_ctx_alloc();
     if(state->crypto_ctx == NULL) {
@@ -474,7 +544,17 @@ int32_t esubghz_chat(void) {
     view_dispatcher_add_view(
         state->view_dispatcher, ESubGhzChatView_Input, text_input_get_view(state->text_input));
     view_dispatcher_add_view(
+        state->view_dispatcher,
+        ESubGhzChatView_HexKeyInput,
+        byte_input_get_view(state->hex_key_input));
+    view_dispatcher_add_view(
         state->view_dispatcher, ESubGhzChatView_ChatBox, text_box_get_view(state->chat_box));
+    view_dispatcher_add_view(
+        state->view_dispatcher,
+        ESubGhzChatView_KeyDisplay,
+        dialog_ex_get_view(state->key_display));
+    view_dispatcher_add_view(
+        state->view_dispatcher, ESubGhzChatView_NfcPopup, popup_get_view(state->nfc_popup));
 
     /* get the GUI record and attach the view dispatcher to the GUI */
     /* no error handling here, don't know how */
@@ -494,6 +574,9 @@ int32_t esubghz_chat(void) {
         subghz_tx_rx_worker_stop(state->subghz_worker);
     }
 
+    /* if it is running, stop the NFC worker */
+    nfc_worker_stop(state->nfc_worker);
+
     err = 0;
 
     /* close GUI record */
@@ -502,14 +585,25 @@ int32_t esubghz_chat(void) {
     /* remove our two views from the view dispatcher */
     view_dispatcher_remove_view(state->view_dispatcher, ESubGhzChatView_Menu);
     view_dispatcher_remove_view(state->view_dispatcher, ESubGhzChatView_Input);
+    view_dispatcher_remove_view(state->view_dispatcher, ESubGhzChatView_HexKeyInput);
     view_dispatcher_remove_view(state->view_dispatcher, ESubGhzChatView_ChatBox);
+    view_dispatcher_remove_view(state->view_dispatcher, ESubGhzChatView_KeyDisplay);
+    view_dispatcher_remove_view(state->view_dispatcher, ESubGhzChatView_NfcPopup);
 
     /* close notification record */
     furi_record_close(RECORD_NOTIFICATION);
 
     /* clear the key and potential password */
     crypto_explicit_bzero(state->text_input_store, sizeof(state->text_input_store));
+    crypto_explicit_bzero(state->hex_key_input_store, sizeof(state->hex_key_input_store));
+    crypto_explicit_bzero(state->key_hex_str, sizeof(state->key_hex_str));
     crypto_ctx_clear(state->crypto_ctx);
+
+    /* clear nfc data */
+    if(state->nfc_dev_data->parsed_data != NULL) {
+        furi_string_free(state->nfc_dev_data->parsed_data);
+    }
+    crypto_explicit_bzero(state->nfc_dev_data, sizeof(NfcDeviceData));
 
     /* deinit devices */
     subghz_devices_deinit();
@@ -522,12 +616,27 @@ int32_t esubghz_chat(void) {
     crypto_ctx_free(state->crypto_ctx);
 
 err_alloc_crypto:
+    free(state->nfc_dev_data);
+
+err_alloc_ndevdata:
+    nfc_worker_free(state->nfc_worker);
+
+err_alloc_nworker:
     subghz_tx_rx_worker_free(state->subghz_worker);
 
 err_alloc_worker:
+    popup_free(state->nfc_popup);
+
+err_alloc_np:
+    dialog_ex_free(state->key_display);
+
+err_alloc_kd:
     chat_box_free(state);
 
 err_alloc_cb:
+    byte_input_free(state->hex_key_input);
+
+err_alloc_hki:
     text_input_free(state->text_input);
 
 err_alloc_ti:
