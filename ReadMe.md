@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0730-0226-0.87.1-aa9bbd4](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0731-0208-0.87.1-f7515b4](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-30 02:25 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-30 02:25 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-07-31 01:55 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-07-31 01:55 EST`
 - [Fixed Memory leak/Pointer issue with CFW Settings app (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/724)
 - [Configurable SPI & UART Channels (By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fc4c6bdacd7aac9ba8377fddcb966a9ae17da36a)
 - Updated: [ESP32 Evil Portal v0.2 (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal) [Changes By leedave]( https://github.com/leedave/flipper-zero-evil-portal/tree/leedave/ap_rename/flipper/flipper-evil-portal)
@@ -50,10 +50,13 @@ This software is for experimental purposes only and is not meant for any illegal
 - Updated: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
 - Added: [TAS Playback (By rcombs)](https://github.com/rcombs/tas-playback)
 - UL: Updated: [WiFi (Marauder) v6.0 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion)
-- Updated: [YRM100 UHF RFID WIP (By frux-c)](https://github.com/frux-c/uhf_rfid) `Req: YRM100`
 - Updated: [External Power Amp Code (By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/3bcc4b9ab76cf64acec4a9117a1230741a5fc82e)
 - Settings: [CFW Settings for PS4 Layout for Main Menu (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/39f08d3f51f99a52202ec75185bbd3b109af9689)
+- Updated: [TPMS Reader (By wosk)](https://github.com/wosk/flipperzero-tpms)
 - Updated: [u-blox GPS (By liamhays)](https://github.com/liamhays/ublox)
+- Updated: [YRM100 UHF RFID WIP (By frux-c)](https://github.com/frux-c/uhf_rfid) `Req: YRM100`
+- Updated: [ESP32-C6 Gravity (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
+- UL: [Init config for external radio driver #564 (By gid9798)](https://github.com/DarkFlippers/unleashed-firmware/pull/564)
 
 <a name="release">
 
