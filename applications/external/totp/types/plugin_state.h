@@ -9,7 +9,8 @@
 #include "../services/idle_timeout/idle_timeout.h"
 #include "notification_method.h"
 #include "automation_method.h"
-#ifdef TOTP_BADBT_TYPE_ENABLED
+#include "automation_kb_layout.h"
+#ifdef TOTP_BADBT_AUTOMATION_ENABLED
 #include "../workers/bt_type_code/bt_type_code.h"
 #endif
 #include "../services/crypto/constants.h"
@@ -83,7 +84,12 @@ typedef struct {
      */
     AutomationMethod automation_method;
 
-#ifdef TOTP_BADBT_TYPE_ENABLED
+    /**
+     * @brief Automation keyboard layout to be used
+     */
+    AutomationKeyboardLayout automation_kb_layout;
+
+#ifdef TOTP_BADBT_AUTOMATION_ENABLED
     /**
      * @brief Bad-Bluetooth worker context
      */

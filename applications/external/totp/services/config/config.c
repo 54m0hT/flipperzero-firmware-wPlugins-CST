@@ -111,7 +111,16 @@ static char* totp_config_file_backup_i(Storage* storage) {
 static bool totp_open_config_file(Storage* storage, FlipperFormat** file) {
     FlipperFormat* fff_data_file = flipper_format_file_alloc(storage);
 
-    if(storage_common_stat(storage, CONFIG_FILE_PATH, NULL) == FSE_OK) {
+    bool conf_file_exists = storage_common_stat(storage, CONFIG_FILE_PATH, NULL) == FSE_OK;
+    if(!conf_file_exists) {
+        FURI_LOG_I(LOGGING_TAG, "Application catalog needs to be migrated");
+        FS_Error migration_result =
+            storage_common_migrate(storage, EXT_PATH("authenticator"), CONFIG_FILE_DIRECTORY_PATH);
+        FURI_LOG_I(LOGGING_TAG, "Migrated catalog. Result code: %d", (int)migration_result);
+        conf_file_exists = storage_common_stat(storage, CONFIG_FILE_PATH, NULL) == FSE_OK;
+    }
+
+    if(conf_file_exists) {
         FURI_LOG_D(LOGGING_TAG, "Config file %s found", CONFIG_FILE_PATH);
         if(!flipper_format_file_open_existing(fff_data_file, CONFIG_FILE_PATH)) {
             FURI_LOG_E(LOGGING_TAG, "Error opening existing file %s", CONFIG_FILE_PATH);
@@ -120,16 +129,6 @@ static bool totp_open_config_file(Storage* storage, FlipperFormat** file) {
         }
     } else {
         FURI_LOG_D(LOGGING_TAG, "Config file %s is not found. Will create new.", CONFIG_FILE_PATH);
-        if(storage_common_stat(storage, CONFIG_FILE_DIRECTORY_PATH, NULL) == FSE_NOT_EXIST) {
-            FURI_LOG_D(
-                LOGGING_TAG,
-                "Directory %s doesn't exist. Will create new.",
-                CONFIG_FILE_DIRECTORY_PATH);
-            if(!storage_simply_mkdir(storage, CONFIG_FILE_DIRECTORY_PATH)) {
-                FURI_LOG_E(LOGGING_TAG, "Error creating directory %s", CONFIG_FILE_DIRECTORY_PATH);
-                return false;
-            }
-        }
 
         if(!flipper_format_file_open_new(fff_data_file, CONFIG_FILE_PATH)) {
             totp_close_config_file(fff_data_file);
@@ -162,7 +161,11 @@ static bool totp_open_config_file(Storage* storage, FlipperFormat** file) {
         flipper_format_write_uint32(
             fff_data_file, TOTP_CONFIG_KEY_AUTOMATION_METHOD, &tmp_uint32, 1);
 
-        tmp_uint32 = 0;
+        tmp_uint32 = AutomationKeyboardLayoutQWERTY;
+        flipper_format_write_uint32(
+            fff_data_file, TOTP_CONFIG_KEY_AUTOMATION_KB_LAYOUT, &tmp_uint32, 1);
+
+        tmp_uint32 = 0; //-V1048
         flipper_format_write_uint32(fff_data_file, TOTP_CONFIG_KEY_FONT, &tmp_uint32, 1);
 
         if(!flipper_format_rewind(fff_data_file)) {
@@ -241,6 +244,12 @@ bool totp_config_file_update_automation_method(const PluginState* plugin_state) 
             break;
         }
 
+        tmp_uint32 = plugin_state->automation_kb_layout;
+        if(!flipper_format_insert_or_update_uint32(
+               file, TOTP_CONFIG_KEY_AUTOMATION_KB_LAYOUT, &tmp_uint32, 1)) {
+            break;
+        }
+
         update_result = true;
     } while(false);
 
@@ -270,6 +279,12 @@ bool totp_config_file_update_user_settings(const PluginState* plugin_state) {
 
         tmp_uint32 = plugin_state->active_font_index;
         if(!flipper_format_insert_or_update_uint32(file, TOTP_CONFIG_KEY_FONT, &tmp_uint32, 1)) {
+            break;
+        }
+
+        tmp_uint32 = plugin_state->automation_kb_layout;
+        if(!flipper_format_insert_or_update_uint32(
+               file, TOTP_CONFIG_KEY_AUTOMATION_KB_LAYOUT, &tmp_uint32, 1)) {
             break;
         }
 
@@ -453,6 +468,17 @@ bool totp_config_file_load(PluginState* const plugin_state) {
         }
 
         plugin_state->automation_method = tmp_uint32;
+
+        if(!flipper_format_rewind(fff_data_file)) {
+            break;
+        }
+
+        if(!flipper_format_read_uint32(
+               fff_data_file, TOTP_CONFIG_KEY_AUTOMATION_KB_LAYOUT, &tmp_uint32, 1)) {
+            tmp_uint32 = AutomationKeyboardLayoutQWERTY;
+        }
+
+        plugin_state->automation_kb_layout = tmp_uint32;
 
         if(!flipper_format_rewind(fff_data_file)) {
             break;
