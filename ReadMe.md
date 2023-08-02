@@ -4,7 +4,7 @@
 &nbsp;<a href='https://shop.rogue-master.net/' target='_blank'><img src='https://rogue-master.net/img/Merch.png' alt='RM Merch'' title='RM Merch'></a>
 &nbsp;<a href='https://github.com/RogueMaster/awesome-flipperzero-withModules' target='_blank'><img src='https://rogue-master.net/img/Resources.png' alt='More Research / Assets' title='More Research / Assets'></a></h1>
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6.tgz&channel=RM0802-0244-0.87.1-89ffaf6&version=0.86.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6-NoAnim.tgz&channel=RM0802-0244-0.87.1-89ffaf6-NoAnim&version=0.86.3)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6.tgz&channel=RM0802-0244-0.87.1-89ffaf6&version=0.87.1) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6-NoAnim.tgz&channel=RM0802-0244-0.87.1-89ffaf6-NoAnim&version=0.87.1)
 
 ## Thank you so much to our RM Pro/SUPER Patreon supporters! Because of people like you, we are able to offer the best and most up-to-date Flipper Zero Firmware!
 
@@ -31,11 +31,15 @@ This software is for experimental purposes only and is not meant for any illegal
 
 ## Latest Updates - [PATREON: Latest Release RM0802-0215-0.87.1-f8a0f6e](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-02 04:00 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-02 04:00 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-02 13:20 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-02 13:20 EST`
 - [Removed duplicated dolphin deeds (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/f3edcba5b28574c32ec1f781f0b5f6c936ef5214)
 - [Small fix for Moving Main Menu Apps in CFW Settings #725 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/725)
 - [Small fix for Removing Main Menu Apps in CFW Settings #726 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/726)
+- OFW: [Rename Applications to Apps #2939 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/2939)
+- OFW: [NFC: Fix MFC key invalidation #2912 (By AloneLiberty)](https://github.com/flipperdevices/flipperzero-firmware/pull/2912)
+- OFW: [NFC CLI: Fix multiple apdu commands from not working when one of them gives an empty response #2922 (By erikj95)](https://github.com/flipperdevices/flipperzero-firmware/pull/2922)
+- OFW: [fbtenv: add additional environ variable to control execution flow #2938 (By lomalkin)](https://github.com/flipperdevices/flipperzero-firmware/pull/2938)
 
 <a name="release">
 
@@ -433,4 +437,4 @@ $ ./fbt dolphin_ext
 - [Air Tag for FZ ($50 USD in ETH or BTC)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/issues/696)
 - `Bluetooth Audio` APP to allow flipper to pair to external speaker or headphones for wav/mp3 playback ($200 USD in ETH or BTC) (Don't think this is possible)
 
-# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6.tgz&channel=RM0802-0244-0.87.1-89ffaf6&version=0.86.3) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6-NoAnim.tgz&channel=RM0802-0244-0.87.1-89ffaf6-NoAnim&version=0.86.3)
+# Install GitHub Version With [WEB INSTALLER](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6.tgz&channel=RM0802-0244-0.87.1-89ffaf6&version=0.87.1) OR  [WITHOUT ANIMATIONS](https://lab.flipper.net/?url=https%3A%2F%2Frogue-master.net%2F%3Ffile%3DRM0802-0244-0.87.1-89ffaf6-NoAnim.tgz&channel=RM0802-0244-0.87.1-89ffaf6-NoAnim&version=0.87.1)
