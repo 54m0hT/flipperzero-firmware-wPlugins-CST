@@ -23,16 +23,16 @@ This software is for experimental purposes only and is not meant for any illegal
 - [Contact me on Discord/Patreon to RENAME your Flipper or for GIF conversion for Flipper Zero](https://www.patreon.com/RogueMaster/membership)
 - [:fire: PATREON ANIMATION BUILDS AVAILABLE](https://www.patreon.com/RogueMaster/membership): [ALL](https://www.patreon.com/posts/animation-all-v4-77935728), 420, 420+18, Anime Only, Anime+420, Anime+420+18, BMO, CHERUI 18+, DBZ, Dolphin, HACKZ, MARIO, No Anim, ONE PIECE, P0KEMON, RM 18PLUS, RM SELECT, RM SELECT + 18PLUS, RM MINIMAL (default on GitHub), SAO, SCIENCE, SJUMP AND STOCK with all assets updated to look like stock. ALL, Anime and RM Select builds are very large and can slow down F0.
 - [VIDEO PREVIEW FOR ALL ANIMATIONS](https://www.patreon.com/posts/animation-all-v4-77935728)
-- [Supporters also get SD Card Assets zip file with extra NFC Assets such as Infrared remotes, NFC files, SubGHz files and 67 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster)](https://www.patreon.com/RogueMaster/membership)
+- [Supporters also get SD Card Assets zip file with extra NFC Assets such as Infrared remotes, NFC files, SubGHz files and 86 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster)](https://www.patreon.com/RogueMaster/membership)
 - Donations: BTC: `3MPQbKmGRCstg4FjnadfHa3woCT94JkR2a` - Let me know on Discord when you send
 - Donations: ETH: `roguemaster.eth` or `0xC32Ea488DBeCF95992A5C81BD411e56Bd418BC5f` - Let me know on Discord when you send
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0802-0215-0.87.1-f8a0f6e](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0803-0000-0.87.1-1dae77b](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-02 13:20 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-02 13:20 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-03 00:00 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-03 00:00 EST`
 - [Removed duplicated dolphin deeds (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/f3edcba5b28574c32ec1f781f0b5f6c936ef5214)
 - [Small fix for Moving Main Menu Apps in CFW Settings #725 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/725)
 - [Small fix for Removing Main Menu Apps in CFW Settings #726 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/726)
@@ -40,6 +40,16 @@ This software is for experimental purposes only and is not meant for any illegal
 - OFW: [NFC: Fix MFC key invalidation #2912 (By AloneLiberty)](https://github.com/flipperdevices/flipperzero-firmware/pull/2912)
 - OFW: [NFC CLI: Fix multiple apdu commands from not working when one of them gives an empty response #2922 (By erikj95)](https://github.com/flipperdevices/flipperzero-firmware/pull/2922)
 - OFW: [fbtenv: add additional environ variable to control execution flow #2938 (By lomalkin)](https://github.com/flipperdevices/flipperzero-firmware/pull/2938)
+- Updated: [WiFi (Marauder) v6.0 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion) `Req: ESP32 WITH MARAUDER FLASHED` [(CFW Settings UART Added By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/18298d9e09b9389b9a876f620079de8a88da412f)
+- Updated: [Ext Power Amp Code (Changes By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/63084d5e7687858065f4cd84a7217659ccf7910f)
+- [Main Menu Lefty Mode Fixes (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/f66ee9181015a95375648c78b6ec74a8b368e37c)
+- Added: [Chronometer (By nmrr)](https://github.com/nmrr/flipperzero-chronometer)
+- Updated: [USB Mass Storage (By nminaylov)](https://github.com/flipperdevices/flipperzero-good-faps/tree/nm/usb_mass_storage_app/mass_storage) [(Changed By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/e21b41a6f2b181794ce7ff0e35a6bbffdd0f0610)
+- [Fixed Apps link in Main Menu & Games Menu Order (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/43d3483cc7a448063484e8a58effd25b037bbdbd)
+- Updated: [NFC Seader v1.1 (By bettse)](https://github.com/bettse/seader)
+- Updated: [SD Card Assets: Includes NFC Assets: 86 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster) (19 More Added)](https://www.patreon.com/RogueMaster/membership)
+- [Evil Portal Assets: Google Realistic (By JMcrafter26)](https://github.com/bigbrodude6119/flipper-zero-evil-portal/pull/60)
+- Updated: [Authenticator/TOTP v3.2 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
 
 <a name="release">
 
@@ -114,7 +124,7 @@ $ ./fbt dolphin_ext
 - Assets: Includes a NFC link to TalkingSasquach on YouTube
 - Assets: Includes a NFC Rick Roll link
 - Assets: Includes New Dolphin Animations: [Listed Here](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/assets/resources/dolphin)
-- Assets: Includes NFC Assets: 67 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster) [It is recommended you randomize UID with this script.](https://github.com/Lanjelin/AmiiboConverter/tree/main)[Patreon Build Only](https://www.patreon.com/RogueMaster/membership)
+- Assets: Includes NFC Assets: 86 RM Pro Trained Level 50 Sm@sh Amiib0 (By RogueMaster) [It is recommended you randomize UID with this script.](https://github.com/Lanjelin/AmiiboConverter/tree/main)[Patreon Build Only](https://www.patreon.com/RogueMaster/membership)
 - Assets: Includes sample Music Player tunes
 - Assets: Includes Sonic Screw Driver sound for the Wav Player
 - Assets: Includes SubGHz assets for Crosswalk, CVS/Walgreens CS Buttons [Thanks jimilinuxguy](https://github.com/jimilinuxguy/customer-assistance-buttons-sdr/tree/main/cvs/English), Handicap Doors, Honda Lock/Unlock, Lowes, Sextoys, Tesla Charge Port & Unitree Go1 Robot Dog.
@@ -282,6 +292,7 @@ $ ./fbt dolphin_ext
 - [Camera (By Z4urce)](https://github.com/Z4urce/flipper-camera) `Req: ESP32-CAM`
 - [Ceasar Cipher (By panki27)](https://github.com/panki27/caesar-cipher)
 - [CFW Settings - Imported/Modified By RogueMaster (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/ecf91524a956f773881d564c4ada833f844264ca)
+- [Chronometer (By nmrr)](https://github.com/nmrr/flipperzero-chronometer)
 - [CLI Bridge (By ranchordo)](https://github.com/ranchordo/flipperzero-cli-bridge)
 - [Clock (By kowalski7cc)](https://github.com/kowalski7cc/flipperzero-firmware/tree/clock-v1)
 - [Continuity Tester (By benallen-dev)](https://github.com/benallen-dev/flipper-zero-apps/tree/main/continuity)
