@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0808-2107-0.88.1-037e763](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0810-1219-0.88.1-1a609af](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-08 21:07 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-08 21:07 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-10 12:19 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-10 12:19 EST`
 - Updated: [USB Mass Storage (By nminaylov)](https://github.com/flipperdevices/flipperzero-good-faps/tree/nm/usb_mass_storage_app/mass_storage) [(Changed By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/396e9f0b74f558b3076c04f2ca54c9474194dc3c)
 - UL: [IR: buttons move feature rework (By nminaylov)](https://github.com/DarkFlippers/unleashed-firmware/commit/becc8edd8cc2d67ea49d61075113bf5eeafbfe02)
 - UL: Infrared: Update universal remote assets (by amec0e PR #570)
@@ -47,7 +47,6 @@ This software is for experimental purposes only and is not meant for any illegal
 - Fixes to bring back menu_alloc (By RogueMaster)
 - Updated: [ESP32-C6 Gravity (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
 - Updated: [ESP32 Camera Suite (By CodyTolene)](https://github.com/CodyTolene/Flipper-Zero-Camera-Suite)
-- Updated: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
 - Updated: [J305 Geiger Counter (By nmrr)](https://github.com/nmrr/flipperzero-geigercounter)
 - Updated: [Scope (By anfractuosity)](https://github.com/anfractuosity/flipperscope)
 - Updated: [u-blox GPS (By liamhays)](https://github.com/liamhays/ublox)
@@ -62,6 +61,24 @@ This software is for experimental purposes only and is not meant for any illegal
 - Updated: [DnD Dice (By Ka3u6y6a)](https://github.com/Ka3u6y6a/flipper-zero-dice)
 - Updated: [Chronometer (By nmrr)](https://github.com/nmrr/flipperzero-chronometer)
 - Updated: [YRM100 UHF RFID WIP (By frux-c)](https://github.com/frux-c/uhf_rfid) `Req: YRM100`
+- OFW: [External apps removed #2934 (By F*ck NO)] THIS PR WAS SKIPPED SINCE ITS STUPID
+- OFW: [Add compressor.h to the SDK #2962 (By Astrrra)](https://github.com/flipperdevices/flipperzero-firmware/pull/2962)
+- OFW: [BadUSB: qFlipper install script for MacOS #2915 (By grugnoymeme)](https://github.com/flipperdevices/flipperzero-firmware/pull/2915)
+- Updated: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
+- Updated: [Air Mouse (By ginkage)](https://github.com/ginkage/FlippAirMouse/)
+- Updated: [Weather Station (By Skorpionm)-OFW](https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/weather_station) [Added Support For Auriol AHFL 433B2 IPX4 sensor (By tomjschwanke)](https://github.com/flipperdevices/flipperzero-good-faps/pull/17)
+- Added: [Text Viewer 2 (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/ae4fc4a54febccb44b010c4025a99c2edef9a7f0) Original by kowalski7cc & kyhwana, new has code borrowed from Archive-Show
+- Settings: [CFW Settings for Commodore 64 Layout for Main Menu (By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/5a47e7a4a8459a32f493b2f2f4c20137e98da1a1)
+- Updated: [Authenticator/TOTP v4.0.1 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- OFW: [uFBT: devboard_flash to update WiFi devboard #2969 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2969)
+- OFW: [FBT: update WiFi devboard firmware #2968 (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/pull/2968)
+- OFW: [Scripts: OB recovery #2964 (By skotopes)](https://github.com/flipperdevices/flipperzero-firmware/pull/2964)
+- OFW: [Expose additional functions of the crypto engine to user #2923 (By twisted-pear)](https://github.com/flipperdevices/flipperzero-firmware/pull/2923)
+- Added: [Secret Toggle (By nostrumuva)](https://github.com/nostrumuva/secret_toggle)
+- UL PR: [NFC App: Add manual MF Classic custom UID #571 (By gid9798)](https://github.com/DarkFlippers/unleashed-firmware/pull/571)
+- UL PR: [SubGhz: fix assert failure during signal openning #573 (By wosk)](https://github.com/DarkFlippers/unleashed-firmware/pull/573)
+- OFW: [ufbt: fixed FAP_SRC_DIR #2970 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/2970)
+- OFW: [UI: Clock on Desktop #2891 (By gid9798)](https://github.com/flipperdevices/flipperzero-firmware/pull/2891) (Mostly Already In RM)
 
 <a name="release">
 
@@ -192,13 +209,12 @@ $ ./fbt dolphin_ext
 - Settings: Auto-Lock Options Added: 10s+15s+90s [(By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/applications/desktop/desktop_settings/scenes/desktop_settings_scene_start.c)
 - Settings: Battery Meter on Desktop [Thanks to McAzzaMan](https://github.com/McAzzaMan/flipperzero-firmware/tree/BatteryPercentageView)
 - Settings: [CFW Settings for Desktop Settings & Passport Settings (By ESurge)]
-- Settings: [CFW Settings for Dark Mode & Wii Menu (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/83e836fc797ce9ce8998a5d9b1fde6a172480bf2)
-- Settings: [CFW Settings for DSi Layout for Main Menu (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/de5a8d222d138a7d01f82a265b088b37576b7a0b)
+- Settings: [CFW Settings for Dark Mode (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/83e836fc797ce9ce8998a5d9b1fde6a172480bf2)
+- Settings: [CFW Settings Layout options for Commodore 64 for Main Menu (By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/5a47e7a4a8459a32f493b2f2f4c20137e98da1a1)
+- Settings: [CFW Settings Layout options for DSi, PS4, Vertical & Wii for Main Menu (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/5a47e7a4a8459a32f493b2f2f4c20137e98da1a1)
 - Settings: [CFW Settings for Lock Menu Style (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fe3d1ccac0d2058769a0e8f1076b348ef59eaa29)
 - Settings: [CFW Settings for Main Menu Start Point (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/f2be53b18c8508371c6b7f408c4661c37670c424)
 - Settings: [CFW Settings for More Customizable Main Menu #721 (By Willy-JL, Ported & Improved By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/721)
-- Settings: [CFW Settings for PS4 Layout for Main Menu (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/39f08d3f51f99a52202ec75185bbd3b109af9689)
-- Settings: [CFW Settings for Vertical Layout for Main Menu & Menu Code Style Improvements (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/0e54531d1c8bc2fb454345debd9dbc25857c1d0c)
 - Settings: [Configurable SPI & UART Channels (By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fc4c6bdacd7aac9ba8377fddcb966a9ae17da36a)
 - Settings: Desktop => [Games Only Mode (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/GAMES_ONLY.md)
 - - [UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT FROM CLOCK](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/GAMES_ONLY.md) (FULL LIST OF GAMES ONLY CONTROLS)
@@ -265,6 +281,7 @@ $ ./fbt dolphin_ext
 - [Root of Life (By Xorboo)](https://github.com/Xorboo/root-of-life)
 - [Rubik's Cube Scrambler (By RaZeSloth)](https://github.com/RaZeSloth/flipperzero-rubiks-cube-scrambler)
 - [Scorched Tanks (By jasniec)](https://github.com/jasniec/flipper-scorched-tanks-game)
+- [Secret Toggle (By nostrumuva)](https://github.com/nostrumuva/secret_toggle)
 - [Simon Says (By SimplyMinimal)](https://github.com/SimplyMinimal/FlipperZero-SimonSays)
 - [Slot Machine (By Daniel-dev-s)](https://github.com/Daniel-dev-s/flipperzero-slots)
 - [Snake (By OlegSchwann)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/829)(With updates from DrZlo13, xMasterX, QtRoS and RogueMaster) [Snake Score Saving (By JuanJakobo)](https://github.com/flipperdevices/flipperzero-firmware/pull/1922) [Turns anywhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/125) [Food Spawns Anywwhere (By TQMatvey)](https://github.com/DarkFlippers/unleashed-firmware/pull/130)
@@ -288,7 +305,7 @@ $ ./fbt dolphin_ext
 - [Analog Clock (By scrolltex)](https://github.com/scrolltex/flipper_analog_clock)
 - [APRS Cln Hello World (By NSV47)](https://github.com/NSV47/APRS_hello_world_clean)
 - [Atomic Dice Roller (By nmrr)](https://github.com/nmrr/flipperzero-atomicdiceroller)
-- [Authenticator/TOTP v3.2 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- [Authenticator/TOTP v4.0.1 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
 - [AVR Flasher (By Skorpionm)](https://github.com/flipperdevices/flipperzero-firmware/pull/2475)
 - [AZERTY Mouse Jacker (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/mousejacker) `Req: NRF24` (Uses AZERTY keyboard - Source Unknown)
 - [Bad BT (By Willy-JL)(Imported By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/620)
@@ -428,6 +445,7 @@ $ ./fbt dolphin_ext
 - [Temp Sensors Reader 1.4 (By quen0n)](https://github.com/quen0n/Unitemp-Flipper-Zero-Plugin) `Req: BMP180/BMP280/BME280/BME680/DHT11/DHT22(AM2302)/AM2301/AM2320/HTU2XD/HTU21x/HDC1080/MAX31855/MAX6675/SCD30`
 - [Text To SAM (By RoundPi)](https://github.com/Round-Pi/flipperzero-text2sam)
 - [Text Viewer (By kowalski7cc)](https://github.com/kowalski7cc/flipper-zero-text-viewer)
+- [Text Viewer 2 (By Willy-JL)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/ae4fc4a54febccb44b010c4025a99c2edef9a7f0)
 - [TPMS Reader (By wosk)](https://github.com/wosk/flipperzero-tpms)
 - [Tuning Fork (By besya)](https://github.com/besya/flipperzero-tuning-fork)
 - [UART Echo (By DrZlo13)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/831)
@@ -440,7 +458,7 @@ $ ./fbt dolphin_ext
 - [Video Player (By LTVA1)](https://github.com/LTVA1/flipper-zero-video-player)
 - [WAV Player (By DrZlo13)](https://github.com/flipperdevices/flipperzero-firmware/tree/zlo/wav-player) Updated by Atmanos & RogueMaster To Work.  [Updated by xMasterX](https://github.com/DarkFlippers/unleashed-firmware/commit/76d3f84a5eb069b749e3ad20df6fdbbc785eb253)
 - [WAV Recorder (By scrolltex)](https://github.com/scrolltex/flipper-wav-recorder)
-- [Weather Station (By Skorpionm)-OFW](https://github.com/flipperdevices/flipperzero-firmware/pull/1833)
+- [Weather Station (By Skorpionm)-OFW](https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/weather_station)
 - [Wiegand Reader (By jamisonderek)](https://github.com/jamisonderek/flipper-zero-tutorials/tree/main/gpio)
 - [WiFi (Deauther) V2 (By Timmotools)](https://github.com/Timmotools/flipperzero_esp8266_deautherv2) `Req: ESP8266`
 - [WiFi (Marauder) v6.0 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion) `Req: ESP32 WITH MARAUDER FLASHED` [ESP32 MARAUDER Firmware](https://github.com/tcpassos/ESP32Marauder)
