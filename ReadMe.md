@@ -31,8 +31,8 @@ This software is for experimental purposes only and is not meant for any illegal
 
 ## Latest Updates - [PATREON: Latest Release RM0817-0308-0.89.1-fc13487](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-17 03:08 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-17 03:08 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-17 11:10 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-17 11:10 EST`
 - [New Patreon Animation Set](https://www.patreon.com/RogueMaster/membership): [SQUATCH (From SquatchWare By Kuronons, wrenchathome and OFW)](https://github.com/skizzophrenic/SquachWare-CFW/tree/dev/assets/dolphin/external)
 - Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 - Updated: [WiFi (Marauder) v6.1 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion)
@@ -45,7 +45,6 @@ This software is for experimental purposes only and is not meant for any illegal
 - Added: [Sudoku (By profelis)](https://github.com/profelis/fz-sudoku)
 - Added: [Calendar (By Adiras)](https://github.com/Adiras/flipperzero-calendar)
 - OFW: [SubGhz: add timeout to subghz_hal_async_tx_test_run #2975 (By skotopes)](https://github.com/flipperdevices/flipperzero-firmware/pull/2975)
-- Updated: [ESP32-C6 Gravity v0.3.2 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
 - UL: OFW PR 2984: (only buffer changes was merged, other will be later) SubGhz: fix todo (by Skorpionm)
 - UL: SubGHz: Fix frequency out of bounds check causing crash/freeze
 - UL: Infrared: Updated AC universal asset (Legion LE-F30RH-IN added and other changes) (by Leptopt1los | PR #577)
@@ -53,6 +52,13 @@ This software is for experimental purposes only and is not meant for any illegal
 - Updated: [Authenticator/TOTP v4.0.2 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
 - Updated: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
 - Added: [Pet a Dolphin (By ugeneSmile)](https://github.com/EugeneSmile/PetADolphin)
+- [Fix: set Eurocorp font outside loop #734 (By xtruan)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/734)
+- [Fixed Loader issue with Applications being renamed to Apps #735 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/735)
+- [CFW Settings > Misc > Screen updates #736 (By ESurge)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/pull/736)
+- UL: Sub-GHz: Check saved file (By Skorpionm)
+- UL: SubGhz: Handle RX buffer overflow with external cc1101 (By Skorpionm)
+- UL: Fix FAAC counter fix seed being not removed from RAM & fix faac add manually cnt (By xMasterX)
+- Updated: [ESP32-C6 Gravity v0.3.4 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
 
 <a name="release">
 
@@ -321,7 +327,7 @@ $ ./fbt dolphin_ext
 - [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
 - [ESP32 Camera Suite (By CodyTolene)](https://github.com/CodyTolene/Flipper-Zero-Camera-Suite)
 - [ESP32 Evil Portal v0.2 (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal) [Changes By leedave]( https://github.com/leedave/flipper-zero-evil-portal/tree/leedave/ap_rename/flipper/flipper-evil-portal)
-- [ESP32-C6 Gravity v0.3.2 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
+- [ESP32-C6 Gravity v0.3.4 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
 - [ESP Flasher v1.1 (By 0xchocolate)](https://github.com/0xchocolate/flipperzero-esp-flasher)
 - [ESP WiFi Scanner v.0.4 (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-WiFi-Scanner_Module-ESP8266) `Req: ESP8266 or ESP32`
 - [ESP32 WIFI Mapping (By carvilsi)](https://github.com/carvilsi/flipper0-wifi-map) `Req: ESP32` & [ESP32 FW](https://github.com/carvilsi/esp32-wifi-map)
