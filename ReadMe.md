@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0817-0308-0.89.1-fc13487](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0817-1842-0.89.1-fdb1357](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-17 11:10 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-17 11:10 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-17 18:42 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-17 18:42 EST`
 - [New Patreon Animation Set](https://www.patreon.com/RogueMaster/membership): [SQUATCH (From SquatchWare By Kuronons, wrenchathome and OFW)](https://github.com/skizzophrenic/SquachWare-CFW/tree/dev/assets/dolphin/external)
 - Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 - Updated: [WiFi (Marauder) v6.1 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion)
@@ -59,6 +59,7 @@ This software is for experimental purposes only and is not meant for any illegal
 - UL: SubGhz: Handle RX buffer overflow with external cc1101 (By Skorpionm)
 - UL: Fix FAAC counter fix seed being not removed from RAM & fix faac add manually cnt (By xMasterX)
 - Updated: [ESP32-C6 Gravity v0.3.4 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
+- Updated: [Sudoku (By profelis)](https://github.com/profelis/fz-sudoku) - SAVE STATE ADDED
 
 <a name="release">
 
