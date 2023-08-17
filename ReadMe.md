@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0815-2317-0.89.1-15b502e](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0817-0308-0.89.1-fc13487](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-15 23:17 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-15 23:17 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-17 03:08 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-17 03:08 EST`
 - [New Patreon Animation Set](https://www.patreon.com/RogueMaster/membership): [SQUATCH (From SquatchWare By Kuronons, wrenchathome and OFW)](https://github.com/skizzophrenic/SquachWare-CFW/tree/dev/assets/dolphin/external)
 - Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 - Updated: [WiFi (Marauder) v6.1 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion)
@@ -44,7 +44,15 @@ This software is for experimental purposes only and is not meant for any illegal
 - OFW PR: [fbt: improvements #2982 (By hedger)](https://github.com/flipperdevices/flipperzero-firmware/pull/2982)
 - Added: [Sudoku (By profelis)](https://github.com/profelis/fz-sudoku)
 - Added: [Calendar (By Adiras)](https://github.com/Adiras/flipperzero-calendar)
-- Updated: [Authenticator/TOTP v4.0.2 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator) [Removed Bloat & No Directory Fix (By RogueMaster)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/5da04f29c23f1b96463a38cf19997f81389be603)
+- OFW: [SubGhz: add timeout to subghz_hal_async_tx_test_run #2975 (By skotopes)](https://github.com/flipperdevices/flipperzero-firmware/pull/2975)
+- Updated: [ESP32-C6 Gravity v0.3.2 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
+- UL: OFW PR 2984: (only buffer changes was merged, other will be later) SubGhz: fix todo (by Skorpionm)
+- UL: SubGHz: Fix frequency out of bounds check causing crash/freeze
+- UL: Infrared: Updated AC universal asset (Legion LE-F30RH-IN added and other changes) (by Leptopt1los | PR #577)
+- UL: SubGHz: Fix Somfy Telis wrong frequency in add manually
+- Updated: [Authenticator/TOTP v4.0.2 (By akopachov)](https://github.com/akopachov/flipper-zero_authenticator)
+- Updated: [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
+- Added: [Pet a Dolphin (By ugeneSmile)](https://github.com/EugeneSmile/PetADolphin)
 
 <a name="release">
 
@@ -313,7 +321,7 @@ $ ./fbt dolphin_ext
 - [Enhanced Sub-Ghz Chat (By twisted-pear)](https://github.com/twisted-pear/esubghz_chat)
 - [ESP32 Camera Suite (By CodyTolene)](https://github.com/CodyTolene/Flipper-Zero-Camera-Suite)
 - [ESP32 Evil Portal v0.2 (By bigbrodude6119)](https://github.com/bigbrodude6119/flipper-zero-evil-portal) [Changes By leedave]( https://github.com/leedave/flipper-zero-evil-portal/tree/leedave/ap_rename/flipper/flipper-evil-portal)
-- [ESP32-C6 Gravity (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
+- [ESP32-C6 Gravity v0.3.2 (By chris-bc)](https://github.com/chris-bc/Flipper-Gravity)
 - [ESP Flasher v1.1 (By 0xchocolate)](https://github.com/0xchocolate/flipperzero-esp-flasher)
 - [ESP WiFi Scanner v.0.4 (By SequoiaSan)](https://github.com/SequoiaSan/FlipperZero-WiFi-Scanner_Module-ESP8266) `Req: ESP8266 or ESP32`
 - [ESP32 WIFI Mapping (By carvilsi)](https://github.com/carvilsi/flipper0-wifi-map) `Req: ESP32` & [ESP32 FW](https://github.com/carvilsi/esp32-wifi-map)
@@ -382,6 +390,7 @@ $ ./fbt dolphin_ext
 - [Ocarina (By invalidna-me)](https://github.com/invalidna-me/flipperzero-ocarina) [Here are the LOTZ Songs](https://www.zeldadungeon.net/wiki/Ocarina_of_Time_Songs)
 - [Orgasmotron (By jbohack)](https://github.com/jbohack) [(Original By qqmajikpp)](https://github.com/qqmajikpp/flipperzero-firmware-wPlugins)
 - [Password Generator (By anakod)](https://github.com/anakod/flipper_passgen)
+- [Pet a Dolphin (By ugeneSmile)](https://github.com/EugeneSmile/PetADolphin)
 - [PicoPass Reader (By Bettse)](https://github.com/flipperdevices/flipperzero-firmware/pull/1366)
 - [Plantower PMSx003 sensor reader (By 3cky)](https://github.com/3cky/flipperzero-airmon) `Req: Plantower PMS5003/PMS7003/PMS9003`
 - [POCSAG Pager (By XMasterx & Shmuma)](https://github.com/xMasterX/flipper-pager)
