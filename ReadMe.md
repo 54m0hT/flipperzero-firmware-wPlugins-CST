@@ -29,10 +29,10 @@ This software is for experimental purposes only and is not meant for any illegal
 
 <a name="latest">
 
-## Latest Updates - [PATREON: Latest Release RM0819-0243-0.89.1-fd3326e](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
+## Latest Updates - [PATREON: Latest Release RM0820-0118-0.89.1-9d92d08](https://www.patreon.com/RogueMaster?filters[tag]=Latest%20Release)
 
-- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-19 02:43 EST`
-- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-19 02:43 EST`
+- Last Synced/Checked Unleashed, changes in [changelog](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/blob/420/CHANGELOG.md) and in [commits](https://github.com/DarkFlippers/unleashed-firmware/commits/dev): `2023-08-20 03:51 EST`
+- Last Synced/Checked OFW, changes in [commits](https://github.com/flipperdevices/flipperzero-firmware/commits/dev): `2023-08-20 03:51 EST`
 - [New Patreon Animation Set](https://www.patreon.com/RogueMaster/membership): [SQUATCH (From SquatchWare By Kuronons, wrenchathome and OFW)](https://github.com/skizzophrenic/SquachWare-CFW/tree/dev/assets/dolphin/external)
 - Updated: [Protocol Visualizer (By antirez)](https://github.com/antirez/protoview)
 - Updated: [WiFi (Marauder) v6.1 (By 0xchocolate & tcpassos)](https://github.com/0xchocolate/flipperzero-firmware-with-wifi-marauder-companion)
@@ -65,10 +65,18 @@ This software is for experimental purposes only and is not meant for any illegal
 - UL: SubGhz: disable 0 seed (By xMasterX)
 - Updated: [YRM100 UHF RFID WIP (By frux-c)](https://github.com/frux-c/uhf_rfid) `Req: YRM100`
 - Temp Fix ESubGHz Chat (By twisted-pear/xMasterX)
-- Updated: [PicoPass (iClass) (By Bettse)](https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/picopass)
 - [NEW VIDEO PREVIEW FOR ALL ANIMATIONS](https://www.patreon.com/posts/august-2023-all-87925007)
 - Add error message for out of memory (By Willy-JL)
 - Timer appids (for APP_DATA_PATH() in timers) (By Willy-JL)
+- UL: [Desktop favorite port #578 (By gid9798)](https://github.com/DarkFlippers/unleashed-firmware/pull/578) Favorites will need to be re-selected and Passport shortcut re-set if that is desired.
+- UL: [Desktop: Fix lock timer after rebooting (by gid9798 | PR #578)](https://github.com/DarkFlippers/unleashed-firmware/pull/578)
+- Added Favorites for Up Long and Down Long (By RogueMaster)
+- UL: [Updated Infrared Assets Pack #581 (By amec0e)](https://github.com/DarkFlippers/unleashed-firmware/pull/581)
+- Updated: [Sudoku (By profelis)](https://github.com/profelis/fz-sudoku)
+- Added: [NRF24 Channel Scanner (by Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fd22b22637215022ac839ac5e46fbd4e1e0bd0f6)
+- Updated Power Settings - Battery Info to show alternative view with Up time by default (By RogueMaster)
+- Updated: [Advanced Wifi Sniffer (By Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/c8e5c3bd8b353092c7fd5b7ed0327d044ee53b74)
+- Updated: [PicoPass (iClass) (By Bettse)](https://github.com/flipperdevices/flipperzero-good-faps/tree/dev/picopass)
 
 <a name="release">
 
@@ -402,6 +410,7 @@ $ ./fbt dolphin_ext
 - [Notes for FZ WIP (By AdrianN001)](https://github.com/AdrianN001/Flipper-Zero-Note-Application)
 - [NRF Sniff (By mothball187)](https://github.com/mothball187/flipperzero-nrf24/tree/main/nrfsniff) ([Pin Out](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/tree/420/applications/nrfsniff) from nocomp/Frog/UberGuidoZ) `Req: NRF24`
 - [NRF24 Batch v1.9 (By vad7)](https://github.com/vad7/nRF24-Batch)
+- [NRF24 Channel Scanner (by Sil333033)](https://github.com/RogueMaster/flipperzero-firmware-wPlugins/commit/fd22b22637215022ac839ac5e46fbd4e1e0bd0f6)
 - [NRF24 Scanner v2.2 (By vad7)](https://github.com/vad7/nrf24scan)
 - [Ocarina (By invalidna-me)](https://github.com/invalidna-me/flipperzero-ocarina) [Here are the LOTZ Songs](https://www.zeldadungeon.net/wiki/Ocarina_of_Time_Songs)
 - [Orgasmotron (By jbohack)](https://github.com/jbohack) [(Original By qqmajikpp)](https://github.com/qqmajikpp/flipperzero-firmware-wPlugins)
