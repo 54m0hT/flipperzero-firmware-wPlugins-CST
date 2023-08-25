@@ -1,8 +1,9 @@
 #include "../subghz_i.h"
 #include <assets_icons.h>
-#include "../helpers/subghz_custom_event.h"
 
 #include <lib/subghz/blocks/custom_btn.h>
+
+#define TAG "SubGhzSceneReceiverInfo"
 
 void subghz_scene_receiver_info_callback(GuiButtonType result, InputType type, void* context) {
     furi_assert(context);

@@ -66,6 +66,7 @@ typedef struct {
     const GpioPin* async_mirror_pin;
 
     uint8_t rolling_counter_mult;
+    uint32_t rolling_counter_value;
     bool ext_power_amp : 1;
 } FuriHalSubGhz;
 
@@ -236,6 +237,16 @@ uint8_t furi_hal_subghz_get_rolling_counter_mult(void);
  * @param      mult uint8_t = 1, 2, 4, 8
  */
 void furi_hal_subghz_set_rolling_counter_mult(uint8_t mult);
+
+/** Get the current rolling protocols counter value
+ * @return    uint32_t current value
+ */
+uint32_t furi_hal_subghz_get_rolling_counter_value(void);
+
+/** Set the current rolling protocols counter value
+ * @param      value uint32_t = 0xFFFF / 0xFFFFF / 0xFFFFFFFF
+ */
+void furi_hal_subghz_set_rolling_counter_value(uint32_t value);
 
 /** Set frequency
  *
